@@ -21,6 +21,13 @@ it into court-ready exhibits with every fact traced back to the message it came 
 | [`docs/decisions/0001`](docs/decisions/0001-evidence-privilege-and-scope.md) | The decisions that shaped it — evidence posture, privilege theory, scope boundaries. Supersedes conflicting parts of the source docs. |
 | [`docs/decisions/0002`](docs/decisions/0002-containment-cms-firewall-and-pilot-metrics.md) | Liability containment engine, the zero-endpoint CMS firewall, and what a pilot can and cannot prove. Includes rejected proposals and why. |
 
+## Web
+
+- [`web/`](web/) — the marketing landing page. Next.js + Tailwind + TypeScript,
+  static export, zero-config Vercel import (set root directory to `web`).
+  All copy lives in [`web/content/copy.ts`](web/content/copy.ts). See
+  [`web/README.md`](web/README.md) for deploy steps and swap points.
+
 ## Prototypes
 
 - [`prototypes/workbench.html`](prototypes/workbench.html) — clickable paralegal workbench.
