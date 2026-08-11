@@ -1,0 +1,717 @@
+<title>PIRRA — System Map</title>
+<style>
+  :root {
+    --serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, "Cascadia Mono", Consolas, monospace;
+
+    --paper:       #F0F1F3;
+    --surface:     #FAFBFC;
+    --surface-2:   #E9EBEF;
+    --ink:         #16181D;
+    --ink-soft:    #5B616B;
+    --ink-faint:   #878D97;
+    --rule:        #D2D6DD;
+
+    --accent:      #243C6B;
+    --accent-wash: #E3E8F4;
+    --egress:      #8F6415;
+    --egress-wash: #F4EAD6;
+    --danger:      #8C2F39;
+    --danger-wash: #F5E2E4;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:       #121419;
+      --surface:     #191C23;
+      --surface-2:   #22262F;
+      --ink:         #E5E8ED;
+      --ink-soft:    #9AA2AE;
+      --ink-faint:   #6E7783;
+      --rule:        #2D323C;
+
+      --accent:      #93A9E6;
+      --accent-wash: #1D2440;
+      --egress:      #D6A648;
+      --egress-wash: #302713;
+      --danger:      #E28C95;
+      --danger-wash: #331B1F;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper:       #121419;
+    --surface:     #191C23;
+    --surface-2:   #22262F;
+    --ink:         #E5E8ED;
+    --ink-soft:    #9AA2AE;
+    --ink-faint:   #6E7783;
+    --rule:        #2D323C;
+
+    --accent:      #93A9E6;
+    --accent-wash: #1D2440;
+    --egress:      #D6A648;
+    --egress-wash: #302713;
+    --danger:      #E28C95;
+    --danger-wash: #331B1F;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 17px;
+    line-height: 1.62;
+    margin: 0;
+    padding: 0 24px 96px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 1180px; margin: 0 auto; }
+  .col  { max-width: 68ch; }
+
+  /* ---- masthead ---- */
+  header.mast {
+    border-bottom: 2px solid var(--ink);
+    padding: 56px 0 20px;
+    margin-bottom: 44px;
+  }
+  h1 {
+    font-size: clamp(30px, 5vw, 44px);
+    line-height: 1.1;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    margin: 0 0 14px;
+    text-wrap: balance;
+  }
+  .mast .stamp {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    margin-bottom: 18px;
+  }
+  .spine {
+    font-size: 18px;
+    color: var(--ink-soft);
+    max-width: 62ch;
+    margin: 0;
+  }
+  .spine strong { color: var(--ink); font-weight: 600; }
+
+  /* ---- sections ---- */
+  section { margin-bottom: 60px; }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.13em;
+    color: var(--accent);
+    margin: 0 0 8px;
+  }
+  h2 {
+    font-size: 25px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 0 0 14px;
+    text-wrap: balance;
+  }
+  h3 {
+    font-size: 17px;
+    font-weight: 600;
+    margin: 30px 0 8px;
+  }
+  p { margin: 0 0 15px; }
+  .col > p:last-child { margin-bottom: 0; }
+
+  code, .kbd {
+    font-family: var(--mono);
+    font-size: 0.86em;
+    background: var(--surface-2);
+    padding: 1px 5px;
+    border-radius: 2px;
+  }
+
+  /* ---- figures ---- */
+  figure {
+    margin: 32px 0;
+    padding: 0;
+  }
+  .scroll {
+    overflow-x: auto;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    padding: 22px 20px;
+  }
+  figure svg { display: block; max-width: 100%; height: auto; min-width: 620px; }
+  figcaption {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin-top: 11px;
+    max-width: 78ch;
+  }
+
+  /* ---- diagram internals ---- */
+  .bx    { fill: var(--surface);      stroke: var(--rule);   stroke-width: 1; }
+  .bx-a  { fill: var(--accent-wash);  stroke: var(--accent); stroke-width: 1.15; }
+  .bx-e  { fill: var(--egress-wash);  stroke: var(--egress); stroke-width: 1.15; }
+  .bx-d  { fill: var(--danger-wash);  stroke: var(--danger); stroke-width: 1.15; }
+  .band  { fill: var(--surface-2); opacity: .5; }
+  .ln    { stroke: var(--ink-soft); stroke-width: 1.2; fill: none; }
+  .ln-a  { stroke: var(--accent);   stroke-width: 1.4; fill: none; }
+  .ln-e  { stroke: var(--egress);   stroke-width: 1.4; fill: none; }
+  .ln-d  { stroke: var(--danger);   stroke-width: 1.4; fill: none; }
+  .rule-v { stroke: var(--rule); stroke-width: 1; }
+  .mk    { fill: var(--ink-soft); }
+  .mk-a  { fill: var(--accent); }
+  .mk-e  { fill: var(--egress); }
+  .mk-d  { fill: var(--danger); }
+
+  .d-t   { font: 600 12.5px var(--serif); fill: var(--ink); }
+  .d-s   { font: 400 9.5px var(--mono);   fill: var(--ink-soft); }
+  .d-l   { font: 500 10px var(--mono);    fill: var(--ink-faint); letter-spacing: .09em; }
+  .d-al  { font: 400 9.5px var(--mono);   fill: var(--ink-soft); }
+  .d-eb  { font: 500 9.5px var(--mono);   letter-spacing: .11em; }
+  .eb-e  { fill: var(--egress); }
+  .eb-a  { fill: var(--accent); }
+  .eb-d  { fill: var(--danger); }
+
+  /* ---- role cards ---- */
+  .roles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 26px 0 0;
+  }
+  .role { background: var(--surface); padding: 18px 18px 20px; }
+  .role h4 {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .1em;
+    font-weight: 500;
+    color: var(--accent);
+    margin: 0 0 10px;
+  }
+  .role p { font-size: 14.5px; line-height: 1.5; margin: 0 0 9px; }
+  .role .neg {
+    font-size: 13px;
+    color: var(--ink-soft);
+    border-top: 1px solid var(--rule);
+    padding-top: 9px;
+    margin: 0;
+  }
+  .role .neg b { color: var(--danger); font-weight: 600; }
+
+  /* ---- table ---- */
+  .tbl-wrap { overflow-x: auto; margin: 24px 0 0; }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 560px;
+    font-size: 14.5px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+  }
+  th, td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  th {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: .09em;
+    font-weight: 500;
+    color: var(--ink-soft);
+    background: var(--surface-2);
+  }
+  tbody tr:last-child td { border-bottom: 0; }
+  td.who { font-family: var(--mono); font-size: 11.5px; white-space: nowrap; }
+  .pill {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .07em;
+    padding: 2px 7px;
+    border: 1px solid currentColor;
+    border-radius: 2px;
+  }
+  .pill.p-atty { color: var(--danger); }
+  .pill.p-para { color: var(--accent); }
+
+  /* ---- screens list ---- */
+  ol.screens { list-style: none; counter-reset: s; padding: 0; margin: 26px 0 0; }
+  ol.screens > li {
+    counter-increment: s;
+    display: grid;
+    grid-template-columns: 42px 1fr;
+    gap: 16px;
+    padding: 16px 0;
+    border-top: 1px solid var(--rule);
+  }
+  ol.screens > li::before {
+    content: counter(s, decimal-leading-zero);
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-faint);
+    padding-top: 3px;
+  }
+  ol.screens h4 { margin: 0 0 4px; font-size: 16px; font-weight: 600; }
+  ol.screens p { margin: 0; font-size: 15px; color: var(--ink-soft); }
+
+  /* ---- callout ---- */
+  .note {
+    border-left: 3px solid var(--danger);
+    background: var(--danger-wash);
+    padding: 16px 20px;
+    margin: 26px 0 0;
+  }
+  .note p { margin: 0; font-size: 15.5px; }
+  .note p + p { margin-top: 10px; }
+  .note .lbl {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: .11em;
+    color: var(--danger);
+    display: block;
+    margin-bottom: 7px;
+  }
+
+  ul.plain { margin: 14px 0 0; padding-left: 20px; }
+  ul.plain li { margin-bottom: 9px; }
+
+  footer.end {
+    border-top: 1px solid var(--rule);
+    padding-top: 20px;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    line-height: 1.7;
+    color: var(--ink-faint);
+  }
+
+  a { color: var(--accent); }
+  a:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="stamp">
+    <span>PIRRA</span><span>SYSTEM MAP v0.1</span><span>WORKING ARCHITECTURE</span><span>AUG 2026</span>
+  </div>
+  <h1>The paralegal runs it. The attorney touches it twice.</h1>
+  <p class="spine"><strong>Attorney authorizes → PIRRA captures → paralegal runs → attorney adjudicates → exhibits out.</strong> One text thread for the client, three severable stores underneath, and a hard boundary around what PIRRA is allowed to talk about.</p>
+</header>
+
+<section class="col">
+  <p class="eyebrow">WHY THIS MAP</p>
+  <h2>What it commits us to</h2>
+  <p>Three decisions from this week are now load-bearing, and each one shows up as structure rather than policy. The record is a <em>produce-expected</em> document, so it is stored apart from everything that must never be produced. The attorney is genuinely in the thread, which upgrades the privilege theory from <em>Kovel</em>-agent to ordinary conduit — but only if the attorney's presence is real and logged. And PIRRA is a damages instrument, not a liability instrument, which turns out to be a containment problem rather than a topic preference.</p>
+</section>
+
+<section>
+  <div class="col">
+    <p class="eyebrow">ACTORS</p>
+    <h2>Four roles, and what each one cannot do</h2>
+    <p>The negative column matters more than the positive one. Every constraint below is doing legal work, not product-scoping work.</p>
+  </div>
+
+  <div class="roles">
+    <div class="role">
+      <h4>ATTORNEY</h4>
+      <p>Authorizes the conversation protocol at case open. Adjudicates evidentiary flags. Approves exhibits before they leave. Replies in-thread when the client needs counsel.</p>
+      <p class="neg"><b>Cannot delegate</b> protocol authorization or evidentiary-flag disposition. Both are credential-locked.</p>
+    </div>
+    <div class="role">
+      <h4>PARALEGAL</h4>
+      <p>Primary operator. Works the queue, clears operational flags, calls the client when PIRRA surfaces a gap, assembles exhibits, watches the digest.</p>
+      <p class="neg"><b>Cannot dispose</b> of an evidentiary flag, or send a message that reads as legal advice.</p>
+    </div>
+    <div class="role">
+      <h4>PIRRA</h4>
+      <p>Texts the client on the firm's number. Captures present-condition statements. Classifies and flags. Always discloses it is an AI provided by the firm.</p>
+      <p class="neg"><b>Cannot discuss liability</b>, advise, evaluate the case, or pursue a topic the protocol did not authorize.</p>
+    </div>
+    <div class="role">
+      <h4>CLIENT</h4>
+      <p>Texts back. No app, no login, no download. Sees one thread with three plainly labeled speakers, and is told at intake where the record can end up.</p>
+      <p class="neg"><b>Cannot delete</b> messages once under representation — archival only, never true deletion.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <p class="eyebrow">FIGURE 1 — LIFECYCLE</p>
+    <h2>Where each role touches the case</h2>
+    <p>The attorney appears at exactly two points: authorizing the protocol at the top, and adjudicating evidentiary flags in the middle. Everything between is the paralegal's. That is what keeps <em>attorney-directed</em> true without making it expensive.</p>
+  </div>
+
+  <figure>
+    <div class="scroll">
+      <svg viewBox="0 0 1180 420" role="img" aria-label="Swimlane diagram across four roles. The attorney authorizes the protocol, the paralegal launches the case and sends consent artifacts, PIRRA captures by SMS with the client on an ongoing loop, PIRRA classifies and raises flags which route to the paralegal for operational issues and to the attorney for evidentiary issues, then the paralegal assembles the exhibit and the attorney approves and serves it.">
+        <defs>
+          <marker id="a-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <polygon class="mk" points="0,1.5 10,5 0,8.5" />
+          </marker>
+          <marker id="a-arr-e" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <polygon class="mk-e" points="0,1.5 10,5 0,8.5" />
+          </marker>
+          <marker id="a-arr-d" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <polygon class="mk-d" points="0,1.5 10,5 0,8.5" />
+          </marker>
+        </defs>
+
+        <rect class="band" x="0" y="40"  width="1180" height="78" />
+        <rect class="band" x="0" y="196" width="1180" height="78" />
+
+        <text class="d-l" x="14" y="83">ATTORNEY</text>
+        <text class="d-l" x="14" y="161">PARALEGAL</text>
+        <text class="d-l" x="14" y="239">PIRRA</text>
+        <text class="d-l" x="14" y="317">CLIENT</text>
+        <line class="rule-v" x1="140" y1="40" x2="140" y2="352" />
+
+        <rect class="bx-d" x="160" y="53" width="155" height="52" />
+        <text class="d-t" x="172" y="74">Authorize protocol</text>
+        <text class="d-s" x="172" y="90">attorney-locked</text>
+
+        <rect class="bx" x="350" y="131" width="155" height="52" />
+        <text class="d-t" x="362" y="152">Launch case</text>
+        <text class="d-s" x="362" y="168">consent artifacts</text>
+
+        <rect class="bx" x="540" y="209" width="155" height="52" />
+        <text class="d-t" x="552" y="230">Capture</text>
+        <text class="d-s" x="552" y="246">ongoing · damages only</text>
+
+        <rect class="bx" x="540" y="287" width="155" height="52" />
+        <text class="d-t" x="552" y="308">Texts back</text>
+        <text class="d-s" x="552" y="324">SMS · no app</text>
+
+        <rect class="bx" x="730" y="209" width="155" height="52" />
+        <text class="d-t" x="742" y="230">Classify + flag</text>
+        <text class="d-s" x="742" y="246">two tiers</text>
+
+        <rect class="bx" x="730" y="131" width="155" height="52" />
+        <text class="d-t" x="742" y="152">Clear operational</text>
+        <text class="d-s" x="742" y="168">call · log · close</text>
+
+        <rect class="bx-d" x="730" y="53" width="155" height="52" />
+        <text class="d-t" x="742" y="74">Adjudicate</text>
+        <text class="d-s" x="742" y="90">→ work product</text>
+
+        <rect class="bx" x="920" y="131" width="155" height="52" />
+        <text class="d-t" x="932" y="152">Assemble exhibit</text>
+        <text class="d-s" x="932" y="168">from the record</text>
+
+        <rect class="bx-e" x="920" y="53" width="155" height="52" />
+        <text class="d-t" x="932" y="74">Approve + serve</text>
+        <text class="d-s" x="932" y="90">demand · mediation</text>
+
+        <path class="ln" d="M315,79 H332 V157 H344" marker-end="url(#a-arr)" />
+        <text class="d-al" x="338" y="114">authorized</text>
+
+        <path class="ln" d="M505,157 H522 V235 H534" marker-end="url(#a-arr)" />
+        <text class="d-al" x="528" y="192">case live</text>
+
+        <line class="ln" x1="617" y1="263" x2="617" y2="281" marker-start="url(#a-arr)" marker-end="url(#a-arr)" />
+        <text class="d-al" x="630" y="278">SMS</text>
+
+        <line class="ln" x1="695" y1="235" x2="724" y2="235" marker-end="url(#a-arr)" />
+
+        <line class="ln" x1="807" y1="209" x2="807" y2="189" marker-end="url(#a-arr)" />
+        <text class="d-al" x="816" y="202">operational</text>
+
+        <path class="ln-d" d="M730,222 H712 V79 H724" marker-end="url(#a-arr-d)" />
+        <text class="d-al" x="700" y="150" text-anchor="end">evidentiary</text>
+
+        <line class="ln" x1="885" y1="157" x2="914" y2="157" marker-end="url(#a-arr)" />
+
+        <line class="ln" x1="997" y1="131" x2="997" y2="111" marker-end="url(#a-arr)" />
+        <text class="d-al" x="1006" y="124">approve</text>
+
+        <line class="ln-e" x1="1075" y1="79" x2="1136" y2="79" marker-end="url(#a-arr-e)" />
+        <text class="d-al" x="1105" y="97" text-anchor="middle">to the file</text>
+      </svg>
+    </div>
+    <figcaption>Two attorney touchpoints per case: the protocol authorization that makes the direction real, and the evidentiary flags that carry legal judgment. The red path is attorney-only; everything on the neutral path is the paralegal's.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <div class="col">
+    <p class="eyebrow">FIGURE 2 — STORAGE</p>
+    <h2>One thread the client sees, three stores that must come apart</h2>
+    <p>This is the architectural claim the whole legal position rests on. The client experiences a single continuous text thread — that is the product. Underneath, the messages land in three separate stores with three different discovery postures, and exactly one of them has a path out of the building.</p>
+    <p>If these ever share a table with a visibility flag on each row, one bad export destroys the work-product claim for that firm and hands the defense an impeachment file on their own client. Severability is not a feature to add later; it is the schema.</p>
+  </div>
+
+  <figure>
+    <div class="scroll">
+      <svg viewBox="0 0 940 470" role="img" aria-label="The client's single text thread splits into two stores: Stream 1, the client-to-PIRRA capture record, and Stream 3, direct attorney-client messages. Stream 1 additionally feeds Stream 2, the intelligence layer of flags and annotations, by analysis. Only Stream 1 has an egress path to production in discovery; Streams 2 and 3 terminate in a sealed band that never leaves the firm.">
+        <defs>
+          <marker id="b-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <polygon class="mk" points="0,1.5 10,5 0,8.5" />
+          </marker>
+          <marker id="b-arr-e" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <polygon class="mk-e" points="0,1.5 10,5 0,8.5" />
+          </marker>
+          <marker id="b-arr-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <polygon class="mk-a" points="0,1.5 10,5 0,8.5" />
+          </marker>
+        </defs>
+
+        <text class="d-l" x="470" y="18" text-anchor="middle">WHAT THE CLIENT SEES — ONE THREAD</text>
+        <rect class="bx" x="345" y="30" width="250" height="112" rx="4" />
+        <rect class="bx" x="358" y="42" width="142" height="25" rx="3" />
+        <text class="d-s" x="367" y="59">PIRRA · how is it today?</text>
+        <rect class="bx" x="440" y="74" width="142" height="25" rx="3" />
+        <text class="d-s" x="449" y="91">client · rough night</text>
+        <rect class="bx-a" x="358" y="106" width="152" height="25" rx="3" />
+        <text class="d-s" x="367" y="123">attorney · let's talk Fri</text>
+
+        <line class="ln" x1="408" y1="142" x2="196" y2="199" marker-end="url(#b-arr)" />
+        <text class="d-al" x="292" y="156" text-anchor="middle">capture</text>
+        <line class="ln-a" x1="533" y1="142" x2="746" y2="199" marker-end="url(#b-arr-a)" />
+        <text class="d-al" x="648" y="156" text-anchor="middle">A–C messages</text>
+
+        <rect class="bx-e" x="40" y="205" width="250" height="88" />
+        <text class="d-eb eb-e" x="56" y="228">STREAM 1</text>
+        <text class="d-t"  x="56" y="252">The Record</text>
+        <text class="d-s"  x="56" y="272">client ↔ PIRRA capture</text>
+
+        <rect class="bx-a" x="345" y="205" width="250" height="88" />
+        <text class="d-eb eb-a" x="361" y="228">STREAM 2</text>
+        <text class="d-t"  x="361" y="252">Intelligence</text>
+        <text class="d-s"  x="361" y="272">flags · annotations · protocol</text>
+
+        <rect class="bx-a" x="650" y="205" width="250" height="88" />
+        <text class="d-eb eb-a" x="666" y="228">STREAM 3</text>
+        <text class="d-t"  x="666" y="252">Attorney messages</text>
+        <text class="d-s"  x="666" y="272">direct A–C communication</text>
+
+        <line class="ln-a" x1="290" y1="249" x2="339" y2="249" marker-end="url(#b-arr-a)" />
+        <text class="d-al" x="314" y="241" text-anchor="middle">analysis</text>
+
+        <line class="ln-e" x1="165" y1="293" x2="165" y2="379" marker-end="url(#b-arr-e)" />
+        <text class="d-al" x="174" y="340">egress</text>
+        <line class="ln-a" x1="470" y1="293" x2="470" y2="379" marker-end="url(#b-arr-a)" />
+        <line class="ln-a" x1="775" y1="293" x2="775" y2="379" marker-end="url(#b-arr-a)" />
+
+        <rect class="bx-e" x="40" y="385" width="250" height="64" />
+        <text class="d-t" x="56" y="411">Produced in discovery</text>
+        <text class="d-s" x="56" y="430">expect it · win on it</text>
+
+        <rect class="bx-a" x="345" y="385" width="555" height="64" />
+        <text class="d-t" x="361" y="411">Never leaves the firm</text>
+        <text class="d-s" x="361" y="430">work product · privileged · excluded from every export path</text>
+      </svg>
+    </div>
+    <figcaption>Stream 2 is generated from Stream 1 by analysis — the client never sees it and never writes to it. It is also the only store whose disclosure would actively damage the client, which is why work-product protection concentrates here rather than on the capture layer.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <div class="col">
+    <p class="eyebrow">FIGURE 3 — SCOPE</p>
+    <h2>The liability boundary</h2>
+    <p>PIRRA talks about damages. It does not talk about how the injury happened, who was at fault, how fast anyone was going, or what anyone admitted at the scene. That boundary is not squeamishness — it follows directly from Stream 1 being produce-expected.</p>
+    <p>A client's contemporaneous statement about causation is the single most dangerous artifact you can manufacture in a personal-injury case, and it goes straight to the defense. <em>"I only looked down for a second"</em> ends the case, and it ends it in a hash-chained, independently timestamped, self-authenticating record that the firm built on purpose. Liability facts already live where they belong — the police report, intake, the deposition — all attorney-controlled.</p>
+  </div>
+
+  <figure>
+    <div class="scroll">
+      <svg viewBox="0 0 900 345" role="img" aria-label="An inbound client message passes through a topic gate. Liability content — fault, speed, how it happened — is never pursued and routes to capture, quarantine and an immediate attorney flag, annotated that it cannot be deleted because the log is immutable, so prevention is the only control. Damages content — pain, function, treatment, loss — routes normally into Stream 1, the record.">
+        <defs>
+          <marker id="c-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <polygon class="mk" points="0,1.5 10,5 0,8.5" />
+          </marker>
+          <marker id="c-arr-d" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <polygon class="mk-d" points="0,1.5 10,5 0,8.5" />
+          </marker>
+          <marker id="c-arr-e" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <polygon class="mk-e" points="0,1.5 10,5 0,8.5" />
+          </marker>
+        </defs>
+
+        <text class="d-eb eb-d" x="390" y="30">OUT OF SCOPE — ALWAYS</text>
+        <text class="d-eb eb-e" x="390" y="242">IN SCOPE — THE WHOLE PRODUCT</text>
+
+        <rect class="bx" x="30" y="150" width="130" height="64" />
+        <text class="d-t" x="44" y="177">Client message</text>
+        <text class="d-s" x="44" y="194">inbound SMS</text>
+
+        <rect class="bx" x="200" y="150" width="130" height="64" />
+        <text class="d-t" x="214" y="177">Topic gate</text>
+        <text class="d-s" x="214" y="194">steers back</text>
+
+        <line class="ln" x1="160" y1="182" x2="194" y2="182" marker-end="url(#c-arr)" />
+        <path class="ln-d" d="M330,182 H360 V76 H384" marker-end="url(#c-arr-d)" />
+        <path class="ln-e" d="M330,182 H360 V286 H384" marker-end="url(#c-arr-e)" />
+
+        <rect class="bx-d" x="390" y="40" width="180" height="72" />
+        <text class="d-t" x="404" y="67">Liability content</text>
+        <text class="d-s" x="404" y="85">fault · speed · cause</text>
+        <text class="d-s" x="404" y="99">who said what</text>
+
+        <line class="ln-d" x1="570" y1="76" x2="614" y2="76" marker-end="url(#c-arr-d)" />
+        <text class="d-al" x="592" y="68" text-anchor="middle">contain</text>
+
+        <rect class="bx-d" x="620" y="40" width="250" height="72" />
+        <text class="d-t" x="634" y="67">Capture · quarantine · flag</text>
+        <text class="d-s" x="634" y="85">never pursued, never answered</text>
+        <text class="d-s" x="634" y="99">attorney notified immediately</text>
+
+        <text class="d-al" x="620" y="131">Cannot be deleted — immutable log, spoliation risk.</text>
+        <text class="d-al" x="620" y="145">Prevention is the only control that exists.</text>
+
+        <rect class="bx-e" x="390" y="250" width="180" height="72" />
+        <text class="d-t" x="404" y="277">Damages content</text>
+        <text class="d-s" x="404" y="295">pain · function today</text>
+        <text class="d-s" x="404" y="309">treatment · loss · sleep</text>
+
+        <line class="ln-e" x1="570" y1="286" x2="614" y2="286" marker-end="url(#c-arr-e)" />
+        <text class="d-al" x="592" y="278" text-anchor="middle">record</text>
+
+        <rect class="bx-e" x="620" y="250" width="250" height="72" />
+        <text class="d-t" x="634" y="277">Stream 1 — The Record</text>
+        <text class="d-s" x="634" y="295">present-tense, posture-tagged</text>
+        <text class="d-s" x="634" y="309">timestamped, hash-chained</text>
+      </svg>
+    </div>
+    <figcaption>The containment path exists because the prevention path will sometimes fail — clients volunteer causation unprompted, especially early. What it must never do is invite it.</figcaption>
+  </figure>
+
+  <div class="col">
+    <div class="note">
+      <span class="lbl">THE NON-OBVIOUS CONSEQUENCE</span>
+      <p>Because the log is immutable, a liability statement that arrives cannot be removed — deleting it is spoliation, and doing so inside a tamper-evident chain makes the deletion provable. So the only real control is upstream, in the prompt library.</p>
+      <p>Which means one specific rule: <strong>PIRRA never opens with, or returns to, how the injury happened.</strong> That is the most natural rapport move in human conversation and it must be designed out of the protocol entirely. The onboarding disclosure states the boundary in plain language so the client knows where to put it — <em>"anything about how it happened, save that for your legal team."</em></p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <p class="eyebrow">AUTHORITY</p>
+    <h2>Who can dispose of what</h2>
+    <p>The split is not about seniority. An operational flag asks someone to make a phone call; an evidentiary flag asks someone to make a judgment about the case. The second is legal work, and the attorney's disposition of it is also what puts mental impressions into Stream 2 — which is what makes it <em>opinion</em> work product rather than ordinary work product.</p>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr><th>Flag</th><th>Trigger</th><th>Disposition</th><th>Why</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Missed appointment</td>
+          <td class="who">gap in treatment cadence</td>
+          <td><span class="pill p-para">PARALEGAL</span></td>
+          <td>Operational. Call the client, log the contact, close it.</td>
+        </tr>
+        <tr>
+          <td>Client gone quiet</td>
+          <td class="who">non-response window</td>
+          <td><span class="pill p-para">PARALEGAL</span></td>
+          <td>Operational. Logged with a neutral status code — silence never reads as recovery.</td>
+        </tr>
+        <tr>
+          <td>New symptom</td>
+          <td class="who">unreported complaint</td>
+          <td><span class="pill p-para">PARALEGAL</span></td>
+          <td>Operational, but routes to the attorney if it suggests a new injury claim.</td>
+        </tr>
+        <tr>
+          <td>Account inconsistency</td>
+          <td class="who">statement conflicts with record</td>
+          <td><span class="pill p-atty">ATTORNEY</span></td>
+          <td>Legal judgment about credibility. A paralegal dismissing this is a Rule 5.3 problem.</td>
+        </tr>
+        <tr>
+          <td>Adverse statement</td>
+          <td class="who">content that damages the claim</td>
+          <td><span class="pill p-atty">ATTORNEY</span></td>
+          <td>Requires case strategy, not a callback.</td>
+        </tr>
+        <tr>
+          <td>Liability volunteered</td>
+          <td class="who">causation content detected</td>
+          <td><span class="pill p-atty">ATTORNEY</span></td>
+          <td>Immediate. Quarantined, undeletable, and now in a produce-expected stream.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col">
+    <div class="note">
+      <span class="lbl">TAMPER-EVIDENCE CUTS BOTH WAYS</span>
+      <p>An unacknowledged flag sitting for sixty days inside a hash-chained, independently timestamped record is proof the firm was on notice and did nothing. Handled well that is a selling point — a documented trail that the firm saw it and acted. Handled badly it is the exhibit that gets PIRRA sued alongside its customer.</p>
+      <p>So the acknowledgment workflow needs an SLA, escalation when it lapses, and a real conversation with outside counsel about flag retention before the pilot.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <p class="eyebrow">BUILD TARGET</p>
+    <h2>The paralegal workbench</h2>
+    <p>Five surfaces. The attorney gets the same application with two extra permissions and a digest — not a separate product, and not a separate login to forget about.</p>
+  </div>
+
+  <ol class="screens">
+    <li>
+      <div>
+        <h4>Queue</h4>
+        <p>Every active case, sorted by what needs attention rather than alphabetically. Unacknowledged flags first, then quiet clients, then everything healthy. This is the screen that is open all day.</p>
+      </div>
+    </li>
+    <li>
+      <div>
+        <h4>Case view</h4>
+        <p>The timeline built from the client's own words, with each entry tagged by hearsay posture and clicking through to the exact message. Flags in a rail alongside. Attorney-only flags visible but locked.</p>
+      </div>
+    </li>
+    <li>
+      <div>
+        <h4>Thread</h4>
+        <p>The full conversation, three speakers plainly labeled. The paralegal can send as themselves; requesting an attorney reply is a distinct action that routes to the attorney rather than letting anyone speak as counsel.</p>
+      </div>
+    </li>
+    <li>
+      <div>
+        <h4>Flag disposition</h4>
+        <p>Acknowledge, act, and note. Operational flags close here. Evidentiary flags are read-only for the paralegal and carry a visible SLA clock, because the clock is a legal artifact.</p>
+      </div>
+    </li>
+    <li>
+      <div>
+        <h4>Exhibit builder</h4>
+        <p>Select a range, pick an output — demand-packet exhibit, recovery-curve chart, depo-prep log, prior-consistent-statement packet — and every figure carries its source reference. Draws only from Stream 1, structurally. Attorney approval gates the export.</p>
+      </div>
+    </li>
+  </ol>
+</section>
+
+<section class="col">
+  <p class="eyebrow">STILL OPEN</p>
+  <h2>What this map does not yet answer</h2>
+  <ul class="plain">
+    <li><strong>Case closure.</strong> Settlement lands — then what? Retention policy, export to the firm file, the client's own copy, and the billing event all need a decision. Immutability governs during representation; after is unwritten.</li>
+    <li><strong>Attorney presence, proven.</strong> The conduit theory depends on the attorney genuinely being in the thread. We need a real answer to <em>"how often did you actually read this?"</em> — which means a minimum touch cadence and a way to show it.</li>
+    <li><strong>Practice-management sync.</strong> Without it, PIRRA is the dashboard the pitch explicitly promises not to be. Which streams sync, and how does Stream 2 stay severable once it lands in Clio or Filevine?</li>
+    <li><strong>Unit economics under load.</strong> The <code>$149</code> flat price assumes light usage, but the best cases are the most engaged ones. Model the deeply-engaged client, not the average one.</li>
+    <li><strong>Rule 1.4 expectations.</strong> A client texting <em>"should I take the offer?"</em> on a Friday night now has a channel they believe counsel is reading. Response-time expectations need to be set explicitly at onboarding.</li>
+  </ul>
+</section>
+
+<footer class="end">
+  PIRRA SYSTEM MAP · v0.1 · AUGUST 2026<br />
+  Working architecture — supersedes the conflicting portions of the PRD and privilege doc.<br />
+  Not legal advice. Architecture and contracts subject to review by outside counsel per jurisdiction.
+</footer>
+
+</div>
