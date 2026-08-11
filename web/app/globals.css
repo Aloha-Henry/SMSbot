@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+/* Visual direction per brief §3: serious legal-tech, not consumer app.
+   Near-black ink on warm off-white, one ink-teal accent used sparingly,
+   one muted evidence-slate for supporting UI. System fonts only —
+   fast, Lighthouse-friendly, no webfont round-trip. */
+@theme {
+  --color-paper: #fafaf7;
+  --color-paper-2: #f2f1ea;
+  --color-ink: #14161a;
+  --color-ink-soft: #4c525c;
+  --color-ink-faint: #7d838d;
+  --color-rule: #e3e1d8;
+  --color-accent: #0e4f52;
+  --color-accent-soft: #e2ecec;
+  --color-slate: #5a6470;
+
+  --font-serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia,
+    "Times New Roman", serif;
+  --font-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, "Cascadia Mono",
+    Consolas, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* This page is deliberately committed to a single light treatment —
+   see brief §3. Colors are painted explicitly rather than inherited. */
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

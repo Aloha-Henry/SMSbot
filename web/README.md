@@ -1,0 +1,78 @@
+# PIRRA — landing page
+
+Next.js 15 (App Router) + Tailwind v4 + TypeScript. Static export, no backend.
+Built to [`docs/source/PIRRA-Landing-Page-Brief.md`](../docs/source/PIRRA-Landing-Page-Brief.md).
+
+## Run it
+
+```bash
+cd web
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # static export → web/out/
+```
+
+## Deploy to Vercel
+
+The app is zero-config importable. `next.config.mjs` sets `output: "export"`, so
+Vercel detects Next.js and serves the static build with no settings to change.
+
+1. [vercel.com/new](https://vercel.com/new) → **Import Git Repository** → pick `Aloha-Henry/SMSbot`
+2. Set **Root Directory** to `web` — this is the only setting that matters,
+   because the repo root is docs, not the app
+3. Deploy
+
+Every push to the branch then auto-deploys, and each PR gets its own preview URL.
+
+## Editing copy
+
+**All copy lives in [`content/copy.ts`](content/copy.ts).** Never inline strings in
+components. Copy is final per brief §5 — read §0 before changing a word. The
+short version:
+
+- *preserves evidence that would otherwise be lost* — **never** *creates evidence*
+- no privilege guarantees, anywhere — architecture-descriptive only
+- no outcome or settlement promises
+- AI status always disclosed
+- banned for the product: companion, coach, nurse navigator, AI legal assistant,
+  chatbot, therapy, journal-as-product
+- the only hard numbers on the page are the FRE citations and `$149`
+
+## Swap points
+
+Four `TODO`s, each a single edit:
+
+| What | Where |
+|---|---|
+| Pilot form endpoint | `components/PilotForm.tsx` → `submitPilotRequest()` |
+| Analytics | `app/layout.tsx` → `{/* TODO: analytics */}` |
+| Sample exhibit PDF | `public/sample-exhibit.pdf` (placeholder) |
+| Contact address | `content/copy.ts` → `footer.contact` |
+
+## The `/demo/` route
+
+`public/demo/index.html` is the interactive workbench prototype — a single self-contained
+file, no build step, served statically at `/demo/`. It is linked from section D of the
+landing page and from the footer.
+
+It is labeled on the page as **an interactive prototype, not a live system**, on top of the
+synthetic-case labeling. Keep both. The product is pre-build; a working demo shown to firms
+implies a shipping product unless the page says otherwise, and "but I saw it working" is not
+a conversation you want during a pilot negotiation.
+
+## Known placeholders
+
+- `public/sample-exhibit.pdf` is a generated placeholder with no client data,
+  real or synthetic. Replace before the page goes to firms.
+- Surface mockups in `components/Mockups.tsx` are illustrative CSS/SVG with
+  obviously synthetic content — never real screenshots. Scrub every field if
+  you swap them for captures.
+- No testimonials. `app/page.tsx` carries an empty slot for them; do not invent
+  quotes.
+
+## Accessibility and performance
+
+Semantic landmarks, single `h1`, labelled form controls, visible focus rings,
+`prefers-reduced-motion` honored, `aria-label` on both illustrative SVGs. System
+fonts only — no webfont round-trip. No tracker, no chat widget, no autoplay,
+no `localStorage`/`sessionStorage`.

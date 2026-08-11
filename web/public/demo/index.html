@@ -1,0 +1,609 @@
+<title>PIRRA — Paralegal Workbench (Prototype)</title>
+<style>
+  :root {
+    --serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, "Cascadia Mono", Consolas, monospace;
+
+    --paper: #F0F1F3; --surface: #FAFBFC; --surface-2: #E9EBEF; --surface-3: #DFE2E8;
+    --ink: #16181D; --ink-soft: #5B616B; --ink-faint: #878D97; --rule: #D2D6DD;
+    --accent: #243C6B; --accent-wash: #E3E8F4;
+    --egress: #8F6415; --egress-wash: #F4EAD6;
+    --danger: #8C2F39; --danger-wash: #F5E2E4;
+    --ok: #2F6B4F; --ok-wash: #DFEDE5;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #101217; --surface: #171A21; --surface-2: #20242C; --surface-3: #2A2F39;
+      --ink: #E5E8ED; --ink-soft: #9AA2AE; --ink-faint: #6E7783; --rule: #2D323C;
+      --accent: #93A9E6; --accent-wash: #1D2440;
+      --egress: #D6A648; --egress-wash: #302713;
+      --danger: #E28C95; --danger-wash: #331B1F;
+      --ok: #7FC0A0; --ok-wash: #16301F;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #101217; --surface: #171A21; --surface-2: #20242C; --surface-3: #2A2F39;
+    --ink: #E5E8ED; --ink-soft: #9AA2AE; --ink-faint: #6E7783; --rule: #2D323C;
+    --accent: #93A9E6; --accent-wash: #1D2440;
+    --egress: #D6A648; --egress-wash: #302713;
+    --danger: #E28C95; --danger-wash: #331B1F;
+    --ok: #7FC0A0; --ok-wash: #16301F;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: var(--sans); font-size: 14px; line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  button { font: inherit; color: inherit; cursor: pointer; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* ── demo banner ── */
+  .demo-bar {
+    background: var(--danger-wash); color: var(--danger);
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .09em;
+    padding: 6px 18px; text-align: center; border-bottom: 1px solid var(--rule);
+  }
+
+  /* ── intro ── */
+  .intro { padding: 26px 18px 22px; border-bottom: 1px solid var(--rule); background: var(--surface); }
+  .intro .back { font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; color: var(--accent); text-decoration: none; }
+  .intro h1 { font-family: var(--serif); font-size: 24px; font-weight: 600; margin: 10px 0 10px; letter-spacing: -.01em; max-width: 30ch; }
+  .intro p { margin: 0 0 8px; max-width: 78ch; color: var(--ink-soft); font-size: 14.5px; }
+  .intro p strong { color: var(--ink); }
+  .intro .fine { font-family: var(--mono); font-size: 10.5px; line-height: 1.7; color: var(--ink-faint); max-width: 78ch; margin-top: 12px; }
+
+  /* ── top bar ── */
+  .top {
+    display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+    padding: 12px 18px; background: var(--surface); border-bottom: 1px solid var(--rule);
+  }
+  .brand { font-family: var(--serif); font-size: 19px; font-weight: 600; letter-spacing: .06em; }
+  .brand span { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; color: var(--ink-faint); margin-left: 9px; }
+  .spacer { flex: 1; }
+
+  .roleswitch { display: flex; align-items: center; gap: 9px; }
+  .roleswitch .lbl { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; color: var(--ink-faint); }
+  .seg { display: flex; border: 1px solid var(--rule); border-radius: 3px; overflow: hidden; background: var(--paper); }
+  .seg button {
+    background: none; border: 0; padding: 6px 14px;
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; color: var(--ink-soft);
+  }
+  .seg button[aria-pressed="true"] { background: var(--accent); color: var(--paper); }
+
+  .streamtoggle { display: flex; align-items: center; gap: 7px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .06em; color: var(--ink-soft); }
+
+  /* ── layout ── */
+  .shell { display: grid; grid-template-columns: 205px 1fr; min-height: calc(100vh - 90px); }
+  nav.rail { background: var(--surface); border-right: 1px solid var(--rule); padding: 16px 0; }
+  nav.rail h3 {
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: .12em; color: var(--ink-faint);
+    margin: 0 0 8px; padding: 0 18px; font-weight: 500;
+  }
+  nav.rail button {
+    display: flex; align-items: center; gap: 9px; width: 100%; text-align: left;
+    background: none; border: 0; border-left: 2px solid transparent;
+    padding: 9px 18px; color: var(--ink-soft); font-size: 14px;
+  }
+  nav.rail button:hover { background: var(--surface-2); }
+  nav.rail button[aria-current="true"] { border-left-color: var(--accent); color: var(--ink); background: var(--surface-2); font-weight: 600; }
+  nav.rail .num { font-family: var(--mono); font-size: 10px; color: var(--ink-faint); }
+  nav.rail .dot { margin-left: auto; font-family: var(--mono); font-size: 10px; padding: 1px 6px; border-radius: 8px; background: var(--danger); color: var(--paper); }
+
+  main { padding: 24px 28px 60px; max-width: 1100px; overflow-x: hidden; }
+  .view { display: none; }
+  .view.on { display: block; }
+
+  .vh { margin-bottom: 18px; }
+  .vh .kick { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; color: var(--accent); }
+  .vh h1 { font-family: var(--serif); font-size: 25px; font-weight: 600; margin: 5px 0 5px; letter-spacing: -.01em; }
+  .vh p { margin: 0; color: var(--ink-soft); max-width: 74ch; font-size: 14.5px; }
+
+  /* ── cards / tables ── */
+  .card { background: var(--surface); border: 1px solid var(--rule); border-radius: 3px; }
+  .card + .card { margin-top: 16px; }
+  .card-h { padding: 12px 16px; border-bottom: 1px solid var(--rule); display: flex; align-items: center; gap: 12px; }
+  .card-h h2 { font-family: var(--serif); font-size: 15px; margin: 0; font-weight: 600; }
+  .card-h .meta { font-family: var(--mono); font-size: 10.5px; color: var(--ink-faint); margin-left: auto; }
+  .card-b { padding: 16px; }
+
+  table { width: 100%; border-collapse: collapse; }
+  th { font-family: var(--mono); font-size: 9.5px; letter-spacing: .1em; color: var(--ink-faint); font-weight: 500; text-align: left; padding: 9px 16px; background: var(--surface-2); border-bottom: 1px solid var(--rule); }
+  td { padding: 11px 16px; border-bottom: 1px solid var(--rule); vertical-align: middle; }
+  tbody tr:last-child td { border-bottom: 0; }
+  tbody tr.click { cursor: pointer; }
+  tbody tr.click:hover { background: var(--surface-2); }
+  td.nm { font-weight: 600; }
+  td.mono { font-family: var(--mono); font-size: 11.5px; color: var(--ink-soft); }
+
+  /* ── badges ── */
+  .b { display: inline-block; font-family: var(--mono); font-size: 9.5px; letter-spacing: .07em; padding: 2px 6px; border-radius: 2px; border: 1px solid currentColor; white-space: nowrap; }
+  .b-s1 { color: var(--egress); } .b-s2 { color: var(--accent); } .b-s3 { color: var(--accent); }
+  .b-q  { color: var(--danger); background: var(--danger-wash); }
+  .b-op { color: var(--accent); } .b-ev { color: var(--danger); }
+  .b-ok { color: var(--ok); } .b-mut { color: var(--ink-faint); }
+
+  /* ── thread ── */
+  .thread { display: flex; flex-direction: column; gap: 14px; padding: 18px 16px; }
+  .msg { max-width: 74%; }
+  .msg.from-client { align-self: flex-end; }
+  .msg .bub { padding: 10px 13px; border-radius: 10px; background: var(--surface-2); border: 1px solid var(--rule); font-size: 14px; }
+  .msg.from-client .bub { background: var(--accent-wash); border-color: var(--accent); }
+  .msg.from-attorney .bub { background: var(--accent-wash); border-color: var(--accent); border-left-width: 3px; }
+  .msg.quarantined .bub { background: var(--danger-wash); border-color: var(--danger); border-style: dashed; }
+  .msg .who { display: flex; align-items: center; gap: 7px; margin-bottom: 4px; font-family: var(--mono); font-size: 9.5px; letter-spacing: .08em; color: var(--ink-faint); }
+  .msg .who .nm { color: var(--ink-soft); font-weight: 500; }
+  .msg .ref { margin-top: 4px; font-family: var(--mono); font-size: 9.5px; color: var(--ink-faint); }
+  .msg.hl .bub { box-shadow: 0 0 0 3px var(--egress); }
+  .qnote { font-family: var(--mono); font-size: 10px; color: var(--danger); margin-top: 5px; line-height: 1.5; }
+
+  .composer { border-top: 1px solid var(--rule); padding: 12px 16px; display: flex; gap: 9px; align-items: center; flex-wrap: wrap; }
+  .composer input { flex: 1; min-width: 180px; padding: 8px 11px; border: 1px solid var(--rule); border-radius: 3px; background: var(--paper); color: var(--ink); font: inherit; }
+  .btn { padding: 8px 14px; border: 1px solid var(--accent); background: var(--accent); color: var(--paper); border-radius: 3px; font-size: 13px; font-weight: 500; }
+  .btn.ghost { background: none; color: var(--accent); }
+  .btn.warn { border-color: var(--danger); background: var(--danger); color: var(--paper); }
+  .btn:disabled { opacity: .4; cursor: not-allowed; }
+
+  /* ── timeline ── */
+  .tl { list-style: none; margin: 0; padding: 0; }
+  .tl li { display: grid; grid-template-columns: 62px 1fr; gap: 14px; padding: 12px 16px; border-bottom: 1px solid var(--rule); }
+  .tl li:last-child { border-bottom: 0; }
+  .tl .wk { font-family: var(--mono); font-size: 10.5px; color: var(--ink-faint); padding-top: 2px; }
+  .tl .qt { font-family: var(--serif); font-size: 15px; margin: 0 0 6px; }
+  .tl .tags { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+  .lnk { background: none; border: 0; padding: 0; font-family: var(--mono); font-size: 9.5px; color: var(--egress); text-decoration: underline; }
+
+  /* ── flags ── */
+  .flag { border: 1px solid var(--rule); border-radius: 3px; background: var(--surface); padding: 14px 16px; }
+  .flag + .flag { margin-top: 10px; }
+  .flag.ev { border-left: 3px solid var(--danger); }
+  .flag.op { border-left: 3px solid var(--accent); }
+  .flag.done { opacity: .55; }
+  .flag .fh { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; margin-bottom: 6px; }
+  .flag .ft { font-weight: 600; font-size: 14.5px; }
+  .flag .fd { color: var(--ink-soft); margin: 0 0 10px; font-size: 13.5px; }
+  .flag .fa { display: flex; gap: 9px; align-items: center; flex-wrap: wrap; }
+  .sla { font-family: var(--mono); font-size: 10px; color: var(--danger); }
+  .locked { font-family: var(--mono); font-size: 10.5px; color: var(--ink-faint); display: flex; align-items: center; gap: 6px; }
+
+  /* ── exhibit builder ── */
+  .opts { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; }
+  .opt { text-align: left; background: var(--paper); border: 1px solid var(--rule); border-radius: 3px; padding: 12px 14px; }
+  .opt[aria-pressed="true"] { border-color: var(--egress); background: var(--egress-wash); }
+  .opt .on { font-weight: 600; font-size: 14px; display: block; margin-bottom: 3px; }
+  .opt .od { font-size: 12.5px; color: var(--ink-soft); }
+
+  .exhibit { background: var(--surface); border: 1px solid var(--rule); padding: 22px 24px; font-family: var(--serif); }
+  .exhibit h3 { font-size: 17px; margin: 0 0 3px; }
+  .exhibit .sub { font-family: var(--mono); font-size: 10px; color: var(--ink-faint); letter-spacing: .08em; margin-bottom: 16px; }
+  .exhibit blockquote { margin: 0 0 12px; padding-left: 13px; border-left: 2px solid var(--rule); font-size: 14.5px; }
+  .integrity { margin-top: 16px; padding: 11px 13px; background: var(--egress-wash); border: 1px solid var(--egress); font-family: var(--mono); font-size: 10px; line-height: 1.7; color: var(--ink-soft); }
+
+  .gate { margin-top: 14px; padding: 12px 14px; border: 1px dashed var(--rule); border-radius: 3px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; font-size: 13.5px; color: var(--ink-soft); }
+
+  .hint { font-family: var(--mono); font-size: 10.5px; color: var(--ink-faint); line-height: 1.7; margin-top: 10px; }
+  .legend { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; font-family: var(--mono); font-size: 10px; color: var(--ink-faint); }
+
+  .hide-streams .b-s1, .hide-streams .b-s2, .hide-streams .b-s3 { display: none; }
+
+  @media (max-width: 760px) {
+    .shell { grid-template-columns: 1fr; }
+    nav.rail { display: flex; overflow-x: auto; border-right: 0; border-bottom: 1px solid var(--rule); padding: 0; }
+    nav.rail h3 { display: none; }
+    nav.rail button { width: auto; white-space: nowrap; border-left: 0; border-bottom: 2px solid transparent; }
+    nav.rail button[aria-current="true"] { border-left: 0; border-bottom-color: var(--accent); }
+    main { padding: 18px 14px 50px; }
+    .msg { max-width: 88%; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<div class="demo-bar">INTERACTIVE PROTOTYPE — NOT A LIVE SYSTEM · SYNTHETIC CASE · NOT A REAL CLIENT FILE</div>
+
+<div class="intro">
+  <a class="back" href="/">&larr; PIRRA</a>
+  <h1>This is the workbench your team would use.</h1>
+  <p>A working prototype on an invented case — no real client, no real firm. It shows how the
+  record is captured, how alerts reach the right person, and how exhibits come out with every
+  figure tied to its source. <strong>Switch the role between paralegal and attorney</strong> to see
+  which decisions the system reserves for counsel.</p>
+  <p class="fine">Nothing here is a live deployment. We are showing the prototype because we would
+  rather you judge the real thing early than read about it.</p>
+</div>
+
+<div class="top">
+  <div class="brand">PIRRA<span>WORKBENCH</span></div>
+  <div class="roleswitch">
+    <span class="lbl">SIGNED IN AS</span>
+    <div class="seg" role="group" aria-label="Role">
+      <button id="r-para" aria-pressed="true">PARALEGAL</button>
+      <button id="r-atty" aria-pressed="false">ATTORNEY</button>
+    </div>
+  </div>
+  <div class="spacer"></div>
+  <label class="streamtoggle"><input type="checkbox" id="streams" checked> SHOW STORAGE STREAMS</label>
+</div>
+
+<div class="shell">
+  <nav class="rail" aria-label="Workbench sections">
+    <h3>SURFACES</h3>
+    <button data-go="queue" aria-current="true"><span class="num">01</span> Queue</button>
+    <button data-go="case"><span class="num">02</span> Case view</button>
+    <button data-go="thread"><span class="num">03</span> Thread</button>
+    <button data-go="flags"><span class="num">04</span> Flags <span class="dot" id="flagcount">3</span></button>
+    <button data-go="exhibit"><span class="num">05</span> Exhibits</button>
+  </nav>
+
+  <main>
+    <!-- 01 QUEUE -->
+    <section class="view on" id="v-queue">
+      <div class="vh">
+        <p class="kick">SURFACE 01</p>
+        <h1>Queue</h1>
+        <p>Every active case, sorted by what needs attention rather than alphabetically. Unacknowledged flags first, then quiet clients, then everything healthy. This is the screen that stays open all day.</p>
+      </div>
+      <div class="card">
+        <div class="card-h"><h2>Active cases</h2><span class="meta" id="q-meta">4 ACTIVE · 1 NEEDS ATTORNEY</span></div>
+        <table>
+          <thead><tr><th>Client</th><th>Week</th><th>Last contact</th><th>Flags</th><th>Status</th></tr></thead>
+          <tbody id="q-body"></tbody>
+        </table>
+      </div>
+      <p class="hint">Only the first row is wired in this prototype. Click it to open the case.</p>
+    </section>
+
+    <!-- 02 CASE -->
+    <section class="view" id="v-case">
+      <div class="vh">
+        <p class="kick">SURFACE 02</p>
+        <h1>Sample Client A <span style="font-family:var(--mono);font-size:12px;color:var(--ink-faint)">· PI-2026-0417</span></h1>
+        <p>Timeline built from the client's own words. Every entry is tagged by hearsay posture at capture time and clicks through to the exact message it came from.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-h"><h2>Recovery curve</h2><span class="meta">FRE 1006 SOURCE · WEEKS 1–14</span></div>
+        <div class="card-b" style="overflow-x:auto">
+          <svg viewBox="0 0 760 240" role="img" aria-label="Line chart of reported pain and function over fourteen weeks. Pain declines from 9 to 4 with a flare-up at week 8. Function rises from 1 to 6. A treatment gap is shaded between weeks 5 and 7." style="min-width:560px;max-width:100%;height:auto">
+            <line x1="46" y1="196" x2="736" y2="196" stroke="var(--rule)"/>
+            <line x1="46" y1="20" x2="46" y2="196" stroke="var(--rule)"/>
+            <rect x="245" y="20" width="98" height="176" fill="var(--danger-wash)"/>
+            <text x="294" y="34" text-anchor="middle" style="font:500 9.5px var(--mono);fill:var(--danger)">GAP</text>
+            <polyline fill="none" stroke="var(--danger)" stroke-width="2"
+              points="46,32 95,42 144,53 196,70 245,84 294,88 343,95 392,72 441,101 490,112 539,119 588,126 637,133 686,137"/>
+            <polyline fill="none" stroke="var(--ok)" stroke-width="2" stroke-dasharray="5 3"
+              points="46,187 95,180 144,171 196,158 245,150 294,148 343,145 392,159 441,138 490,128 539,120 588,112 637,105 686,99"/>
+            <g style="font:400 9.5px var(--mono);fill:var(--ink-faint)">
+              <text x="38" y="26" text-anchor="end">10</text>
+              <text x="38" y="200" text-anchor="end">0</text>
+              <text x="46" y="216">wk 1</text>
+              <text x="392" y="216" text-anchor="middle">wk 8</text>
+              <text x="686" y="216" text-anchor="end">wk 14</text>
+            </g>
+            <g style="font:500 9.5px var(--mono)">
+              <text x="470" y="42" fill="var(--danger)">— reported pain</text>
+              <text x="600" y="42" fill="var(--ok)">--- function</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-h"><h2>Timeline</h2><span class="meta">STREAM 1 · POSTURE-TAGGED AT CAPTURE</span></div>
+        <ul class="tl" id="tl-body"></ul>
+      </div>
+      <p class="hint">Posture tags drive which evidentiary theory an entry can support. PRESENT-CONDITION carries FRE 803(3); PAST-RECOLLECTION does not, and is held for FRE 801(d)(1)(B) and 612 instead.</p>
+    </section>
+
+    <!-- 03 THREAD -->
+    <section class="view" id="v-thread">
+      <div class="vh">
+        <p class="kick">SURFACE 03</p>
+        <h1>Thread</h1>
+        <p>What the client sees is one continuous conversation. What the system stores is three severable streams — plus a quarantine store that never enters Stream 1 at all.</p>
+      </div>
+      <div class="card">
+        <div class="card-h">
+          <h2>Sample Client A</h2>
+          <span class="legend" style="margin-left:auto">
+            <span class="b b-s1">STREAM 1</span><span class="b b-s3">STREAM 3</span><span class="b b-q">QUARANTINE</span>
+          </span>
+        </div>
+        <div class="thread" id="th-body"></div>
+        <div class="composer">
+          <input id="th-input" placeholder="Reply as paralegal…" aria-label="Message">
+          <button class="btn" id="th-send">Send</button>
+          <button class="btn ghost" id="th-req">Request attorney reply</button>
+        </div>
+      </div>
+      <p class="hint" id="th-hint"></p>
+    </section>
+
+    <!-- 04 FLAGS -->
+    <section class="view" id="v-flags">
+      <div class="vh">
+        <p class="kick">SURFACE 04</p>
+        <h1>Flags</h1>
+        <p>Operational flags ask you to make a phone call. Evidentiary flags ask you to make a judgment about the case — those are attorney-only, and the SLA clock on them is a legal artifact, not a UI nicety.</p>
+      </div>
+      <div id="fl-body"></div>
+      <p class="hint">Switch the role toggle to ATTORNEY to see the evidentiary flags unlock. An unacknowledged flag sitting inside a hash-chained record is proof the firm was on notice — which is why the clock is visible.</p>
+    </section>
+
+    <!-- 05 EXHIBITS -->
+    <section class="view" id="v-exhibit">
+      <div class="vh">
+        <p class="kick">SURFACE 05</p>
+        <h1>Exhibit builder</h1>
+        <p>Draws structurally from Stream 1 only — there is no code path from the intelligence layer into an export. Every figure carries the reference it came from.</p>
+      </div>
+      <div class="card">
+        <div class="card-h"><h2>Output</h2></div>
+        <div class="card-b">
+          <div class="opts" id="ex-opts"></div>
+          <div id="ex-preview" style="margin-top:16px"></div>
+          <div class="gate" id="ex-gate"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  // ── synthetic case data ────────────────────────────────────────────────
+  var CASES = [
+    { c: "Sample Client A", wk: 14, last: "2 days", flags: [["EVIDENTIARY","b-ev"],["OPERATIONAL","b-op"]], st: "Needs attorney", live: true },
+    { c: "Sample Client B", wk: 6,  last: "9 days", flags: [["QUIET","b-mut"]],                             st: "Re-engaging",     live: false },
+    { c: "Sample Client C", wk: 22, last: "1 day",  flags: [["OPERATIONAL","b-op"]],                        st: "Healthy",         live: false },
+    { c: "Sample Client D", wk: 3,  last: "4 hours",flags: [],                                              st: "Healthy",         live: false }
+  ];
+
+  var MSGS = [
+    { id:"M-0001", wk:1,  who:"PIRRA",    stream:"s1", t:"Hi — this is PIRRA, an AI assistant provided by your legal team. I'll check in now and then about how you're feeling and how recovery is going. Your legal team reads these. The other side may see them too, so please be straight with me — including the good days. Anything about how the accident happened, save that for your legal team, not here. If it's ever an emergency, call 911." },
+    { id:"M-0014", wk:2,  who:"PIRRA",    stream:"s1", t:"How's the pain right now, 0 to 10?" },
+    { id:"M-0015", wk:2,  who:"Client",   stream:"s1", t:"About an 8. Can't turn my head to back out of the driveway." },
+    { id:"M-0038", wk:5,  who:"Client",   stream:"s1", t:"Had to skip PT twice this week, couldn't get a ride." },
+    { id:"M-0041", wk:6,  who:"PIRRA",    stream:"s1", t:"What can't you do today that you could before?" },
+    { id:"M-0042", wk:6,  who:"Client",   stream:"s1", t:"Can't pick up my daughter. She's 4 and she doesn't understand why." },
+    { id:"M-0067", wk:8,  who:"Client",   stream:"q",  t:"I keep going over it — I was reaching for my phone right before it happened, maybe if I hadn't…", q:true },
+    { id:"M-0068", wk:8,  who:"PIRRA",    stream:"s1", t:"That's one for your legal team — send it to them directly and we'll leave it there. Back to today: how's the pain right now?" },
+    { id:"M-0071", wk:8,  who:"Client",   stream:"s1", t:"Bad. 9. Flared up after I tried carrying groceries." },
+    { id:"M-0092", wk:10, who:"Attorney", stream:"s3", t:"Sample Client A — this is your attorney. I saw the flare-up note. Let's talk Friday at 2. Anything urgent before then, call the office." },
+    { id:"M-0118", wk:13, who:"Client",   stream:"s1", t:"Slept through the night for the first time. Pain's more like a 4 today." },
+    { id:"M-0124", wk:14, who:"Client",   stream:"s1", t:"Went back to work half days. Still can't lift anything heavy." }
+  ];
+
+  var TIMELINE = [
+    { wk:2,  q:"About an 8. Can't turn my head to back out of the driveway.", p:"PRESENT-CONDITION", ref:"M-0015" },
+    { wk:5,  q:"Had to skip PT twice this week, couldn't get a ride.",        p:"PAST-RECOLLECTION", ref:"M-0038" },
+    { wk:6,  q:"Can't pick up my daughter. She's 4 and she doesn't understand why.", p:"PRESENT-CONDITION", ref:"M-0042" },
+    { wk:8,  q:"Bad. 9. Flared up after I tried carrying groceries.",          p:"PRESENT-CONDITION", ref:"M-0071" },
+    { wk:13, q:"Slept through the night for the first time. Pain's more like a 4 today.", p:"PRESENT-CONDITION", ref:"M-0118" },
+    { wk:14, q:"Went back to work half days. Still can't lift anything heavy.", p:"PRESENT-CONDITION", ref:"M-0124" }
+  ];
+
+  var FLAGS = [
+    { id:"F1", tier:"ev", t:"Liability content volunteered", sla:"4h · OVERDUE",
+      d:"Client referenced pre-impact conduct at week 8. Routed to quarantine by the containment classifier — never written to Stream 1. Not pursued, not answered. Requires attorney review.",
+      ref:"M-0067", done:false },
+    { id:"F2", tier:"ev", t:"Account inconsistency", sla:"24h · 6h left",
+      d:"Week 8 flare-up attributed to carrying groceries; week 5 entry reports inability to lift over 10 lbs. May be ordinary variation, may need addressing before deposition.",
+      ref:"M-0071", done:false },
+    { id:"F3", tier:"op", t:"Treatment gap — 2 missed PT sessions", sla:null,
+      d:"Two consecutive missed physical therapy appointments at week 5, transport-related. Surfaced before it becomes a defense argument about care delay.",
+      ref:"M-0038", done:false }
+  ];
+
+  var OUTPUTS = [
+    { k:"demand", n:"Demand-packet exhibit", d:"Two-page PDF. Impact curve, category breakdown, verbatim excerpts with log references, integrity block." },
+    { k:"chart",  n:"Recovery-curve chart",  d:"Pain and function against treatment milestones. Summary exhibit under FRE 1006." },
+    { k:"depo",   n:"Depo-prep log",         d:"Contemporaneous record organized for witness prep. Built to disclosure standard on purpose." },
+    { k:"pcs",    n:"Prior-consistent-statement packet", d:"Pre-motive statements isolated for FRE 801(d)(1)(B) rehabilitation." }
+  ];
+
+  // ── state ──────────────────────────────────────────────────────────────
+  var role = "para", output = "demand", approved = false;
+  var $ = function (s) { return document.querySelector(s); };
+  var el = function (tag, cls, txt) { var n = document.createElement(tag); if (cls) n.className = cls; if (txt != null) n.textContent = txt; return n; };
+
+  // ── nav ────────────────────────────────────────────────────────────────
+  function go(name) {
+    document.querySelectorAll(".view").forEach(function (v) { v.classList.toggle("on", v.id === "v-" + name); });
+    document.querySelectorAll("nav.rail button").forEach(function (b) { b.setAttribute("aria-current", String(b.dataset.go === name)); });
+    window.scrollTo(0, 0);
+  }
+  document.querySelectorAll("nav.rail button").forEach(function (b) {
+    b.addEventListener("click", function () { go(b.dataset.go); });
+  });
+
+  // ── role toggle ────────────────────────────────────────────────────────
+  function setRole(r) {
+    role = r;
+    $("#r-para").setAttribute("aria-pressed", String(r === "para"));
+    $("#r-atty").setAttribute("aria-pressed", String(r === "atty"));
+    $("#th-input").placeholder = r === "para" ? "Reply as paralegal…" : "Reply as attorney (Stream 3 · privileged)…";
+    $("#th-req").style.display = r === "para" ? "" : "none";
+    renderFlags(); renderExhibit(); renderThreadHint();
+  }
+  $("#r-para").addEventListener("click", function () { setRole("para"); });
+  $("#r-atty").addEventListener("click", function () { setRole("atty"); });
+
+  $("#streams").addEventListener("change", function (e) {
+    document.body.classList.toggle("hide-streams", !e.target.checked);
+  });
+
+  // ── queue ──────────────────────────────────────────────────────────────
+  (function renderQueue() {
+    var tb = $("#q-body");
+    CASES.forEach(function (c) {
+      var tr = el("tr", c.live ? "click" : "");
+      tr.appendChild(el("td", "nm", c.c));
+      tr.appendChild(el("td", "mono", "wk " + c.wk));
+      tr.appendChild(el("td", "mono", c.last + " ago"));
+      var fd = el("td");
+      if (!c.flags.length) fd.appendChild(el("span", "b b-ok", "CLEAR"));
+      c.flags.forEach(function (f) { var s = el("span", "b " + f[1], f[0]); s.style.marginRight = "5px"; fd.appendChild(s); });
+      tr.appendChild(fd);
+      tr.appendChild(el("td", "mono", c.st));
+      if (c.live) tr.addEventListener("click", function () { go("case"); });
+      tb.appendChild(tr);
+    });
+  })();
+
+  // ── timeline ───────────────────────────────────────────────────────────
+  (function renderTimeline() {
+    var ul = $("#tl-body");
+    TIMELINE.forEach(function (t) {
+      var li = el("li");
+      li.appendChild(el("div", "wk", "WEEK " + t.wk));
+      var body = el("div");
+      body.appendChild(el("p", "qt", "“" + t.q + "”"));
+      var tags = el("div", "tags");
+      tags.appendChild(el("span", "b " + (t.p === "PRESENT-CONDITION" ? "b-ok" : "b-mut"), t.p));
+      tags.appendChild(el("span", "b b-s1", "STREAM 1"));
+      var lk = el("button", "lnk", t.ref + " ↗");
+      lk.addEventListener("click", function () { jump(t.ref); });
+      tags.appendChild(lk);
+      body.appendChild(tags);
+      li.appendChild(body);
+      ul.appendChild(li);
+    });
+  })();
+
+  // ── thread ─────────────────────────────────────────────────────────────
+  function renderThread() {
+    var box = $("#th-body"); box.textContent = "";
+    MSGS.forEach(function (m) {
+      var cls = "msg from-" + m.who.toLowerCase() + (m.q ? " quarantined" : "");
+      var d = el("div", cls); d.id = "msg-" + m.id;
+      var who = el("div", "who");
+      who.appendChild(el("span", "nm", m.who.toUpperCase()));
+      who.appendChild(el("span", "", "wk " + m.wk));
+      var badge = m.stream === "q" ? ["b-q", "QUARANTINE"] : m.stream === "s3" ? ["b-s3", "STREAM 3 · PRIVILEGED"] : ["b-s1", "STREAM 1 · DISCOVERABLE"];
+      who.appendChild(el("span", "b " + badge[0], badge[1]));
+      d.appendChild(who);
+      d.appendChild(el("div", "bub", m.t));
+      if (m.q) d.appendChild(el("div", "qnote", "Classified pre-commit. Never written to Stream 1 — producing the record cannot produce this. Immutable in quarantine; attorney notified."));
+      d.appendChild(el("div", "ref", m.id));
+      box.appendChild(d);
+    });
+  }
+  function jump(ref) {
+    go("thread");
+    var n = document.getElementById("msg-" + ref);
+    if (!n) return;
+    document.querySelectorAll(".msg.hl").forEach(function (x) { x.classList.remove("hl"); });
+    n.classList.add("hl");
+    n.scrollIntoView({ block: "center" });
+  }
+  function renderThreadHint() {
+    $("#th-hint").textContent = role === "para"
+      ? "As paralegal you send in your own name. Speaking as counsel is a separate action that routes to the attorney — nobody else can post into Stream 3."
+      : "As attorney your replies land in Stream 3: ordinary attorney-client privilege, severable from the produced record.";
+  }
+  $("#th-send").addEventListener("click", function () {
+    var i = $("#th-input"); if (!i.value.trim()) return;
+    MSGS.push({ id: "M-0" + (130 + MSGS.length), wk: 14, who: role === "para" ? "Paralegal" : "Attorney",
+                stream: role === "para" ? "s1" : "s3", t: i.value.trim() });
+    i.value = ""; renderThread();
+    $("#th-body").lastChild.scrollIntoView({ block: "center" });
+  });
+  $("#th-req").addEventListener("click", function () {
+    alert("Routed to the attorney's queue.\n\nA paralegal cannot post into Stream 3 — that stream holds attorney-client communications, and its severability from the produced record depends on only counsel writing to it.");
+  });
+
+  // ── flags ──────────────────────────────────────────────────────────────
+  function renderFlags() {
+    var box = $("#fl-body"); box.textContent = "";
+    FLAGS.forEach(function (f) {
+      var locked = f.tier === "ev" && role !== "atty";
+      var card = el("div", "flag " + f.tier + (f.done ? " done" : ""));
+      var h = el("div", "fh");
+      h.appendChild(el("span", "ft", f.t));
+      h.appendChild(el("span", "b " + (f.tier === "ev" ? "b-ev" : "b-op"), f.tier === "ev" ? "EVIDENTIARY" : "OPERATIONAL"));
+      h.appendChild(el("span", "b b-s2", "STREAM 2 · WORK PRODUCT"));
+      if (f.sla && !f.done) h.appendChild(el("span", "sla", "SLA " + f.sla));
+      if (f.done) h.appendChild(el("span", "b b-ok", "ACKNOWLEDGED"));
+      card.appendChild(h);
+      card.appendChild(el("p", "fd", f.d));
+      var act = el("div", "fa");
+      var src = el("button", "lnk", f.ref + " ↗");
+      src.addEventListener("click", function () { jump(f.ref); });
+      act.appendChild(src);
+      if (f.done) {
+        act.appendChild(el("span", "locked", "Disposed · recorded in Stream 2 as opinion work product"));
+      } else if (locked) {
+        act.appendChild(el("span", "locked", "\u{1F512} Attorney disposition required — read-only for your role"));
+      } else {
+        var b = el("button", "btn" + (f.tier === "ev" ? " warn" : ""), f.tier === "ev" ? "Adjudicate + record impression" : "Acknowledge + log contact");
+        b.addEventListener("click", function () { f.done = true; renderFlags(); updateCount(); });
+        act.appendChild(b);
+      }
+      card.appendChild(act);
+      box.appendChild(card);
+    });
+  }
+  function updateCount() {
+    var n = FLAGS.filter(function (f) { return !f.done; }).length;
+    var d = $("#flagcount");
+    d.textContent = n; d.style.display = n ? "" : "none";
+    $("#q-meta").textContent = "4 ACTIVE · " + FLAGS.filter(function (f) { return !f.done && f.tier === "ev"; }).length + " NEEDS ATTORNEY";
+  }
+
+  // ── exhibits ───────────────────────────────────────────────────────────
+  function renderExhibit() {
+    var o = $("#ex-opts"); o.textContent = "";
+    OUTPUTS.forEach(function (x) {
+      var b = el("button", "opt");
+      b.setAttribute("aria-pressed", String(output === x.k));
+      b.appendChild(el("span", "on", x.n));
+      b.appendChild(el("span", "od", x.d));
+      b.addEventListener("click", function () { output = x.k; approved = false; renderExhibit(); });
+      o.appendChild(b);
+    });
+
+    var p = $("#ex-preview"); p.textContent = "";
+    var ex = el("div", "exhibit");
+    var name = OUTPUTS.filter(function (x) { return x.k === output; })[0].n;
+    ex.appendChild(el("h3", null, name + " — Sample Client A"));
+    ex.appendChild(el("div", "sub", "PI-2026-0417 · WEEKS 1–14 · DRAWN FROM STREAM 1 ONLY"));
+    TIMELINE.slice(0, 4).forEach(function (t) {
+      var q = el("blockquote");
+      q.appendChild(el("div", null, "“" + t.q + "”"));
+      var lk = el("button", "lnk", "week " + t.wk + " · " + t.ref + " ↗");
+      lk.addEventListener("click", function () { jump(t.ref); });
+      q.appendChild(lk);
+      ex.appendChild(q);
+    });
+    var ig = el("div", "integrity");
+    ig.textContent = "INTEGRITY BLOCK — 412 entries, weeks 1–14, no gaps in the chain. "
+      + "Hash-chained (SHA-256, append-only) and independently timestamped (RFC 3161). "
+      + "Self-authenticating under FRE 902(13)–(14) with qualified-person certification. "
+      + "Record is complete and includes both improvement and decline. No client data on any blockchain.";
+    ex.appendChild(ig);
+    p.appendChild(ex);
+
+    var g = $("#ex-gate"); g.textContent = "";
+    if (approved) {
+      g.appendChild(el("span", "b b-ok", "APPROVED"));
+      g.appendChild(el("span", null, "Released to the firm file. Exhibit PDF and the milestone sync to the case-management system — no Stream 2 field is included, because the connector has no endpoint for one."));
+    } else if (role === "atty") {
+      var b = el("button", "btn", "Approve + serve");
+      b.addEventListener("click", function () { approved = true; renderExhibit(); });
+      g.appendChild(b);
+      g.appendChild(el("span", null, "Attorney approval gates every export. Nothing leaves the workbench without it."));
+    } else {
+      var d = el("button", "btn", "Approve + serve"); d.disabled = true;
+      g.appendChild(d);
+      g.appendChild(el("span", null, "Assembled and ready. Export requires attorney approval — switch roles to release it."));
+    }
+  }
+
+  // ── init ───────────────────────────────────────────────────────────────
+  renderThread(); renderFlags(); renderExhibit(); renderThreadHint(); updateCount();
+})();
+</script>
