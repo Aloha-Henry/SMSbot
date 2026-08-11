@@ -163,9 +163,18 @@ export default function Home() {
             {how.disclosure}
           </p>
 
-          <div className="mt-11">
+          <div className="mt-11 flex flex-wrap items-center gap-x-8 gap-y-4">
             <PrimaryCta />
+            <a
+              href={cta.demoHref}
+              className="inline-block border-b border-accent pb-0.5 text-[15px] font-medium text-accent"
+            >
+              {cta.demo} &rarr;
+            </a>
           </div>
+          <p className="mt-4 max-w-[62ch] font-mono text-[11.5px] leading-relaxed text-ink-faint">
+            {cta.demoNote}
+          </p>
         </Section>
 
         {/* ── E · Why it holds up ──────────────────────────────────── */}
@@ -252,6 +261,9 @@ export default function Home() {
               </p>
             </div>
             <nav className="flex flex-wrap gap-x-6 gap-y-2 text-[14px]">
+              <a href={cta.demoHref} className="text-accent">
+                Workbench prototype
+              </a>
               <a href={cta.secondaryHref} className="text-accent">
                 Sample exhibit
               </a>

@@ -49,6 +49,17 @@ Four `TODO`s, each a single edit:
 | Sample exhibit PDF | `public/sample-exhibit.pdf` (placeholder) |
 | Contact address | `content/copy.ts` → `footer.contact` |
 
+## The `/demo/` route
+
+`public/demo/index.html` is the interactive workbench prototype — a single self-contained
+file, no build step, served statically at `/demo/`. It is linked from section D of the
+landing page and from the footer.
+
+It is labeled on the page as **an interactive prototype, not a live system**, on top of the
+synthetic-case labeling. Keep both. The product is pre-build; a working demo shown to firms
+implies a shipping product unless the page says otherwise, and "but I saw it working" is not
+a conversation you want during a pilot negotiation.
+
 ## Known placeholders
 
 - `public/sample-exhibit.pdf` is a generated placeholder with no client data,

@@ -19,6 +19,12 @@ export const cta = {
   secondary: "See a sample exhibit",
   // TODO: replace with the real pirra-demand-exhibit sample
   secondaryHref: "/sample-exhibit.pdf",
+  // Interactive prototype on a synthetic case. Labeled on the page itself as a
+  // prototype rather than a live system — see brief §0.4 and §8.
+  demo: "Open the workbench prototype",
+  demoHref: "/demo/",
+  demoNote:
+    "A working prototype on an invented case — no real client, no real firm, not a live system. Switch roles to see which decisions are reserved for counsel.",
 } as const;
 
 export const hero = {

@@ -27,12 +27,9 @@ it into court-ready exhibits with every fact traced back to the message it came 
   static export, zero-config Vercel import (set root directory to `web`).
   All copy lives in [`web/content/copy.ts`](web/content/copy.ts). See
   [`web/README.md`](web/README.md) for deploy steps and swap points.
-
-## Prototypes
-
-- [`prototypes/workbench.html`](prototypes/workbench.html) — clickable paralegal workbench.
-  Queue → case view → thread → flags → exhibit builder, on a synthetic case. Toggle the role
-  between paralegal and attorney to see the evidentiary lock and the export gate engage.
+- [`web/public/demo/index.html`](web/public/demo/index.html) — the workbench prototype, served
+  at `/demo/`. Queue → case view → thread → flags → exhibit builder on a synthetic case. Toggle
+  the role between paralegal and attorney to see the evidentiary lock and export gate engage.
 
 ## Source docs
 
