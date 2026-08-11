@@ -21,6 +21,12 @@ it into court-ready exhibits with every fact traced back to the message it came 
 | [`docs/decisions/0001`](docs/decisions/0001-evidence-privilege-and-scope.md) | The decisions that shaped it — evidence posture, privilege theory, scope boundaries. Supersedes conflicting parts of the source docs. |
 | [`docs/decisions/0002`](docs/decisions/0002-containment-cms-firewall-and-pilot-metrics.md) | Liability containment engine, the zero-endpoint CMS firewall, and what a pilot can and cannot prove. Includes rejected proposals and why. |
 
+## Prototypes
+
+- [`prototypes/workbench.html`](prototypes/workbench.html) — clickable paralegal workbench.
+  Queue → case view → thread → flags → exhibit builder, on a synthetic case. Toggle the role
+  between paralegal and attorney to see the evidentiary lock and the export gate engage.
+
 ## Source docs
 
 Original strategy work, preserved as written. Where these conflict with a decision record,
