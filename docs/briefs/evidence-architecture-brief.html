@@ -1,0 +1,197 @@
+<title>PIRRA — Evidence Architecture Brief</title>
+<style>
+  :root {
+    --serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, "Times New Roman", serif;
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, "Cascadia Mono", Consolas, monospace;
+    --paper: #F2F2EF; --surface: #FBFBF9; --surface-2: #E8E8E3;
+    --ink: #16181B; --ink-soft: #52585F; --ink-faint: #83888F; --rule: #D6D5CC;
+    --accent: #1F4A52; --accent-wash: #E2ECEC;
+    --danger: #8A2F33; --danger-wash: #F3E2E2;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #111316; --surface: #181A1E; --surface-2: #212429;
+      --ink: #E6E7E5; --ink-soft: #9EA4AA; --ink-faint: #70767C; --rule: #2C3036;
+      --accent: #86B4BA; --accent-wash: #16292D;
+      --danger: #DE888C; --danger-wash: #2F1A1B;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #111316; --surface: #181A1E; --surface-2: #212429;
+    --ink: #E6E7E5; --ink-soft: #9EA4AA; --ink-faint: #70767C; --rule: #2C3036;
+    --accent: #86B4BA; --accent-wash: #16292D;
+    --danger: #DE888C; --danger-wash: #2F1A1B;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 0 22px 80px;
+    background: var(--paper); color: var(--ink);
+    font-family: var(--serif); font-size: 16.5px; line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; }
+
+  header.mast { border-bottom: 2px solid var(--ink); padding: 52px 0 18px; margin-bottom: 34px; }
+  h1 { font-size: clamp(27px, 4.6vw, 37px); line-height: 1.12; font-weight: 600; letter-spacing: -.015em; margin: 0 0 14px; text-wrap: balance; }
+  .stamp { font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; color: var(--ink-faint); display: flex; flex-wrap: wrap; gap: 6px 18px; }
+
+  .lede { font-size: 17.5px; color: var(--ink-soft); margin: 0 0 34px; }
+  .lede strong { color: var(--ink); font-weight: 600; }
+
+  section { margin-bottom: 40px; }
+  h2 { font-size: 21px; font-weight: 600; margin: 0 0 6px; letter-spacing: -.008em; text-wrap: balance; }
+  .num { font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; color: var(--accent); display: block; margin-bottom: 5px; }
+  h3 { font-size: 16.5px; font-weight: 600; margin: 24px 0 6px; }
+  p { margin: 0 0 13px; }
+  section > p:last-child { margin-bottom: 0; }
+  em { font-style: italic; }
+  strong { font-weight: 600; }
+
+  .tbl { overflow-x: auto; margin: 18px 0; }
+  table { border-collapse: collapse; width: 100%; min-width: 460px; background: var(--surface); border: 1px solid var(--rule); font-size: 14.5px; }
+  th, td { text-align: left; padding: 10px 13px; border-bottom: 1px solid var(--rule); vertical-align: top; line-height: 1.5; }
+  th { font-family: var(--mono); font-size: 10px; letter-spacing: .09em; font-weight: 500; color: var(--ink-soft); background: var(--surface-2); }
+  tbody tr:last-child td { border-bottom: 0; }
+  td:first-child { width: 34%; }
+
+  .note { border-left: 3px solid var(--accent); background: var(--accent-wash); padding: 14px 18px; margin: 20px 0; }
+  .note p { margin: 0; font-size: 15.5px; }
+
+  ol.attack { list-style: none; counter-reset: a; padding: 0; margin: 20px 0 0; }
+  ol.attack > li { counter-increment: a; border-top: 1px solid var(--rule); padding: 16px 0 4px; }
+  ol.attack > li::before {
+    content: counter(a); font-family: var(--mono); font-size: 11px; color: var(--danger);
+    border: 1px solid var(--danger); border-radius: 50%; width: 21px; height: 21px;
+    display: inline-flex; align-items: center; justify-content: center; margin-right: 9px; vertical-align: 2px;
+  }
+  ol.attack h3 { display: inline; font-size: 16.5px; }
+  ol.attack p { margin: 8px 0 12px; font-size: 15.5px; color: var(--ink-soft); }
+  ol.attack p strong, ol.attack h3 { color: var(--ink); }
+
+  footer.end { border-top: 1px solid var(--rule); padding-top: 16px; font-family: var(--mono); font-size: 11px; line-height: 1.7; color: var(--ink-faint); }
+
+  @media print {
+    body { background: #fff; color: #000; font-size: 10.5pt; padding: 0; line-height: 1.42; }
+    .wrap { max-width: none; }
+    header.mast { padding-top: 0; margin-bottom: 18px; }
+    h1 { font-size: 19pt; }
+    section { margin-bottom: 16px; page-break-inside: avoid; }
+    h2 { font-size: 12.5pt; }
+    table { font-size: 9pt; min-width: 0; }
+    th, td { padding: 5px 7px; }
+    .note, ol.attack > li { page-break-inside: avoid; }
+    .lede { font-size: 11pt; margin-bottom: 16px; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <h1>Evidence architecture — request for adversarial review</h1>
+  <div class="stamp"><span>PIRRA</span><span>FROM: HANK</span><span>AUGUST 2026</span><span>~2 PAGES</span></div>
+</header>
+
+<p class="lede">I'm building a system that captures a personal-injury client's recovery by text message and turns it into demand exhibits. <strong>I'm not asking whether it's a good business. I'm asking you to break the legal architecture</strong> — I'd rather find the cracks now than in a deposition. Section 4 is the list of things I already think are weakest. Start there if you're short on time.</p>
+
+<section>
+  <span class="num">01</span>
+  <h2>The thesis: the doctrine is the spec</h2>
+  <p>Most legal tech builds a product and then asks counsel whether it's allowed. We inverted that. We started from what the Federal Rules actually reward and let the doctrine dictate the engineering. Every rule below came out the other side as a build requirement, not a disclaimer.</p>
+
+  <div class="tbl">
+    <table>
+      <thead><tr><th>DOCTRINE</th><th>BECAME A BUILD REQUIREMENT</th></tr></thead>
+      <tbody>
+        <tr><td><strong>FRE 801(d)(1)(B)</strong><br>prior consistent statements</td><td>Precise timestamping, a retention-date marker on every entry, and a dedicated export isolating statements by date</td></tr>
+        <tr><td><strong>FRE 803(3)</strong><br>then-existing condition, <em>excluding</em> statements of memory</td><td>A prompt library that elicits present tense (&ldquo;how is the pain <em>right now</em>&rdquo;) and posture-tagging of every entry at capture as present-condition vs. past-recollection</td></tr>
+        <tr><td><strong>FRE 902(13)–(14)</strong><br>self-authentication</td><td>Append-only store, SHA-256 hash chaining, independent RFC 3161 timestamps, designated certifying custodian</td></tr>
+        <tr><td><strong>FRE 1006</strong><br>summary exhibits</td><td>Underlying records kept complete and available for inspection — the summary is worthless if the substrate isn't producible</td></tr>
+        <tr><td><strong>Work product</strong><br>Rule 26(b)(3)</td><td>Attorney adjudication of credibility flags as a required, credential-locked workflow step — that's where mental impressions enter</td></tr>
+        <tr><td><strong>The record is produce-expected</strong></td><td>A classifier that routes liability content to quarantine <em>before</em> it is written to the produced stream</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>The point isn't cleverness. It's that a competitor can copy the exhibit format in a sprint and cannot copy this reasoning.</p>
+
+  <div class="note">
+    <p><strong>One framing note, because it matters when you attack it:</strong> we are not engineering <em>around</em> the rules — we're engineering <em>to</em> them. The system produces what the rules already reward, then proves provenance. If it reads to you as circumvention anywhere, that's a finding I want.</p>
+  </div>
+</section>
+
+<section>
+  <span class="num">02</span>
+  <h2>The counterintuitive move: the record is designed to be produced</h2>
+  <p><strong>The capture log is not privileged, and we don't claim it is.</strong> It's the modern version of the pain journal attorneys already tell clients to keep — and pain journals are discoverable. Attorneys direct clients to keep them anyway, because documentation value exceeds disclosure cost. We took the same trade and tried to raise documentation value without raising disclosure cost.</p>
+
+  <div class="tbl">
+    <table>
+      <thead><tr><th>TIER</th><th>CONTENTS</th><th>POSTURE</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1 — The Record</strong></td><td>Client ↔ system capture</td><td><strong>Expect production.</strong> No privilege asserted. Designed to win <em>on</em> production.</td></tr>
+        <tr><td><strong>2 — Intelligence</strong></td><td>Credibility flags, inconsistency alerts, attorney annotations, counsel's protocol</td><td><strong>Work product.</strong> Never produced, never synced to the case-management system.</td></tr>
+        <tr><td><strong>3 — Attorney messages</strong></td><td>Counsel writing to the client in the same thread</td><td><strong>Privileged</strong> on ordinary grounds.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>Asserting privilege over Tier 1 and losing is worse than never asserting it — a failed claim invites a waiver fight over everything else. Producing a non-privileged document creates no FRE 502(a) subject-matter waiver exposure, because waiver-expansion requires a waiver.</p>
+  <p>The tiers are <strong>architecturally severable</strong> — separate stores, separate export paths, and a case-management connector that physically lacks a Tier 2 endpoint. Not permission-gated: absent.</p>
+  <p><strong>Where privilege actually matters is Tier 2, and it's the part I care most about.</strong> A pain journal is only the client's words. This system additionally <em>generates adverse analysis about our own client</em> that never existed before. <em>&ldquo;Produce all system-generated inconsistency alerts for this plaintiff&rdquo;</em> is the discovery request that would make every case using this worse off than one that didn't. That's the protection that has to hold.</p>
+</section>
+
+<section>
+  <span class="num">03</span>
+  <h2>Privilege theory: conduit, with <em>Kovel</em> as fallback</h2>
+  <p><em>United States v. Heppner</em>, S.D.N.Y. (Rakoff, J., Feb. 2026) held that documents a defendant generated with consumer-grade AI while preparing his defense were neither privileged nor work product. Rakoff rejected the <em>Kovel</em> argument on <strong>two</strong> grounds:</p>
+  <p><strong>Direction</strong> — Heppner acted on his own initiative. We answer this: counsel-retained, counsel-directed, written direction letter, contractual confidentiality, zero-retention terms.</p>
+  <p><strong>Necessity</strong> — the AI was not necessary for counsel to understand the client. <strong>We do not answer this.</strong> Our client speaks English and could call the lawyer.</p>
+  <p>So the primary theory isn't <em>Kovel</em> at all. Counsel participates directly in the thread, which makes the system a <strong>conduit</strong> — the same category as the firm's email server or a paralegal under Rule 5.3 — and conduit requires no necessity showing. <em>Kovel</em> stays available as a per-case fallback. Never promised.</p>
+</section>
+
+<section>
+  <span class="num">04</span>
+  <h2>Where I think this is weakest — attack here first</h2>
+
+  <ol class="attack">
+    <li>
+      <h3>The 801(d)(1)(B)(i) timing problem may be fatal to our lead theory.</h3>
+      <p>Subsection (i) requires the statement to predate the motive to fabricate. In a PI case a defense lawyer will argue the motive arose at retention — and we start capturing <em>after</em> retention. If that lands, every statement we hold is post-motive and (i) is unavailable to us entirely.</p>
+      <p>My current answer is that <strong>(ii)</strong> — added in 2014, rehabilitation when credibility is attacked on another ground such as inconsistency or faulty memory — carries no equivalent pre-motive requirement, and is the more robust prong for us. <strong>I want to know whether you think (ii) actually bears that weight, or whether I'm leaning on a provision courts are still working out.</strong></p>
+    </li>
+    <li>
+      <h3>Does elicitation weaken 803(3)?</h3>
+      <p>These aren't spontaneous utterances; a system asked a question and the client answered. I believe an elicited present-condition statement is still 803(3), but I'd like your read on how a skeptical judge treats AI-prompted responses, and whether question phrasing becomes an issue.</p>
+    </li>
+    <li>
+      <h3>Whose statement is it?</h3>
+      <p>The client typed it. But if the question shapes the answer, is there an argument the record is partly the system's statement rather than the declarant's? We have a hard no-coaching rule — neutral, open elicitation, no steering toward favorable content — but the transcript is discoverable and every question we asked is in it.</p>
+    </li>
+    <li>
+      <h3>The quarantine store.</h3>
+      <p>We classify pre-commit and route liability content out of the produced stream, but never delete it — deletion inside a tamper-evident chain is provable spoliation. So it exists, immutably, outside Tier 1. Is that store discoverable? Does routing it look like sequestration to a judge who doesn't like us?</p>
+    </li>
+    <li>
+      <h3>Notice cuts both ways.</h3>
+      <p>Every flag is hash-chained and independently timestamped. An unacknowledged flag sitting sixty days is proof the firm was on notice and did nothing. We've built an acknowledgment SLA — but have we manufactured a malpractice exhibit against our own customers?</p>
+    </li>
+    <li>
+      <h3>Client consent.</h3>
+      <p>Engagement-letter addendum plus a plain-language SMS disclosure before any substantive capture: it's an AI from your firm, this is recorded, your legal team sees it, <strong>the other side may see it too</strong>, be honest including the good days, and anything about <em>how it happened</em> goes to your legal team, not here. Is that sufficient informed consent under Rule 1.4 — and does telling a client the defense may read it suppress the candor the whole thing runs on?</p>
+    </li>
+  </ol>
+</section>
+
+<section>
+  <span class="num">05</span>
+  <h2>What I'd find most useful</h2>
+  <p>Not a memo. Just your instinct on which of the six above is the one that actually kills it, and whether there's a seventh I haven't seen. If the answer is <em>&ldquo;the necessity prong means you should stop claiming any privilege anywhere&rdquo;</em> — I'd rather hear that now.</p>
+</section>
+
+<footer class="end">
+  Nothing here is legal advice or a request for representation, and none of these positions has been blessed by counsel — that is what I am asking you for.
+</footer>
+
+</div>

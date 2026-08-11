@@ -21,6 +21,13 @@ it into court-ready exhibits with every fact traced back to the message it came 
 | [`docs/decisions/0001`](docs/decisions/0001-evidence-privilege-and-scope.md) | The decisions that shaped it — evidence posture, privilege theory, scope boundaries. Supersedes conflicting parts of the source docs. |
 | [`docs/decisions/0002`](docs/decisions/0002-containment-cms-firewall-and-pilot-metrics.md) | Liability containment engine, the zero-endpoint CMS firewall, and what a pilot can and cannot prove. Includes rejected proposals and why. |
 
+## Briefs
+
+- [`docs/briefs/evidence-architecture-brief.md`](docs/briefs/evidence-architecture-brief.md)
+  ([rendered](docs/briefs/evidence-architecture-brief.html)) — two-page brief for outside
+  adversarial review. How the FRE and case law drove the architecture, and the six places we
+  think it's weakest. Written to be handed to a practicing attorney.
+
 ## Web
 
 - [`web/`](web/) — the marketing landing page. Next.js + Tailwind + TypeScript,
