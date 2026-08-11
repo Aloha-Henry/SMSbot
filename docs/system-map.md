@@ -98,9 +98,9 @@ PIRRA talks about damages. It does not talk about how the injury happened, who w
 ```mermaid
 flowchart LR
   M["Client message<br/><i>inbound SMS</i>"]
-  G{"Topic gate<br/><i>steers back</i>"}
+  G{"Classifier<br/><i>pre-commit gate</i>"}
   L["<b>Liability content</b><br/>fault · speed · cause"]
-  Q["<b>Capture · quarantine · flag</b><br/>never pursued, never answered<br/>attorney notified immediately"]
+  Q["<b>Quarantine store</b><br/>never enters Tier 1<br/>attorney notified immediately"]
   D["<b>Damages content</b><br/>pain · function today<br/>treatment · loss · sleep"]
   S["<b>Stream 1 — The Record</b><br/>present-tense, posture-tagged<br/>timestamped, hash-chained"]
 
@@ -116,11 +116,23 @@ flowchart LR
   class D,S ok
 ```
 
-**The non-obvious consequence:** the log is immutable, so a liability statement that arrives cannot be removed — deletion is spoliation, and deleting inside a tamper-evident chain makes the deletion provable. **Prevention is the only control that exists.**
+**Classification happens before the write, not after it.** The log is immutable, so a liability
+statement that lands in Tier 1 can never be removed — deletion is spoliation, and deleting inside
+a tamper-evident chain makes the deletion provable. So the classifier is a real-time gate on the
+write path: liability content routes to a quarantine store and **never enters Tier 1 at all**,
+which means producing the record does not produce the admission. Quarantine is routing, not
+deletion — the message stays immutable and hash-chained, just outside the stream with an egress
+path. See [DR-0002 D8](./decisions/0002-containment-cms-firewall-and-pilot-metrics.md).
 
-Which means one specific rule: *PIRRA never opens with, or returns to, how the injury happened.* That is the most natural rapport move in human conversation and it must be designed out of the protocol entirely.
+False negatives are unrecoverable; false positives are cheap and attorney-reversible. **Tune
+aggressively toward over-quarantine.**
 
-Voice is the highest-risk channel here — an SMS turn has a gate between messages; a live call does not.
+The prompt library carries the other half: *PIRRA never opens with, or returns to, how the injury
+happened.* That is the most natural rapport move in human conversation and it must be designed
+out of the protocol entirely.
+
+Voice is the highest-risk channel here — an SMS turn has a gate between messages; a live call
+does not, and likely needs summarize-and-quarantine by default.
 
 ---
 
@@ -153,12 +165,34 @@ Five surfaces. The attorney gets the same application with two extra permissions
 
 ---
 
+---
+
+## 6. CMS sync — the zero-endpoint firewall
+
+| Direction | Contents |
+|---|---|
+| **Pushed to CMS** | Finalized Stream 1 exhibit PDFs. Administrative milestones only (`check-in completed`, `exhibit generated`). |
+| **Never leaves PIRRA** | All Stream 2 — flags, alerts, annotations, protocol, alert history. |
+
+The connector must **physically lack a Stream 2 endpoint** — absent, not disabled, not
+permission-gated. The failure mode is not an unauthorized user; it is a conscientious paralegal
+copying a flag into a Clio note because that is where case notes go. Defend against diligence,
+not malice.
+
+`check-in completed` is safe to sync. `flag raised` is not — the existence and timing of a flag is
+itself work product, and a CMS timeline of flag events reconstructs Stream 2 from metadata alone.
+
+Targets: Clio, Filevine, SmartAdvocate.
+
+---
+
 ## Still open
 
 - **Case closure** — retention, export to the firm file, the client's copy, the billing event.
 - **Proving attorney presence** — minimum touch cadence, and how we evidence it.
-- **CMS sync** — which streams sync, and how Stream 2 stays severable inside Clio or Filevine.
+- **Quarantine posture** — whether the quarantine store is itself protected. Needs counsel before the pilot.
 - **Unit economics under load** — `$149` flat assumes light usage; model the deeply-engaged client and voice transcription.
+- **Disbursement pass-through** — case cost vs. overhead is a state-rules question, not a positioning choice.
 - **Rule 1.4 expectations** — response-time expectations set explicitly at onboarding.
 
 ---

@@ -209,13 +209,22 @@ to the defense. *"I only looked down for a second"* ends the case — inside a s
 record the firm built on purpose. Liability facts already live in attorney-controlled places:
 the police report, intake, the deposition.
 
-The non-obvious consequence: because the log is immutable, a liability statement that arrives
-**cannot be removed** — deletion is spoliation, and deleting inside a tamper-evident chain makes
-the deletion provable. **Prevention is the only control that exists.** So the prompt library must
-never open a liability door, and PIRRA never opens with or returns to how the injury happened —
-the most natural rapport move in human conversation, designed out entirely. When liability
-content arrives anyway: capture, don't pursue, don't answer, quarantine, flag to the attorney
-immediately.
+The non-obvious consequence: because the log is immutable, a liability statement that lands in
+Tier 1 **cannot be removed** — deletion is spoliation, and deleting inside a tamper-evident chain
+makes the deletion provable.
+
+So **classification happens before the write, not after it.** The Liability Containment Engine is
+a real-time gate on the write path: liability content routes to a quarantine store and never
+enters Tier 1 at all, which means producing the record does not produce the admission. Quarantine
+is routing rather than deletion — the message stays immutable and hash-chained, just outside the
+stream with an egress path, so there is no spoliation exposure. False negatives are unrecoverable;
+false positives are cheap and attorney-reversible, so the classifier tunes aggressively toward
+over-quarantine, and every quarantine raises an immediate attorney flag.
+
+This is the primary technical IP — the piece nobody else in the category has to build, because
+nobody else is producing evidence. The prompt library carries the other half: PIRRA never opens
+with or returns to how the injury happened, the most natural rapport move in human conversation,
+designed out entirely.
 
 Voice is the highest-risk channel here. An SMS turn has a gate between messages; a live call does
 not, and a client on the phone volunteers causation within thirty seconds.
@@ -294,6 +303,28 @@ Sales leads with **case preservation** (catch the treatment gap before the adjus
 saved case pays for PIRRA across a whole caseload) plus **evidence production** (exhibits that
 move settlement value).
 
+### 8.1 What a pilot can and cannot prove
+
+**Settlement lift is not measurable** — not difficult, structurally unavailable. There is no
+counterfactual: a case cannot be settled twice, and cases differ by injury, venue, adjuster,
+policy limits, and defense counsel. A control group would require deliberately under-documenting
+a cohort of real injured plaintiffs, which is a malpractice and ethics problem rather than a
+study design. A pilot designed around settlement lift produces numbers that cannot be published
+or defended, and that would violate the no-outcome-promises rule if they were.
+
+Defensible KPIs: **engagement retention** (% still responding at month 1 / 3 / 6 — the largest
+execution risk in the product); **exhibit acceptance** (% of generated exhibits an attorney
+actually sends with a demand — the truest signal of value, since exhibits generated and never
+used mean nothing else matters); **gap detection** (count of treatment gaps flagged, with
+attorney confirmation the gap was material); **time saved** (paralegal hours to assemble the
+pain-and-suffering section versus baseline); and **flag acknowledgment latency**, already
+required for the SLA.
+
+Two design requirements follow and are easy to miss. A 90-day pilot **cannot** measure month-6
+retention — either it runs longer, or it measures the month-1-to-3 curve as a leading indicator.
+And time-saved **requires a week-zero baseline**, instrumented before PIRRA is switched on;
+skip it and the metric is unrecoverable.
+
 ---
 
 ## 9. Regulatory surface
@@ -347,8 +378,13 @@ Listed honestly, because these are what a good outside read should attack.
 **Unresolved**
 - Case closure: retention, export to the firm file, the client's copy, and the billing event
   after settlement. Immutability governs during representation; after is unwritten.
-- How Tier 2 stays severable once data syncs into Clio or Filevine.
+- Whether the quarantine store is itself protected. The underlying facts are discoverable
+  regardless — via deposition of the client — but the store needs a stated posture before pilot.
 - How to evidence the attorney's minimum touch cadence.
+
+*Tier 2 severability inside a case-management system is resolved: the connector physically lacks
+a Tier 2 endpoint. Only finalized Tier 1 exhibit PDFs and administrative milestones sync out —
+and not `flag raised`, since the existence and timing of a flag is itself work product.*
 
 ---
 
