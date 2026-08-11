@@ -15,6 +15,7 @@ it into court-ready exhibits with every fact traced back to the message it came 
 
 | Doc | What it is |
 |---|---|
+| [`docs/OVERVIEW.md`](docs/OVERVIEW.md) | Self-contained summary of the entire plan — problem, product, market, legal architecture, business model, and open risks. Written to be read cold, or handed to an outside reviewer. |
 | [`docs/system-map.md`](docs/system-map.md) | **Start here.** Actors, lifecycle, the three storage streams, the liability boundary, and the build target. |
 | [`docs/system-map.html`](docs/system-map.html) | Same map, rendered with full diagrams. |
 | [`docs/decisions/0001`](docs/decisions/0001-evidence-privilege-and-scope.md) | The decisions that shaped it — evidence posture, privilege theory, scope boundaries. Supersedes conflicting parts of the source docs. |
