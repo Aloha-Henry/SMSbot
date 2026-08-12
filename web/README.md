@@ -22,6 +22,16 @@ Vercel detects Next.js and serves the static build with no settings to change.
    because the repo root is docs, not the app
 3. Deploy
 
+> **If you skip step 2, the deploy still goes green — and every page 404s.**
+>
+> Vercel finds no `package.json` at the repo root, falls back to serving the
+> directory as a static site, finds no `index.html`, and returns
+> `404: NOT_FOUND`. The build genuinely succeeded; it just built nothing.
+>
+> Fix: Settings → Build and Deployment → Root Directory → `web` → Save, then
+> Deployments → latest → ⋯ → **Redeploy**. Changing the setting does not
+> rebuild on its own.
+
 Every push to the branch then auto-deploys, and each PR gets its own preview URL.
 
 ## Editing copy

@@ -139,6 +139,13 @@
   .msg.hl .bub { box-shadow: 0 0 0 3px var(--egress); }
   .qnote { font-family: var(--mono); font-size: 10px; color: var(--danger); margin-top: 5px; line-height: 1.5; }
 
+  /* ── media ── */
+  .photo { margin-top: 8px; border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; background: var(--surface-2); max-width: 210px; }
+  .photo svg { display: block; width: 100%; height: auto; }
+  .photo .cap { font-family: var(--mono); font-size: 9px; letter-spacing: .07em; color: var(--ink-faint); padding: 5px 7px; border-top: 1px solid var(--rule); }
+  .msg.quarantined .photo { border-color: var(--danger); border-style: dashed; }
+  .elect { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 9.5px; letter-spacing: .07em; color: var(--ok); border: 1px solid var(--ok); border-radius: 2px; padding: 2px 7px; }
+
   .composer { border-top: 1px solid var(--rule); padding: 12px 16px; display: flex; gap: 9px; align-items: center; flex-wrap: wrap; }
   .composer input { flex: 1; min-width: 180px; padding: 8px 11px; border: 1px solid var(--rule); border-radius: 3px; background: var(--paper); color: var(--ink); font: inherit; }
   .btn { padding: 8px 14px; border: 1px solid var(--accent); background: var(--accent); color: var(--paper); border-radius: 3px; font-size: 13px; font-weight: 500; }
@@ -260,6 +267,12 @@
         <p class="kick">SURFACE 02</p>
         <h1>Sample Client A <span style="font-family:var(--mono);font-size:12px;color:var(--ink-faint)">· PI-2026-0417</span></h1>
         <p>Timeline built from the client's own words. Every entry is tagged by hearsay posture at capture time and clicks through to the exact message it came from.</p>
+        <p style="margin-top:10px">
+          <span class="elect">&#10003; PHOTO CAPTURE — ATTORNEY-ELECTED FOR THIS CASE</span>
+          <span style="font-family:var(--mono);font-size:10.5px;color:var(--ink-faint);margin-left:10px">
+            off by default · set at protocol authorization · location metadata stripped at ingest
+          </span>
+        </p>
       </div>
 
       <div class="card">
@@ -366,9 +379,11 @@
     { id:"M-0001", wk:1,  who:"PIRRA",    stream:"s1", t:"Hi — this is PIRRA, an AI assistant provided by your legal team. I'll check in now and then about how you're feeling and how recovery is going. Your legal team reads these. The other side may see them too, so please be straight with me — including the good days. Anything about how the accident happened, save that for your legal team, not here. If it's ever an emergency, call 911." },
     { id:"M-0014", wk:2,  who:"PIRRA",    stream:"s1", t:"How's the pain right now, 0 to 10?" },
     { id:"M-0015", wk:2,  who:"Client",   stream:"s1", t:"About an 8. Can't turn my head to back out of the driveway." },
+    { id:"M-0031", wk:3,  who:"Client",   stream:"s1", t:"Sending a picture of the bruising I mentioned — it's spread down to the shoulder blade.", media:"INJURY · WK 03 · LOCATION STRIPPED AT INGEST" },
     { id:"M-0038", wk:5,  who:"Client",   stream:"s1", t:"Had to skip PT twice this week, couldn't get a ride." },
     { id:"M-0041", wk:6,  who:"PIRRA",    stream:"s1", t:"What can't you do today that you could before?" },
     { id:"M-0042", wk:6,  who:"Client",   stream:"s1", t:"Can't pick up my daughter. She's 4 and she doesn't understand why." },
+    { id:"M-0059", wk:7,  who:"Client",   stream:"q",  t:"Here's what the intersection looks like — you can see how bad the sightline is from that direction.", media:"SCENE PHOTO · CLASSIFIED AS LIABILITY · NOT IN STREAM 1", q:true },
     { id:"M-0067", wk:8,  who:"Client",   stream:"q",  t:"I keep going over it — I was reaching for my phone right before it happened, maybe if I hadn't…", q:true },
     { id:"M-0068", wk:8,  who:"PIRRA",    stream:"s1", t:"That's one for your legal team — send it to them directly and we'll leave it there. Back to today: how's the pain right now?" },
     { id:"M-0071", wk:8,  who:"Client",   stream:"s1", t:"Bad. 9. Flared up after I tried carrying groceries." },
@@ -379,6 +394,7 @@
 
   var TIMELINE = [
     { wk:2,  q:"About an 8. Can't turn my head to back out of the driveway.", p:"PRESENT-CONDITION", ref:"M-0015" },
+    { wk:3,  q:"Sending a picture of the bruising I mentioned — it's spread down to the shoulder blade.", p:"PRESENT-CONDITION", ref:"M-0031", photo:true },
     { wk:5,  q:"Had to skip PT twice this week, couldn't get a ride.",        p:"PAST-RECOLLECTION", ref:"M-0038" },
     { wk:6,  q:"Can't pick up my daughter. She's 4 and she doesn't understand why.", p:"PRESENT-CONDITION", ref:"M-0042" },
     { wk:8,  q:"Bad. 9. Flared up after I tried carrying groceries.",          p:"PRESENT-CONDITION", ref:"M-0071" },
@@ -393,6 +409,9 @@
     { id:"F2", tier:"ev", t:"Account inconsistency", sla:"24h · 6h left",
       d:"Week 8 flare-up attributed to carrying groceries; week 5 entry reports inability to lift over 10 lbs. May be ordinary variation, may need addressing before deposition.",
       ref:"M-0071", done:false },
+    { id:"F4", tier:"ev", t:"Scene image quarantined", sla:"4h · 2h left",
+      d:"Client submitted a photograph of the collision intersection at week 7. Image classifier caught it pre-commit and routed it to quarantine — never written to Stream 1. Location metadata was stripped at ingest per the photo protocol. Requires attorney review.",
+      ref:"M-0059", done:false },
     { id:"F3", tier:"op", t:"Treatment gap — 2 missed PT sessions", sla:null,
       d:"Two consecutive missed physical therapy appointments at week 5, transport-related. Surfaced before it becomes a defense argument about care delay.",
       ref:"M-0038", done:false }
@@ -465,6 +484,7 @@
       var tags = el("div", "tags");
       tags.appendChild(el("span", "b " + (t.p === "PRESENT-CONDITION" ? "b-ok" : "b-mut"), t.p));
       tags.appendChild(el("span", "b b-s1", "STREAM 1"));
+      if (t.photo) tags.appendChild(el("span", "b b-ok", "PHOTO ATTACHED"));
       var lk = el("button", "lnk", t.ref + " ↗");
       lk.addEventListener("click", function () { jump(t.ref); });
       tags.appendChild(lk);
@@ -473,6 +493,22 @@
       ul.appendChild(li);
     });
   })();
+
+  // Placeholder stand-in for client-submitted imagery. Deliberately abstract —
+  // never ship anything here that could read as a real photograph of a person.
+  function photoNode(caption) {
+    var w = el("div", "photo");
+    w.innerHTML =
+      '<svg viewBox="0 0 210 128" role="img" aria-label="Abstract placeholder standing in for a client-submitted photograph.">' +
+      '<rect width="210" height="128" fill="var(--surface-3)"/>' +
+      '<circle cx="150" cy="42" r="24" fill="var(--rule)" opacity=".8"/>' +
+      '<path d="M0 128 L62 62 L112 128 Z" fill="var(--rule)"/>' +
+      '<path d="M92 128 L142 74 L210 128 Z" fill="var(--rule)" opacity=".65"/>' +
+      '<text x="105" y="70" text-anchor="middle" style="font:500 9px var(--mono);fill:var(--ink-faint);letter-spacing:.1em">PLACEHOLDER</text>' +
+      "</svg>";
+    w.appendChild(el("div", "cap", caption));
+    return w;
+  }
 
   // ── thread ─────────────────────────────────────────────────────────────
   function renderThread() {
@@ -487,7 +523,10 @@
       who.appendChild(el("span", "b " + badge[0], badge[1]));
       d.appendChild(who);
       d.appendChild(el("div", "bub", m.t));
-      if (m.q) d.appendChild(el("div", "qnote", "Classified pre-commit. Never written to Stream 1 — producing the record cannot produce this. Immutable in quarantine; attorney notified."));
+      if (m.media) d.appendChild(photoNode(m.media));
+      if (m.q) d.appendChild(el("div", "qnote", m.media
+        ? "Image classifier flagged this pre-commit. Never written to Stream 1 — producing the record cannot produce it. Immutable in quarantine; attorney notified."
+        : "Classified pre-commit. Never written to Stream 1 — producing the record cannot produce this. Immutable in quarantine; attorney notified."));
       d.appendChild(el("div", "ref", m.id));
       box.appendChild(d);
     });
@@ -577,6 +616,7 @@
       var lk = el("button", "lnk", "week " + t.wk + " · " + t.ref + " ↗");
       lk.addEventListener("click", function () { jump(t.ref); });
       q.appendChild(lk);
+      if (t.photo) q.appendChild(photoNode("EXHIBIT PLATE " + t.wk + " · SOURCE " + t.ref));
       ex.appendChild(q);
     });
     var ig = el("div", "integrity");

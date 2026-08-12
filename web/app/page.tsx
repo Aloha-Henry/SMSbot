@@ -13,6 +13,7 @@ import {
   pricing,
   forWhom,
   pilot,
+  roadmap,
   footer,
 } from "@/content/copy";
 
@@ -230,6 +231,23 @@ export default function Home() {
           <p className={eyebrow}>SCOPE</p>
           <h2 className={`${h2} mt-4`}>{forWhom.headline}</h2>
           <p className={`mt-6 ${prose} ${bodyText}`}>{forWhom.body}</p>
+        </Section>
+
+        {/* ── I.5 · Roadmap — NOT a shipping feature, keep future-tense ─ */}
+        <Section tone="alt">
+          <div className="max-w-[74ch] border border-rule bg-paper p-7 sm:p-9">
+            <p className="font-mono text-[11px] tracking-[0.13em] text-ink-faint">
+              {roadmap.eyebrow}
+            </p>
+            <h2 className="mt-4 font-serif text-[25px] leading-tight font-semibold sm:text-[31px]">
+              {roadmap.headline}
+            </h2>
+            <p className={`mt-5 ${bodyText}`}>{roadmap.body}</p>
+            <p className="mt-5 text-[15px] leading-relaxed text-ink-soft">{roadmap.election}</p>
+            <p className="mt-6 border-t border-rule pt-4 font-mono text-[11.5px] leading-relaxed text-ink-faint">
+              {roadmap.status}
+            </p>
+          </div>
         </Section>
 
         {/* ── J · The pilot ask ────────────────────────────────────── */}

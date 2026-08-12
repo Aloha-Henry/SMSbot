@@ -138,6 +138,19 @@ export const forWhom = {
   body: "PIRRA does exactly one thing: get truthful, structured, court-ready recovery evidence out of an injured client through text, under your direction. It doesn't do intake. It doesn't answer your phones. It doesn't write your demand. It hands the pain-and-suffering section — sourced and exhibit-ready — to whatever you already use. If you believe in injury journals but your clients never keep them, PIRRA is the version that actually works.",
 } as const;
 
+// NOT A SHIPPING FEATURE. This block describes work in development and must
+// stay unmistakably future-tense on the page — brief §0.3 and §8 forbid
+// presenting anything unbuilt as available. Keep the status line.
+export const roadmap = {
+  eyebrow: "IN DEVELOPMENT",
+  headline: "Photographs, when the case calls for it.",
+  body: "Visual evidence anchored to the record — a photo attached to the day your client described it, carrying the same timestamp, the same log reference, and the same discipline as the text around it. Not a highlight reel: a photograph becomes one more dated entry in a record that still includes the good days, because a curated set of worst moments is the uncontrolled diary all over again.",
+  election:
+    "Attorney-elected per case and off by default, set where you authorize the conversation protocol. Location metadata is stripped before anything is written. Images touching how the injury happened are held back the same way text is.",
+  status:
+    "In development. Not part of the pilot, and not included in the $149 price.",
+} as const;
+
 export const pilot = {
   headline: "We're running a small pilot. We want firms that will actually use it.",
   body: "We're taking a handful of plaintiff firms into a structured pilot: real clients, real cases, clear go/kill criteria. If you've ever wished your clients' recovery showed up as evidence instead of a memory, tell us about your firm and we'll be in touch.",
