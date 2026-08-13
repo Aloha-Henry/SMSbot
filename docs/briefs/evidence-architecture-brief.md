@@ -123,10 +123,32 @@ telling a client the defense may read it suppress the candor the whole thing run
 
 ---
 
+**7. Does the vendor business-record theory survive a per-case protocol?** Rather than have the
+claimant certify their own record, we make the platform operator the certifying party: the log is
+the vendor's record of its regularly conducted activity, self-authenticating under 902(11) and its
+state analogues, with the certification speaking only to system operation. That's meant to sidestep
+*Palmer v. Hoffman* — it isn't the claimant building evidence for their own case.
+
+But the theory depends on the record-keeping being uniform and routine across all users, and our
+privilege architecture depends on counsel authorizing a **bespoke conversation protocol per case**.
+A defense lawyer says: counsel designed the questions for this litigation, so the record was
+prepared for this litigation. My intended answer is that the *record-keeping function* is uniform —
+format, cadence engine, retention, hash chain — while *topic authorization* is separate work
+product the vendor never certifies. **Does that separation hold, or am I splitting a hair a judge
+won't split?**
+
+**8. In a state that never adopted 801(d)(1)(B)(ii), does anything carry past-recollection
+material?** Most of these cases are state court. If a state has only the pre-2014 rule, the
+pre-motive prong is the only one available — and per item 1, that prong may be closed to us
+entirely. Is there something I'm not seeing for "I couldn't sleep last night" in those
+jurisdictions, or does that category simply not come in?
+
+---
+
 ## 5. What I'd find most useful
 
-Not a memo. Just your instinct on which of the six above is the one that actually kills it, and
-whether there's a seventh I haven't seen. If the answer is "the necessity prong means you should
+Not a memo. Just your instinct on which of the eight above is the one that actually kills it, and
+whether there's a ninth I haven't seen. If the answer is "the necessity prong means you should
 stop claiming any privilege anywhere," I'd rather hear that now.
 
 *Nothing here is legal advice or a request for representation, and none of these positions has been
