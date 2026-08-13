@@ -33,10 +33,14 @@ export const hero = {
     "Recovery doesn't happen in doctor's offices. Now you have the record that proves it.",
   subhead:
     "PIRRA turns your client's recovery into court-ready exhibits — captured through natural text messages, structured to evidence standards, every fact traceable to the moment your client said it.",
+  // Deliberately NOT leading with federal rule numbers. PI cases are
+  // overwhelmingly state court, and FRE 902(13)–(14) — adopted 2017 — are not
+  // widely adopted at state level. Federal-only cites in the most-read line on
+  // the page signal that we don't know where the reader's cases are heard.
+  // Specific citations live in section E where there's room for context.
   trust: [
-    "Built on FRE 803(3)",
-    "902(13)–(14)",
-    "1006",
+    "Certified as a business record",
+    "Built to your state's rules of evidence",
     "Attorney-directed",
     "Works with any case-management system",
   ],
@@ -96,9 +100,31 @@ export const how = {
 
 export const holds = {
   headline: "Built to be shown, not hidden.",
-  body: "Most client-recovery data is a liability because it's unstructured and incomplete. PIRRA is architected as evidence from the first message. The structured log is contemporaneous (FRE 803(3)), cryptographically hash-chained and independently timestamped so it's tamper-evident and self-authenticating (FRE 902(13)–(14)), and exportable as summary exhibits over records that remain available for inspection (FRE 1006).",
+  subhead: "Your cases are tried under your state's rules. So is the record.",
+  body: "Most client-recovery data is a liability because it's unstructured and incomplete. PIRRA is architected as evidence from the first message — a contemporaneous, tamper-evident log that is designed to be produced and to hold up when it is.",
+
+  pillars: [
+    {
+      title: "It isn't your client's journal. It's our business record.",
+      body: "An injury journal is a document your client created for their own case, and the defense will say exactly that. PIRRA's log is our record of our own routine operations, which happens to contain your client's words. We certify it — the way any vendor certifies records it keeps in the ordinary course. Your client never has to authenticate their own evidence.",
+    },
+    {
+      title: "Built for state court, because that's where your cases are.",
+      body: "The federal self-authentication rules most evidence tech cites were added in 2017, and most states never followed. The certified-business-record rule is the one your state actually has, and has had for years. That is the rule PIRRA is built to — with the federal provisions as a supplement where they're available, not as the foundation.",
+    },
+    {
+      title: "Jurisdiction is set when you authorize the case.",
+      body: "The certification, the notice packet, and the rules cited on the exhibit all follow it. And the notice packet is generated alongside the exhibit, because a certification nobody remembers to serve does nothing at all.",
+    },
+    {
+      title: "Every entry is tagged at capture.",
+      body: "What your client felt in that moment, what they described right after it happened, what they recalled later — those three carry differently, and sorting them at demand time is exactly the work nobody has time for. PIRRA tags each entry when it arrives.",
+    },
+  ],
+
   callout:
-    "Every record is cryptographically hash-chained and independently timestamped — tamper-evident and self-authenticating under FRE 902(14) — without putting any client data on a blockchain.",
+    "Every record is cryptographically hash-chained and independently timestamped — tamper-evident and certified as a record kept in the ordinary course, without putting any client data on a blockchain.",
+
   columns: [
     {
       title: "Shield by default.",
@@ -109,6 +135,12 @@ export const holds = {
       body: "When you're ready, the same record becomes the exhibit that moves the number.",
     },
   ],
+
+  // Required honesty line. We have surveyed a small number of jurisdictions.
+  // Never imply completed 50-state coverage — say what is true and invite the
+  // conversation instead.
+  honesty:
+    "We're mapping jurisdictions one at a time — the rules, the certification language, and the notice mechanics differ in every one, and we'd rather do it properly than claim a map we don't have. Tell us where you practice and we'll tell you straight where yours stands.",
 } as const;
 
 export const protects = {
