@@ -135,10 +135,18 @@ export default function Home() {
 
           <div className="mt-11 grid gap-px border border-rule bg-rule sm:grid-cols-3">
             {output.cards.map((c) => (
-              <a key={c.title} href="#provenance" className="bg-paper p-6">
+              <div key={c.title} className="flex flex-col bg-paper p-6">
                 <h3 className="font-serif text-[19px] font-semibold leading-snug">{c.title}</h3>
-                <p className="mt-3 text-[15px] leading-relaxed text-ink-soft">{c.body}</p>
-              </a>
+                <p className="mt-3 flex-1 text-[15px] leading-relaxed text-ink-soft">{c.body}</p>
+                <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-[13.5px] font-medium">
+                  <a href={c.href} className="border-b border-accent pb-0.5 text-accent">
+                    {output.sampleLink} &rarr;
+                  </a>
+                  <a href="#provenance" className="text-ink-faint">
+                    {output.centerpieceLink} &darr;
+                  </a>
+                </div>
+              </div>
             ))}
           </div>
 
@@ -216,6 +224,11 @@ export default function Home() {
           </p>
 
           <p className={`mt-9 max-w-[68ch] ${bodyText}`}>{holds.jurisdiction}</p>
+
+          <p className="mt-7 flex flex-wrap items-baseline gap-x-4 gap-y-1">
+            <TextLink href={holds.certLink.href}>{holds.certLink.label} &rarr;</TextLink>
+            <span className="text-[14px] text-ink-soft">{holds.certLink.note}</span>
+          </p>
 
           <div className="mt-11 grid max-w-3xl gap-8 sm:grid-cols-2">
             {holds.columns.map((c) => (
@@ -330,7 +343,7 @@ export default function Home() {
                 Workbench prototype
               </a>
               <a href={cta.secondaryHref} className="text-accent">
-                Sample exhibit
+                Sample exhibits
               </a>
               {/* TODO: replace with the real contact address */}
               <a href={footer.contact} className="text-accent">

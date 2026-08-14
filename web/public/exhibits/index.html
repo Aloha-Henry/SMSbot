@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Sample exhibits — PIRRA</title>
+<style>
+:root{
+  --paper:#FAFAF7; --surface:#fff; --surface-2:#F2F1EA;
+  --ink:#14161A; --ink-soft:#4C525C; --ink-faint:#7D838D; --rule:#E3E1D8;
+  --accent:#0E4F52; --accent-wash:#E2ECEC; --flag:#8A5A2B;
+  --serif:Charter,"Bitstream Charter","Sitka Text",Cambria,Georgia,"Times New Roman",serif;
+  --sans:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,"Cascadia Mono",Consolas,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);
+     font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+.bar{background:var(--accent);color:var(--paper);font-family:var(--mono);font-size:10.5px;
+     letter-spacing:.09em;padding:7px 18px;display:flex;justify-content:space-between;
+     gap:14px;flex-wrap:wrap;align-items:center}
+.bar a{color:var(--paper);text-decoration:none;border-bottom:1px solid rgba(250,250,247,.5)}
+.bar button{font:inherit;color:inherit;background:none;border:1px solid rgba(250,250,247,.55);
+            border-radius:2px;padding:2px 9px;cursor:pointer}
+
+.sheet{max-width:760px;margin:26px auto 70px;background:var(--surface);
+       border:1px solid var(--rule);padding:44px 48px 40px}
+
+.exh-head{border-bottom:2px solid var(--ink);padding-bottom:14px;margin-bottom:26px}
+.exh-head .kicker{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--ink-faint)}
+.exh-head h1{font-size:25px;font-weight:600;letter-spacing:-.01em;margin:7px 0 6px;line-height:1.15}
+.exh-head .meta{font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;color:var(--ink-soft);
+                display:flex;gap:6px 18px;flex-wrap:wrap}
+
+h2{font-size:15.5px;font-weight:600;margin:30px 0 10px;padding-bottom:5px;border-bottom:1px solid var(--rule)}
+h2:first-of-type{margin-top:0}
+p{margin:0 0 12px}
+.small{font-family:var(--mono);font-size:10.5px;line-height:1.7;color:var(--ink-faint)}
+
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);
+       border:1px solid var(--rule);margin:0 0 22px}
+.tile{background:var(--surface);padding:13px 14px}
+.tile .v{font-size:17px;font-weight:600;line-height:1.2;display:block}
+.tile .l{font-family:var(--mono);font-size:9px;letter-spacing:.08em;color:var(--ink-faint);
+         margin-top:4px;display:block}
+
+table{width:100%;border-collapse:collapse;font-size:13.5px;margin:0 0 14px}
+th{font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;font-weight:500;color:var(--ink-soft);
+   text-align:left;padding:7px 10px;background:var(--surface-2);border-bottom:1px solid var(--rule)}
+td{padding:8px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+td.ref,td.dt{font-family:var(--mono);font-size:10.5px;color:var(--ink-faint);white-space:nowrap}
+
+blockquote{margin:0 0 14px;padding-left:14px;border-left:2px solid var(--rule);font-size:15px}
+blockquote .src{display:block;font-family:var(--mono);font-size:9.5px;color:var(--ink-faint);margin-top:4px}
+
+.integrity{margin-top:24px;border:1px solid var(--accent);background:var(--accent-wash);
+           padding:14px 16px;font-family:var(--mono);font-size:10px;line-height:1.8;color:var(--ink-soft)}
+.integrity b{color:var(--ink);letter-spacing:.08em}
+
+.pathway{margin-top:16px;border-left:3px solid var(--flag);background:#FBF4EA;padding:12px 15px}
+.pathway .h{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;color:var(--flag);display:block;margin-bottom:5px}
+.pathway p{margin:0;font-size:13.5px;color:var(--ink-soft)}
+.pathway p+p{margin-top:7px}
+
+.decl{font-size:14.5px}
+.decl ol{padding-left:20px;margin:0 0 14px}
+.decl li{margin-bottom:9px}
+.sig{margin-top:30px;border-top:1px solid var(--rule);padding-top:18px;
+     display:grid;grid-template-columns:1fr 200px;gap:22px;align-items:end}
+.sig .line{border-bottom:1px solid var(--ink);height:26px}
+.sig .cap{font-family:var(--mono);font-size:9.5px;color:var(--ink-faint);margin-top:5px}
+
+.state{display:flex;flex-wrap:wrap;gap:5px;margin:0 0 14px}
+.state span{font-family:var(--mono);font-size:9px;letter-spacing:.06em;padding:3px 8px;
+            border:1px solid var(--rule);border-radius:2px;color:var(--ink-faint)}
+.state span.on{border-color:var(--accent);background:var(--accent-wash);color:var(--accent);font-weight:600}
+.state span.next{border-style:dashed}
+
+.foot{margin-top:34px;border-top:1px solid var(--rule);padding-top:14px;
+      font-family:var(--mono);font-size:9.5px;line-height:1.8;color:var(--ink-faint)}
+
+.idx{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.idx a{background:var(--surface);padding:18px 20px;text-decoration:none;color:inherit;display:block}
+.idx a:hover{background:var(--surface-2)}
+.idx .t{font-size:17px;font-weight:600;display:block}
+.idx .d{font-size:13.5px;color:var(--ink-soft);margin-top:5px;display:block}
+.idx .r{font-family:var(--mono);font-size:9.5px;letter-spacing:.07em;color:var(--accent);margin-top:9px;display:block}
+
+@media (max-width:680px){
+  .sheet{margin:14px 12px 50px;padding:26px 20px}
+  .tiles{grid-template-columns:1fr}
+  .sig{grid-template-columns:1fr}
+}
+@media print{
+  .bar{display:none}
+  body{background:#fff;font-size:10.5pt;line-height:1.4}
+  .sheet{max-width:none;margin:0;border:0;padding:0}
+  h2{margin-top:18px}
+  .integrity,.pathway,table,blockquote{page-break-inside:avoid}
+  a{color:#000;text-decoration:none}
+}
+</style>
+</head><body>
+<div class="bar">
+  <span>SAMPLE EXHIBIT — ILLUSTRATIVE ONLY · NOT A REAL CLIENT FILE</span>
+  <span style="display:flex;gap:14px;align-items:center">
+    <a href="/exhibits/">All samples</a>
+    <button type="button" onclick="window.print()">Print / Save as PDF</button>
+  </span>
+</div>
+<div class="sheet">
+<div class="exh-head">
+  <div class="kicker">SAMPLES</div>
+  <h1>Sample exhibits</h1>
+  <div class="meta"><span>Maria S. (sample)</span> <span>All content synthetic</span> <span>Print any of these to PDF</span></div>
+</div>
+<p>These are the documents PIRRA produces from the record. Every figure is invented — there is no
+real client, firm, provider or date anywhere in them. They are here so a firm can judge the output
+before judging the pitch.</p>
+<p class="small" style="margin-bottom:22px">Each is print-first: use Print / Save as PDF for the
+version you would actually attach.</p>
+<div class="idx">
+<a href="/exhibits/demand-packet/"><span class="t">Demand-packet exhibit</span><span class="d">The two-page document that attaches to a demand: functional-impact curve, category breakdown, verbatim excerpts with log references, and an integrity block.</span><span class="r">4 SECTIONS · PRINTS TO 2 PAGES &rarr;</span></a><a href="/exhibits/recovery-curve/"><span class="t">Recovery-curve summary chart</span><span class="d">Pain and function over time against treatment milestones, with the flare-up marked and the care gap shown rather than smoothed — plus the table of what the chart was built from.</span><span class="r">SUMMARY OVER AN INSPECTABLE SUBSTRATE &rarr;</span></a><a href="/exhibits/depo-log/"><span class="t">Deposition-preparation log</span><span class="d">The contemporaneous record organized for witness prep, including a section listing the entries that cut against the claim. Built on the assumption it will be produced.</span><span class="r">INCLUDES ADVERSE ENTRIES &rarr;</span></a><a href="/exhibits/certification/"><span class="t">Custodian certification</span><span class="d">The declaration that authenticates the log as the platform's own routine record — speaking to system operation only, never to the claim. With the reliability controls and notice state.</span><span class="r">902(11)-MODE · NOTICE STATE MACHINE &rarr;</span></a>
+</div>
+<div class="foot">
+PIRRA is a legal-team support tool for law firms. It is not a law firm, does not provide legal or
+medical advice, and does not guarantee any legal outcome, including that any communication will be
+treated as privileged. Evidence-rule architecture described here is designed to support, not
+guarantee, privilege and admissibility, and is subject to review by counsel in each jurisdiction.<br>
+Every figure in this document is synthetic. Client, firm, providers and dates are invented.
+</div>
+</div>
+</body></html>

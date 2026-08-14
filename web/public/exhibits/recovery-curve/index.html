@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Recovery-curve summary chart — PIRRA (sample)</title>
+<style>
+:root{
+  --paper:#FAFAF7; --surface:#fff; --surface-2:#F2F1EA;
+  --ink:#14161A; --ink-soft:#4C525C; --ink-faint:#7D838D; --rule:#E3E1D8;
+  --accent:#0E4F52; --accent-wash:#E2ECEC; --flag:#8A5A2B;
+  --serif:Charter,"Bitstream Charter","Sitka Text",Cambria,Georgia,"Times New Roman",serif;
+  --sans:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,"Cascadia Mono",Consolas,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);
+     font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+.bar{background:var(--accent);color:var(--paper);font-family:var(--mono);font-size:10.5px;
+     letter-spacing:.09em;padding:7px 18px;display:flex;justify-content:space-between;
+     gap:14px;flex-wrap:wrap;align-items:center}
+.bar a{color:var(--paper);text-decoration:none;border-bottom:1px solid rgba(250,250,247,.5)}
+.bar button{font:inherit;color:inherit;background:none;border:1px solid rgba(250,250,247,.55);
+            border-radius:2px;padding:2px 9px;cursor:pointer}
+
+.sheet{max-width:760px;margin:26px auto 70px;background:var(--surface);
+       border:1px solid var(--rule);padding:44px 48px 40px}
+
+.exh-head{border-bottom:2px solid var(--ink);padding-bottom:14px;margin-bottom:26px}
+.exh-head .kicker{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--ink-faint)}
+.exh-head h1{font-size:25px;font-weight:600;letter-spacing:-.01em;margin:7px 0 6px;line-height:1.15}
+.exh-head .meta{font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;color:var(--ink-soft);
+                display:flex;gap:6px 18px;flex-wrap:wrap}
+
+h2{font-size:15.5px;font-weight:600;margin:30px 0 10px;padding-bottom:5px;border-bottom:1px solid var(--rule)}
+h2:first-of-type{margin-top:0}
+p{margin:0 0 12px}
+.small{font-family:var(--mono);font-size:10.5px;line-height:1.7;color:var(--ink-faint)}
+
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);
+       border:1px solid var(--rule);margin:0 0 22px}
+.tile{background:var(--surface);padding:13px 14px}
+.tile .v{font-size:17px;font-weight:600;line-height:1.2;display:block}
+.tile .l{font-family:var(--mono);font-size:9px;letter-spacing:.08em;color:var(--ink-faint);
+         margin-top:4px;display:block}
+
+table{width:100%;border-collapse:collapse;font-size:13.5px;margin:0 0 14px}
+th{font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;font-weight:500;color:var(--ink-soft);
+   text-align:left;padding:7px 10px;background:var(--surface-2);border-bottom:1px solid var(--rule)}
+td{padding:8px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+td.ref,td.dt{font-family:var(--mono);font-size:10.5px;color:var(--ink-faint);white-space:nowrap}
+
+blockquote{margin:0 0 14px;padding-left:14px;border-left:2px solid var(--rule);font-size:15px}
+blockquote .src{display:block;font-family:var(--mono);font-size:9.5px;color:var(--ink-faint);margin-top:4px}
+
+.integrity{margin-top:24px;border:1px solid var(--accent);background:var(--accent-wash);
+           padding:14px 16px;font-family:var(--mono);font-size:10px;line-height:1.8;color:var(--ink-soft)}
+.integrity b{color:var(--ink);letter-spacing:.08em}
+
+.pathway{margin-top:16px;border-left:3px solid var(--flag);background:#FBF4EA;padding:12px 15px}
+.pathway .h{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;color:var(--flag);display:block;margin-bottom:5px}
+.pathway p{margin:0;font-size:13.5px;color:var(--ink-soft)}
+.pathway p+p{margin-top:7px}
+
+.decl{font-size:14.5px}
+.decl ol{padding-left:20px;margin:0 0 14px}
+.decl li{margin-bottom:9px}
+.sig{margin-top:30px;border-top:1px solid var(--rule);padding-top:18px;
+     display:grid;grid-template-columns:1fr 200px;gap:22px;align-items:end}
+.sig .line{border-bottom:1px solid var(--ink);height:26px}
+.sig .cap{font-family:var(--mono);font-size:9.5px;color:var(--ink-faint);margin-top:5px}
+
+.state{display:flex;flex-wrap:wrap;gap:5px;margin:0 0 14px}
+.state span{font-family:var(--mono);font-size:9px;letter-spacing:.06em;padding:3px 8px;
+            border:1px solid var(--rule);border-radius:2px;color:var(--ink-faint)}
+.state span.on{border-color:var(--accent);background:var(--accent-wash);color:var(--accent);font-weight:600}
+.state span.next{border-style:dashed}
+
+.foot{margin-top:34px;border-top:1px solid var(--rule);padding-top:14px;
+      font-family:var(--mono);font-size:9.5px;line-height:1.8;color:var(--ink-faint)}
+
+.idx{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.idx a{background:var(--surface);padding:18px 20px;text-decoration:none;color:inherit;display:block}
+.idx a:hover{background:var(--surface-2)}
+.idx .t{font-size:17px;font-weight:600;display:block}
+.idx .d{font-size:13.5px;color:var(--ink-soft);margin-top:5px;display:block}
+.idx .r{font-family:var(--mono);font-size:9.5px;letter-spacing:.07em;color:var(--accent);margin-top:9px;display:block}
+
+@media (max-width:680px){
+  .sheet{margin:14px 12px 50px;padding:26px 20px}
+  .tiles{grid-template-columns:1fr}
+  .sig{grid-template-columns:1fr}
+}
+@media print{
+  .bar{display:none}
+  body{background:#fff;font-size:10.5pt;line-height:1.4}
+  .sheet{max-width:none;margin:0;border:0;padding:0}
+  h2{margin-top:18px}
+  .integrity,.pathway,table,blockquote{page-break-inside:avoid}
+  a{color:#000;text-decoration:none}
+}
+</style>
+</head><body>
+<div class="bar">
+  <span>SAMPLE EXHIBIT — ILLUSTRATIVE ONLY · NOT A REAL CLIENT FILE</span>
+  <span style="display:flex;gap:14px;align-items:center">
+    <a href="/exhibits/">All samples</a>
+    <button type="button" onclick="window.print()">Print / Save as PDF</button>
+  </span>
+</div>
+<div class="sheet"><div class="exh-head">
+  <div class="kicker">SUMMARY EXHIBIT</div>
+  <h1>Recovery Curve</h1>
+  <div class="meta"><span>Maria S. (sample)</span> <span>Period: Mar 3 – Aug 1</span> <span>Forum: California Superior Court</span></div>
+</div><h2>Reported pain and function against treatment milestones</h2><svg viewBox="0 0 660 210" role="img"
+  aria-label="Functional-impact curve, March through August. Reported pain declines overall with one flare-up spike in mid-May; reported function rises. A treatment gap in June is shown as a shaded band."
+  style="width:100%;height:auto;display:block;margin:0 0 6px">
+  <rect x="282" y="26" width="48" height="150" fill="var(--surface-2)"/>
+  <text x="306" y="20" text-anchor="middle" style="font:500 8.5px var(--mono);fill:var(--ink-faint)">GAP</text>
+  <line x1="66" y1="26" x2="66" y2="176" stroke="var(--rule)" stroke-dasharray="2 3"/><text x="66" y="20" text-anchor="middle" style="font:500 8.5px var(--mono);fill:var(--ink-faint)">PT begins</text><line x1="246" y1="26" x2="246" y2="176" stroke="var(--rule)" stroke-dasharray="2 3"/><text x="246" y="20" text-anchor="middle" style="font:500 8.5px var(--mono);fill:var(--ink-faint)">Flare-up</text><line x1="426" y1="26" x2="426" y2="176" stroke="var(--rule)" stroke-dasharray="2 3"/><text x="426" y="20" text-anchor="middle" style="font:500 8.5px var(--mono);fill:var(--ink-faint)">Imaging</text><line x1="570" y1="26" x2="570" y2="176" stroke="var(--rule)" stroke-dasharray="2 3"/><text x="570" y="20" text-anchor="middle" style="font:500 8.5px var(--mono);fill:var(--ink-faint)">PT ends</text>
+  <line x1="18" y1="176" x2="642" y2="176" stroke="var(--rule)"/>
+  <polyline fill="none" stroke="var(--accent)" stroke-width="2" points="18,44 66,58 114,74 162,86 210,92 246,42 282,88 330,96 378,104 426,110 474,118 522,126 570,132 618,138 642,142"/>
+  <polyline fill="none" stroke="var(--ink-faint)" stroke-width="1.6" stroke-dasharray="5 3" points="18,168 66,160 114,150 162,140 210,134 246,158 282,132 330,124 378,116 426,108 474,100 522,92 570,84 618,76 642,72"/>
+  <circle cx="246" cy="42" r="4" fill="#fff" stroke="var(--flag)" stroke-width="2"/>
+  <g style="font:400 8.5px var(--mono);fill:var(--ink-faint)">
+    <text x="18" y="192">MAR 3</text>
+    <text x="330" y="192" text-anchor="middle">MAY 26</text>
+    <text x="642" y="192" text-anchor="end">AUG 1</text>
+  </g>
+  <g style="font:500 8.5px var(--mono)">
+    <text x="18" y="208" fill="var(--accent)">— reported pain (0–10)</text>
+    <text x="200" y="208" fill="var(--ink-faint)">--- reported function (0–10)</text>
+    <text x="400" y="208" fill="var(--flag)">○ flare-up</text>
+  </g>
+</svg><p class="small">Plotted from 412 entries. Vertical rules mark treatment milestones drawn from the
+client's own reports; the shaded band is a documented care gap, shown rather than smoothed.</p>
+
+<h2>What the chart is built from</h2>
+<table>
+  <thead><tr><th>ELEMENT</th><th>SOURCE</th><th>ENTRIES</th></tr></thead>
+  <tbody>
+    <tr><td>Reported pain series</td><td>Client responses to present-condition prompts</td><td class="dt">212</td></tr>
+    <tr><td>Reported function series</td><td>Client responses to activity prompts</td><td class="dt">168</td></tr>
+    <tr><td>Treatment milestones</td><td>Client-reported appointments, corroborated against records</td><td class="dt">18</td></tr>
+    <tr><td>Flare-up marker</td><td>LOG-0289, client-initiated</td><td class="dt">1</td></tr>
+    <tr><td>Care gap band</td><td>Neutral non-response status codes, Jun 4 – Jun 13</td><td class="dt">9 days</td></tr>
+  </tbody>
+</table>
+
+<h2>Gap disclosure</h2>
+<p>One care gap of nine days appears in the reporting period. It is shown on the chart rather than
+interpolated. The gap was flagged to the legal team on the second day of non-response and resolved
+after contact; the acknowledgment is recorded in the case file.</p><div class="integrity">
+<b>RECORD INTEGRITY</b><br>
+412 entries · Mar 3 – Aug 1 · no entry removed or omitted<br>
+Append-only event store · SHA-256 hash chain, unbroken on last verification<br>
+Independent trusted timestamps (RFC 3161) · scheduled integrity job re-verifies against anchored digests<br>
+Complete record: good days and difficult days both included · non-response logged with neutral status codes<br>
+No client data placed on any blockchain.
+</div><div class="pathway"><span class="h">CANDIDATE EVIDENTIARY PATHWAY — COUNSEL REVIEW REQUIRED</span><p>Summary-of-voluminous-records treatment (FRE 1006 discipline and state counterparts). The underlying entries remain available for inspection and are produced on request.</p><p>A summary is only as good as its substrate: this chart is offered together with the entry log it was built from, not in place of it.</p></div><div class="foot">
+PIRRA is a legal-team support tool for law firms. It is not a law firm, does not provide legal or
+medical advice, and does not guarantee any legal outcome, including that any communication will be
+treated as privileged. Evidence-rule architecture described here is designed to support, not
+guarantee, privilege and admissibility, and is subject to review by counsel in each jurisdiction.<br>
+Every figure in this document is synthetic. Client, firm, providers and dates are invented.
+</div></div>
+</body></html>
