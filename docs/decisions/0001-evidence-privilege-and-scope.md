@@ -56,6 +56,11 @@ So the privilege workstream targets **Tier 2, not Tier 1** — and Tier 2 sits o
 
 ## D3 — Reorder the doctrinal stack
 
+> **SUPERSEDED by [DR-0003 D14](./0003-state-forum-authentication-and-psi.md).** This section
+> assumes a federal forum. Personal-injury cases are overwhelmingly state court, FRE 902(13)–(14)
+> are not widely adopted at the state level, and the ranking below omits FRE 803(1) present sense
+> impression — which is now a lead theory. Retained for the reasoning; use D14 for the ordering.
+
 803(3) is over-weighted in the source docs. It covers *then-existing* condition and expressly excludes statements of memory offered to prove the fact remembered — which means the loss-of-enjoyment narrative we care most about largely falls outside it. Ranked by load-bearing capacity:
 
 1. **FRE 801(d)(1)(B) — prior consistent statements.** *Lead theory.* Against a charge of recent fabrication or improper influence, contemporaneous statements made before the motive arose come in substantively. This is the strongest argument for contemporaneous capture and the one a badly-kept journal can never deliver.

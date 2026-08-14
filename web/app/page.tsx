@@ -182,9 +182,21 @@ export default function Home() {
         <Section>
           <p className={eyebrow}>EVIDENCE ARCHITECTURE</p>
           <h2 className={`${h2} mt-4`}>{holds.headline}</h2>
+          <p className="mt-4 max-w-[48ch] font-serif text-[21px] leading-snug text-ink">
+            {holds.subhead}
+          </p>
           <p className={`mt-6 ${prose} ${bodyText}`}>{holds.body}</p>
 
-          <p className="mt-9 max-w-[68ch] border border-accent bg-accent-soft p-6 font-serif text-[18px] leading-[1.55] text-ink">
+          <div className="mt-12 grid gap-px border border-rule bg-rule sm:grid-cols-2">
+            {holds.pillars.map((p) => (
+              <div key={p.title} className="bg-paper p-7">
+                <h3 className="font-serif text-[19px] font-semibold leading-snug">{p.title}</h3>
+                <p className="mt-3 text-[15px] leading-relaxed text-ink-soft">{p.body}</p>
+              </div>
+            ))}
+          </div>
+
+          <p className="mt-11 max-w-[68ch] border border-accent bg-accent-soft p-6 font-serif text-[18px] leading-[1.55] text-ink">
             {holds.callout}
           </p>
 
@@ -196,6 +208,10 @@ export default function Home() {
               </div>
             ))}
           </div>
+
+          <p className="mt-11 max-w-[72ch] border-l-2 border-accent pl-5 text-[15px] leading-relaxed text-ink-soft">
+            {holds.honesty}
+          </p>
         </Section>
 
         {/* ── F · Why it protects the firm ─────────────────────────── */}

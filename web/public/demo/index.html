@@ -268,9 +268,15 @@
         <h1>Sample Client A <span style="font-family:var(--mono);font-size:12px;color:var(--ink-faint)">· PI-2026-0417</span></h1>
         <p>Timeline built from the client's own words. Every entry is tagged by hearsay posture at capture time and clicks through to the exact message it came from.</p>
         <p style="margin-top:10px">
+          <span class="elect">&#10003; JURISDICTION — FLORIDA STATE COURT</span>
+          <span style="font-family:var(--mono);font-size:10.5px;color:var(--ink-faint);margin-left:10px">
+            set at protocol authorization · drives certification, notice packet, and rule citations
+          </span>
+        </p>
+        <p style="margin-top:7px">
           <span class="elect">&#10003; PHOTO CAPTURE — ATTORNEY-ELECTED FOR THIS CASE</span>
           <span style="font-family:var(--mono);font-size:10.5px;color:var(--ink-faint);margin-left:10px">
-            off by default · set at protocol authorization · location metadata stripped at ingest
+            off by default · location metadata stripped at ingest
           </span>
         </p>
       </div>
@@ -620,11 +626,18 @@
       ex.appendChild(q);
     });
     var ig = el("div", "integrity");
-    ig.textContent = "INTEGRITY BLOCK — 412 entries, weeks 1–14, no gaps in the chain. "
+    ig.textContent = "INTEGRITY BLOCK — 412 entries, weeks 1–14, no entries removed. "
       + "Hash-chained (SHA-256, append-only) and independently timestamped (RFC 3161). "
-      + "Self-authenticating under FRE 902(13)–(14) with qualified-person certification. "
-      + "Record is complete and includes both improvement and decline. No client data on any blockchain.";
+      + "Certified by the platform operator as a record of regularly conducted activity, "
+      + "under the certified-business-record rule of the case jurisdiction (FLORIDA). "
+      + "Record includes both improvement and decline. No client data on any blockchain.";
     ex.appendChild(ig);
+    var nt = el("div", "integrity");
+    nt.style.marginTop = "8px";
+    nt.textContent = "NOTICE PACKET — generated with this exhibit. Serve on all adverse parties "
+      + "with the record and declaration available for inspection, per the jurisdiction's notice "
+      + "requirement. A certification nobody serves does nothing.";
+    ex.appendChild(nt);
     p.appendChild(ex);
 
     var g = $("#ex-gate"); g.textContent = "";
