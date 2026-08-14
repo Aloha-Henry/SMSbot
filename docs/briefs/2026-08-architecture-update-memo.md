@@ -257,6 +257,44 @@ workbench must generate the notice packet alongside the exhibit.
 
 ---
 
+## 8a. Heppner — verified at primary source
+
+Confirmed against the federal docket via CourtListener RECAP, not secondary commentary:
+
+| | |
+|---|---|
+| **Case** | *United States v. Heppner*, No. 1:25-cr-00503 (S.D.N.Y.) |
+| **Judge** | Jed Saul Rakoff |
+| **Defendant** | Bradley Heppner |
+| **Docket filed** | Oct. 28, 2025 |
+| **Defense** | Benjamin O'Neil, Christopher Clore, Robert Zink — Quinn Emanuel |
+| **Government** | AUSAs Daniel Nessim, Alexandra Rothman, Kyle Wirshba |
+| **Ruling** | Bench ruling Feb. 10, 2026; written memorandum Feb. 17, 2026 (Dkt. 27, 12 pp.) |
+| **Reported at** | 2026 U.S. Dist. LEXIS 32697; 2026 BL 52143 |
+
+**The earlier check on this case was weaker than it was described.** It rested on synthesized
+search results across law-firm client alerts. Those turned out to be accurate, but that is not the
+same as verification, and the distinction matters in a project where a fabricated citation is the
+highest-damage failure available. It is now grounded in the docket.
+
+### Two method findings worth keeping
+
+**CourtListener's opinions index did not have this case. RECAP did.** Searching opinions alone
+returned zero results for a real, widely-covered S.D.N.Y. ruling — a false negative that would have
+been easy to misread as "the case doesn't exist." District-court memoranda often appear as docket
+entries rather than indexed opinions. **Always check RECAP before concluding a case isn't real.**
+
+**The full memorandum is not freely available.** Dkt. 27 is not in RECAP's free document set. Reading
+the actual text requires PACER, a commercial database, or the copy Akin Gump hosts publicly. **Nobody
+should rely on our characterization of the holding until someone has read the twelve pages.**
+
+### Live watch item
+
+The docket shows trial adjourned to **April 21, 2026** — several months before this memo. The case
+status past that date has not been checked. If there was a conviction and appeal, the privilege
+ruling could reach the Second Circuit, which would change its weight substantially in either
+direction. Worth a periodic docket check.
+
 ## 9. What needs real research
 
 1. **Jurisdiction survey**, sequenced CA → TX → FL → NY. First question in every state is

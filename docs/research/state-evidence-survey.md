@@ -30,9 +30,22 @@ Federal Rules.
 ## Method
 
 State rules of evidence are public. Primary sources are the state legislature or judiciary site,
-with Justia and Cornell LII as cross-checks. No paid database is required for rule *text*; case
-law on how courts actually apply these rules is where a research subscription would earn its
-keep, and that gap is noted per row rather than guessed at.
+with Justia and Cornell LII as cross-checks. No paid database is required for rule *text*.
+
+**CourtListener is connected** and is the tool for case law. Three things learned the hard way
+while verifying *Heppner*:
+
+- **Search RECAP, not just opinions.** The opinions index returned zero results for a real,
+  widely-covered S.D.N.Y. ruling; the RECAP docket index had it immediately. District-court
+  memoranda frequently appear as docket entries rather than indexed opinions. A zero-result
+  opinion search is **not** evidence a case doesn't exist.
+- **Rate limit is 5 requests/minute** on the free tier. Plan queries; don't fan out.
+- **Full document text is often not free.** A docket entry can be confirmed while the document
+  itself sits behind PACER. Confirming a case exists is not the same as having read it.
+
+**Never record a holding in this file from a search snippet or a secondary source.** Note the
+citation, note that the text is unread, and mark it pending. Fabricated and mischaracterized
+citations are the highest-damage failure mode in this project.
 
 ## Sequencing
 
