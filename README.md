@@ -25,6 +25,12 @@ it into court-ready exhibits with every fact traced back to the message it came 
 
 ## Briefs
 
+- [`docs/briefs/2026-08-architecture-update-memo.md`](docs/briefs/2026-08-architecture-update-memo.md)
+  — **comprehensive memo.** Everything decided since the initial architecture, in one place:
+  the state-forum correction, vendor business-record authentication, the chronology question,
+  present sense impression and its cadence consequence, the prior-consistent-statement gap, the
+  RFA template, and the photo split. Written to bring a co-founder or a fresh session up to speed.
+
 - [`docs/briefs/evidence-architecture-brief.md`](docs/briefs/evidence-architecture-brief.md)
   ([rendered](docs/briefs/evidence-architecture-brief.html)) — two-page brief for outside
   adversarial review. How the FRE and case law drove the architecture, and the six places we
