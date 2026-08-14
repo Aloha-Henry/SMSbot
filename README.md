@@ -21,6 +21,7 @@ it into court-ready exhibits with every fact traced back to the message it came 
 | [`docs/decisions/0001`](docs/decisions/0001-evidence-privilege-and-scope.md) | The decisions that shaped it — evidence posture, privilege theory, scope boundaries. Supersedes conflicting parts of the source docs. |
 | [`docs/decisions/0002`](docs/decisions/0002-containment-cms-firewall-and-pilot-metrics.md) | Liability containment engine, the zero-endpoint CMS firewall, and what a pilot can and cannot prove. Includes rejected proposals and why. |
 | [`docs/decisions/0003`](docs/decisions/0003-state-forum-authentication-and-psi.md) | State forum, vendor business-record authentication, present sense impression over recorded recollection, and the RFA template. Supersedes DR-0001 D3. |
+| [`docs/decisions/0004`](docs/decisions/0004-jurisdiction-packs.md) | Jurisdiction packs — adopted, but governing characterization at export rather than capture, so the record stays uniform. Pack schema and authoring rules. |
 | [`docs/research/state-evidence-survey.md`](docs/research/state-evidence-survey.md) | Per-jurisdiction survey of whether our theories are actually available. Hawaii started; internal input only, never customer-facing. |
 
 ## Briefs
