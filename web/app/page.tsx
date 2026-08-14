@@ -9,6 +9,7 @@ import {
   how,
   holds,
   protects,
+  containment,
   gap,
   pricing,
   forWhom,
@@ -221,6 +222,19 @@ export default function Home() {
           <p className={`mt-6 ${prose} ${bodyText}`}>{protects.body}</p>
           <p className="mt-8 max-w-[68ch] border-l-2 border-accent pl-5 font-serif text-[18px] leading-[1.55] text-ink">
             {protects.honesty}
+          </p>
+        </Section>
+
+        {/* ── F.5 · Scope discipline ───────────────────────────────── */}
+        <Section>
+          <p className={eyebrow}>{containment.eyebrow}</p>
+          <h2 className={`${h2} mt-4 max-w-[20ch] text-balance`}>{containment.headline}</h2>
+          <div className={`mt-6 ${prose} flex flex-col gap-5`}>
+            <p className={bodyText}>{containment.body}</p>
+            <p className={bodyText}>{containment.body2}</p>
+          </div>
+          <p className="mt-9 max-w-[64ch] border-l-2 border-accent pl-5 font-serif text-[19px] leading-[1.5] text-ink">
+            {containment.pointed}
           </p>
         </Section>
 

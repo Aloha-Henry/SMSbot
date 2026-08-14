@@ -117,6 +117,10 @@ export const holds = {
       body: "The certification, the notice packet, and the rules cited on the exhibit all follow it. And the notice packet is generated alongside the exhibit, because a certification nobody remembers to serve does nothing at all.",
     },
     {
+      title: "Cases move. The record doesn't have to.",
+      body: "Removed, transferred, filed somewhere you didn't expect — change the forum and the exhibit re-maps to the new one. What was captured stays exactly as captured. Nothing to redo, nothing lost, because the capture never depended on knowing where you'd end up.",
+    },
+    {
       title: "Every entry is tagged at capture.",
       body: "What your client felt in that moment, what they described right after it happened, what they recalled later — those three carry differently, and sorting them at demand time is exactly the work nobody has time for. PIRRA tags each entry when it arrives.",
     },
@@ -149,6 +153,23 @@ export const protects = {
   // Required. Do not cut. (Brief §5, Section F.)
   honesty:
     "No tool can guarantee privilege — and any vendor who tells you otherwise should worry you. What PIRRA gives you is an architecture built, end to end, to earn the claim: written attorney direction, one privileged thread with no side-channel, zero-retention model terms, and a complete record in your own file.",
+} as const;
+
+// Scope discipline. Describes what the system refuses to capture and what
+// happens when a client volunteers it anyway.
+//
+// This copy must NEVER read as suppressing or hiding evidence. Nothing is
+// deleted — the record is immutable and the message is kept. What changes is
+// which stream it lands in and how fast counsel hears about it. If an edit
+// here starts to sound like concealment, it is wrong.
+export const containment = {
+  eyebrow: "SCOPE DISCIPLINE",
+  headline: "It never asks how the accident happened.",
+  body: "PIRRA is scoped to one thing: how your client is recovering. It doesn't ask about fault, cause, speed, or what anyone said at the scene. Those facts belong in the police report and the deposition, where you control them — not in a record built to be produced.",
+  body2:
+    "Clients raise it anyway. When that happens PIRRA doesn't pursue it, doesn't answer it, and flags it to you immediately. The message is kept — nothing is ever deleted from the record — but it's held apart from the log your exhibits are drawn from, and your client is pointed back to you.",
+  pointed:
+    "It's the first question worth asking of anything that texts your clients: what happens when they volunteer something that hurts the case?",
 } as const;
 
 export const gap = {
