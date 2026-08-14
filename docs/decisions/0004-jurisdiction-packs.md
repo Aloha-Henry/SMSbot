@@ -2,6 +2,12 @@
 
 **Status:** Accepted · **Date:** 2026-08-14 · **Builds on:** [DR-0003](./0003-state-forum-authentication-and-psi.md)
 
+
+> **SUPERSEDED IN LARGE PART by `docs/source/PIRRA-Final-Design-Proposal-v1.1.md`**
+> (Aug 13 2026), which reflects three rounds of adversarial AI review plus reconciliation.
+> Retained for the reasoning trail. Where this record and v1.1 conflict, **v1.1 wins**.
+> Largely carried forward into v1.1 §4.6 — packs feed the counsel advisory generator and the packaging engine, never the capture engine.
+
 > Not legal advice. Every position below is subject to review by counsel per jurisdiction.
 
 Originated from a co-founder exchange proposing one immutable capture substrate with jurisdiction

@@ -100,12 +100,12 @@ export default function PilotForm() {
         <input id="cms" name="cms" className={field} />
       </div>
 
+      {/* Required as of brief v2 §6-K — this answer is the point of the form. */}
       <div>
         <label className={label} htmlFor="hardest">
-          {formFields.openQuestion.toUpperCase()}{" "}
-          <span className="text-ink-faint">(OPTIONAL)</span>
+          {formFields.openQuestion.toUpperCase()}
         </label>
-        <textarea id="hardest" name="hardest" rows={4} className={field} />
+        <textarea id="hardest" name="hardest" rows={4} className={field} required />
       </div>
 
       <div>

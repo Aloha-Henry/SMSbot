@@ -59,6 +59,24 @@ Four `TODO`s, each a single edit:
 | Sample exhibit PDF | `public/sample-exhibit.pdf` (placeholder) |
 | Contact address | `content/copy.ts` → `footer.contact` |
 
+## The gate
+
+`/` renders `<Gate>` before any content — access code `1111`, unlock stored in
+`sessionStorage`.
+
+**It is a curtain, not security.** The check runs in the browser and the copy
+ships in the JS bundle either way. It exists to keep the preview off casual
+eyes, nothing more. Removal at launch is one line in `app/page.tsx`: replace
+`<Gate>…</Gate>` with its children. Nothing else imports it.
+
+**Known trade-off while the gate is up:** `Gate` returns `null` until it has
+checked the flag, so the prerendered HTML is empty and content paints after
+hydration. That costs LCP, and Lighthouse will score the gated page lower than
+the launch page. Deliberate — the alternative is flashing a password prompt at
+someone who already entered. Removing the gate restores full prerender, since
+everything outside `Provenance`, `ThreadView` and `Reveal` is a server
+component.
+
 ## The `/demo/` route
 
 `public/demo/index.html` is the interactive workbench prototype — a single self-contained

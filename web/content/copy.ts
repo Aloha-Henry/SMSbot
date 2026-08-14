@@ -1,17 +1,23 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // PIRRA landing page copy.
 //
-// This copy is FINAL per docs/source/PIRRA-Landing-Page-Brief.md §5.
-// Edit the words here — never inline in components.
+// FINAL per PIRRA-Landing-Page-Brief-v2 §6. Edit words here — never inline in
+// components. Read brief v2 §0 and v1 §0 before changing anything.
 //
-// Before changing anything, read §0 of the brief. The absolutes:
+// ABSOLUTE RULES (v1 §0 + v2 §0.5 additions):
 //   · "preserves evidence that would otherwise be lost" — NEVER "creates evidence"
-//   · no privilege guarantees, ever — architecture-descriptive only
+//   · no privilege guarantees, no admissibility guarantees, anywhere
+//     ("admissible under FRE ___" and "self-authenticating in every state" are banned)
 //   · no outcome or settlement promises
 //   · AI status always disclosed
-//   · banned for the product: companion, coach, nurse navigator,
-//     AI legal assistant, chatbot, therapy, journal
-//   · the only hard numbers on this page are the FRE citations and $149
+//   · banned for the product: companion, coach, nurse navigator, AI legal
+//     assistant, chatbot, therapy, journal, demand engine, disguised
+//   · NO pass-through language. $149 flat, published, sold to the firm. How a
+//     firm accounts for it is the firm's question — we give no ethics advice.
+//   · NO rule numbers in the hero. Citations only in section E, stated precisely.
+//   · Purpose vs. consequence: the purpose is accurate contemporaneous
+//     documentation. Better demands are a CONSEQUENCE. Never frame evidence
+//     generation as the purpose. Founder language is discoverable.
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const cta = {
@@ -19,41 +25,45 @@ export const cta = {
   secondary: "See a sample exhibit",
   // TODO: replace with the real pirra-demand-exhibit sample
   secondaryHref: "/sample-exhibit.pdf",
-  // Interactive prototype on a synthetic case. Labeled on the page itself as a
-  // prototype rather than a live system — see brief §0.4 and §8.
   demo: "Open the workbench prototype",
   demoHref: "/demo/",
   demoNote:
     "A working prototype on an invented case — no real client, no real firm, not a live system. Switch roles to see which decisions are reserved for counsel.",
 } as const;
 
+export const gate = {
+  note: "Preview build — team access.",
+  placeholder: "Access code",
+  button: "Enter",
+  error: "Not quite.",
+} as const;
+
+/* ── A · Hero ─────────────────────────────────────────────────────────────── */
 export const hero = {
   eyebrow: "For plaintiff personal-injury firms",
   headline:
     "Recovery doesn't happen in doctor's offices. Now you have the record that proves it.",
   subhead:
     "PIRRA turns your client's recovery into court-ready exhibits — captured through natural text messages, structured to evidence standards, every fact traceable to the moment your client said it.",
-  // Deliberately NOT leading with federal rule numbers. PI cases are
-  // overwhelmingly state court, and FRE 902(13)–(14) — adopted 2017 — are not
-  // widely adopted at state level. Federal-only cites in the most-read line on
-  // the page signal that we don't know where the reader's cases are heard.
-  // Specific citations live in section E where there's room for context.
+  // No rule numbers here. Brief v2 §0.1 — standards-level language only.
   trust: [
-    "Certified as a business record",
-    "Built to your state's rules of evidence",
+    "Built to federal and state evidence standards",
     "Attorney-directed",
+    "Tamper-evident by design",
     "Works with any case-management system",
   ],
 } as const;
 
+/* ── B · The problem ──────────────────────────────────────────────────────── */
 export const problem = {
   headline: "The most valuable part of the case is the part nobody documents.",
   body: [
-    "Non-economic damages — pain, lost function, the life your client can't live yet — are the majority of settlement value and the least-documented part of every file. You tell clients to keep an injury journal. Almost none of them do. And the ones who do hand you an uncontrolled diary that the defense can subpoena, cherry-pick, and use against them.",
-    "So the record of how your client actually suffered — the missed recitals, the daughter they couldn't lift, the nights they couldn't sleep — evaporates. By the time you write the demand, you're reconstructing it from memory.",
+    "Non-economic damages — pain, lost function, the life your client can't live yet — are the majority of settlement value and the least-documented part of every file. You tell clients to keep an injury journal. Few ever keep one — and the ones who do hand you an uncontrolled diary the defense can subpoena, cherry-pick, and use against them.",
+    "So the record of how your client actually suffered — the missed recitals, the daughter they couldn't lift, the nights they couldn't sleep — evaporates. The months between intake and resolution produce nothing, and by the time you write the demand, you're reconstructing them from memory.",
   ],
 } as const;
 
+/* ── C · The output ───────────────────────────────────────────────────────── */
 export const output = {
   headline: "Exhibits, not notes.",
   subhead:
@@ -64,8 +74,8 @@ export const output = {
       body: "A clean two-page PDF: functional-impact curve, category breakdown, verbatim client excerpts with log references, and an integrity block showing the record is complete and untampered. Drop it straight into your demand.",
     },
     {
-      title: "Recovery-curve chart (FRE 1006).",
-      body: "Pain and function over time, plotted against treatment milestones, with flare-ups and gaps flagged. A summary exhibit built on records that are available for inspection.",
+      title: "Recovery-curve summary chart.",
+      body: "Pain and function over time, plotted against treatment milestones, with flare-ups and gaps flagged. A summary exhibit over records that remain available for inspection.",
     },
     {
       title: "Depo-prep log.",
@@ -76,6 +86,15 @@ export const output = {
     "Every number clicks back to the exact text message it came from. Nothing is inferred and hidden — good days and bad days are in the record, because a complete record is a credible one.",
 } as const;
 
+/* ── Centerpiece ──────────────────────────────────────────────────────────── */
+export const centerpiece = {
+  eyebrow: "PROVENANCE",
+  headline: "Every number clicks back to the exact message it came from.",
+  sub: "Tap anything highlighted in the exhibit.",
+  hint: "Tap a highlighted figure",
+} as const;
+
+/* ── D · How it works ─────────────────────────────────────────────────────── */
 export const how = {
   headline:
     "Your client sees a text thread. You see the workbench. The court sees a PDF.",
@@ -91,44 +110,21 @@ export const how = {
     },
     {
       title: "The record becomes exhibits.",
-      body: "One click turns the structured record into the demand exhibit, the 1006 chart, or the depo log — each one citing its own sources.",
+      body: "One click turns the structured record into the demand exhibit, the summary chart, or the depo log — each one citing its own sources.",
     },
   ],
   disclosure:
     "PIRRA always identifies itself as an AI assistant provided by your firm. Its warmth comes from craft, not from pretending to be human — because a record built on concealment is a record the defense gets to attack.",
 } as const;
 
+/* ── E · Why it holds up ──────────────────────────────────────────────────── */
 export const holds = {
   headline: "Built to be shown, not hidden.",
-  subhead: "Your cases are tried under your state's rules. So is the record.",
-  body: "Most client-recovery data is a liability because it's unstructured and incomplete. PIRRA is architected as evidence from the first message — a contemporaneous, tamper-evident log that is designed to be produced and to hold up when it is.",
-
-  pillars: [
-    {
-      title: "It isn't your client's journal. It's our business record.",
-      body: "An injury journal is a document your client created for their own case, and the defense will say exactly that. PIRRA's log is our record of our own routine operations, which happens to contain your client's words. We certify it — the way any vendor certifies records it keeps in the ordinary course. Your client never has to authenticate their own evidence.",
-    },
-    {
-      title: "Built for state court, because that's where your cases are.",
-      body: "The federal self-authentication rules most evidence tech cites were added in 2017, and most states never followed. The certified-business-record rule is the one your state actually has, and has had for years. That is the rule PIRRA is built to — with the federal provisions as a supplement where they're available, not as the foundation.",
-    },
-    {
-      title: "Jurisdiction is set when you authorize the case.",
-      body: "The certification, the notice packet, and the rules cited on the exhibit all follow it. And the notice packet is generated alongside the exhibit, because a certification nobody remembers to serve does nothing at all.",
-    },
-    {
-      title: "Cases move. The record doesn't have to.",
-      body: "Removed, transferred, filed somewhere you didn't expect — change the forum and the exhibit re-maps to the new one. What was captured stays exactly as captured. Nothing to redo, nothing lost, because the capture never depended on knowing where you'd end up.",
-    },
-    {
-      title: "Every entry is tagged at capture.",
-      body: "What your client felt in that moment, what they described right after it happened, what they recalled later — those three carry differently, and sorting them at demand time is exactly the work nobody has time for. PIRRA tags each entry when it arrives.",
-    },
-  ],
-
+  body: "Most client-recovery data is a liability because it's unstructured, incomplete, and easy to attack. PIRRA is architected as evidence from the first message. Your client's statements are captured in the present tense — the way then-existing-condition rules in state and federal courts favor (FRE 803(3) and its state counterparts). The log itself is the platform's routine record, kept identically for every client in the country, and authenticated by custodian certification in the form your forum accepts — with a live-foundation kit standing behind it where certification isn't available. Summaries and charts are built as summary exhibits over records that stay available for inspection (the FRE 1006 discipline).",
   callout:
-    "Every record is cryptographically hash-chained and independently timestamped — tamper-evident and certified as a record kept in the ordinary course, without putting any client data on a blockchain.",
-
+    "Every record is cryptographically hash-chained and independently timestamped — tamper-evident by design — without putting any client data on a blockchain.",
+  jurisdiction:
+    "PIRRA is jurisdiction-aware. The record never changes; the packaging matches your forum — state or federal — and when the law moves, the packaging moves with it. The evidence doesn't.",
   columns: [
     {
       title: "Shield by default.",
@@ -139,71 +135,87 @@ export const holds = {
       body: "When you're ready, the same record becomes the exhibit that moves the number.",
     },
   ],
-
-  // Required honesty line. We have surveyed a small number of jurisdictions.
-  // Never imply completed 50-state coverage — say what is true and invite the
-  // conversation instead.
-  honesty:
-    "We're mapping jurisdictions one at a time — the rules, the certification language, and the notice mechanics differ in every one, and we'd rather do it properly than claim a map we don't have. Tell us where you practice and we'll tell you straight where yours stands.",
 } as const;
 
+/* ── F · Why it protects the firm ─────────────────────────────────────────── */
 export const protects = {
-  headline: "Attorney-directed by design.",
-  body: "PIRRA runs on a Model C attorney-directed agency architecture — the Kovel framework courts already use for a lawyer's non-lawyer agents. Counsel authorizes the conversation protocol; PIRRA acts as the firm's confidential agent; every message lands in your client file, not in some consumer app's servers. The system is built to support privilege and work-product claims — the client-facing capture as privileged communication to counsel, your annotations and alerts as work product.",
-  // Required. Do not cut. (Brief §5, Section F.)
+  headline: "Your channel. Your direction. Your file.",
+  body: "PIRRA runs as your firm's channel: your number, a conversation protocol you authorize in writing, every message intended for your legal team, your replies landing in the same thread, and everything — every word, every timestamp — in your client file, not on some consumer app's servers. The system is built end to end to support privilege and work-product positions: attorney direction documented before the first text, one channel with no side-diary, zero-retention model terms, and agent and attorney messages unmistakably labeled.",
+  // Required verbatim. Do not cut. (v1 §5-F, carried by v2 §6-F.)
   honesty:
     "No tool can guarantee privilege — and any vendor who tells you otherwise should worry you. What PIRRA gives you is an architecture built, end to end, to earn the claim: written attorney direction, one privileged thread with no side-channel, zero-retention model terms, and a complete record in your own file.",
+  closing:
+    "And because no tool can guarantee privilege, the record is built to stand on its own if it's ever produced — complete, honest, and tamper-evident. That's not a fallback. That's the design.",
 } as const;
 
-// Scope discipline. Describes what the system refuses to capture and what
-// happens when a client volunteers it anyway.
-//
+/* ── Scope discipline ─────────────────────────────────────────────────────── */
 // This copy must NEVER read as suppressing or hiding evidence. Nothing is
 // deleted — the record is immutable and the message is kept. What changes is
-// which stream it lands in and how fast counsel hears about it. If an edit
+// which surface it appears on and how fast counsel hears about it. If an edit
 // here starts to sound like concealment, it is wrong.
 export const containment = {
   eyebrow: "SCOPE DISCIPLINE",
   headline: "It never asks how the accident happened.",
   body: "PIRRA is scoped to one thing: how your client is recovering. It doesn't ask about fault, cause, speed, or what anyone said at the scene. Those facts belong in the police report and the deposition, where you control them — not in a record built to be produced.",
   body2:
-    "Clients raise it anyway. When that happens PIRRA doesn't pursue it, doesn't answer it, and flags it to you immediately. The message is kept — nothing is ever deleted from the record — but it's held apart from the log your exhibits are drawn from, and your client is pointed back to you.",
+    "Clients raise it anyway. When that happens PIRRA doesn't pursue it, doesn't answer it, and routes it to you by alert. The message is kept — nothing is ever deleted from the record — but it stays off every exhibit surface, and your client is pointed back to you.",
   pointed:
     "It's the first question worth asking of anything that texts your clients: what happens when they volunteer something that hurts the case?",
 } as const;
 
+/* ── G · Catch the gap ────────────────────────────────────────────────────── */
 export const gap = {
   headline: "Catch the treatment gap before the adjuster does.",
   body: "A client who stops treating, misses appointments, or never mentions the new symptom is a case quietly losing value. PIRRA surfaces treatment gaps, missed care, and inconsistencies as alerts you acknowledge — a documented paper trail that you saw it and acted. One case saved from a silent gap pays for PIRRA across your whole caseload.",
 } as const;
 
+/* ── H · What it looks like in practice ───────────────────────────────────── */
+export const practice = {
+  eyebrow: "IN PRACTICE",
+  headline: "What it looks like on a real file.",
+  cases: [
+    {
+      title: "The gap, caught.",
+      body: "Maria goes quiet for nine days. The workbench flags it; her attorney texts her in the same thread; treatment resumes — and the file shows the firm saw it and acted.",
+      visual: "gap",
+    },
+    {
+      title: "The deposition.",
+      body: "Maria preps from her own contemporaneous entries. Asked what she reviewed, the answer is simple: her own text messages. Her testimony is specific, consistent, and hers.",
+      visual: "depo",
+    },
+    {
+      title: "The “good day” gambit.",
+      body: "The defense surfaces a message about a good weekend. Counsel pulls the six entries before and after it — the flare-up, the missed practice, the help from her mother — because the record was always complete, good days included. That's why it's credible.",
+      visual: "good-day",
+    },
+    {
+      title: "The demand.",
+      body: "The exhibit goes out attached to the demand — a functional-impact curve, verbatim excerpts, an integrity block — and every number clicks back to the message it came from.",
+      visual: "demand",
+    },
+  ],
+} as const;
+
+/* ── I · Pricing ──────────────────────────────────────────────────────────── */
 export const pricing = {
   headline: "$149 per case. Flat. Published.",
   subhead:
     "No seats. No annual contract. No migration. Works with any case-management system.",
-  body: 'Everyone else in this space makes you "contact sales." We don\'t. PIRRA is priced like what it is — a case cost, in the same class as records retrieval or a court reporter — and firms pass it through as a litigation expense, subject to your jurisdiction\'s rules. One flat price, per case, start to finish.',
+  body: 'Everyone else in this space makes you "contact sales." We don\'t. One flat, published price per case, start to finish. How your firm accounts for it is your call — we keep it simple on our end.',
   smallprint:
-    "Extended-litigation cases may tier higher. Dropped/lost-case terms available. Pricing shown is for the pilot program.",
+    "Extended-litigation cases may tier higher. Dropped-case terms available. Pricing shown is for the pilot program.",
 } as const;
 
+/* ── J · Built narrow ─────────────────────────────────────────────────────── */
 export const forWhom = {
   headline: "Built narrow, on purpose.",
-  body: "PIRRA does exactly one thing: get truthful, structured, court-ready recovery evidence out of an injured client through text, under your direction. It doesn't do intake. It doesn't answer your phones. It doesn't write your demand. It hands the pain-and-suffering section — sourced and exhibit-ready — to whatever you already use. If you believe in injury journals but your clients never keep them, PIRRA is the version that actually works.",
+  body: "PIRRA does exactly one thing: get truthful, structured, court-ready recovery evidence out of an injured client through text, under your direction. It doesn't do intake. It doesn't answer your phones. It doesn't write your demand. It hands the pain-and-suffering section — sourced and exhibit-ready — to whatever you already use.",
+  append:
+    "PIRRA is built for real recoveries: the record is complete — good days and bad — because completeness is what makes it credible.",
 } as const;
 
-// NOT A SHIPPING FEATURE. This block describes work in development and must
-// stay unmistakably future-tense on the page — brief §0.3 and §8 forbid
-// presenting anything unbuilt as available. Keep the status line.
-export const roadmap = {
-  eyebrow: "IN DEVELOPMENT",
-  headline: "Photographs, when the case calls for it.",
-  body: "Visual evidence anchored to the record — a photo attached to the day your client described it, carrying the same timestamp, the same log reference, and the same discipline as the text around it. Not a highlight reel: a photograph becomes one more dated entry in a record that still includes the good days, because a curated set of worst moments is the uncontrolled diary all over again.",
-  election:
-    "Attorney-elected per case and off by default, set where you authorize the conversation protocol. Location metadata is stripped before anything is written. Images touching how the injury happened are held back the same way text is.",
-  status:
-    "In development. Not part of the pilot, and not included in the $149 price.",
-} as const;
-
+/* ── K · The pilot ask ────────────────────────────────────────────────────── */
 export const pilot = {
   headline: "We're running a small pilot. We want firms that will actually use it.",
   body: "We're taking a handful of plaintiff firms into a structured pilot: real clients, real cases, clear go/kill criteria. If you've ever wished your clients' recovery showed up as evidence instead of a memory, tell us about your firm and we'll be in touch.",
@@ -216,10 +228,11 @@ export const thanks = {
   body: "We read every one of these ourselves. If your firm looks like a fit for the pilot, you'll hear from a human (who will tell you they're a human).",
 } as const;
 
+/* ── L · Footer ───────────────────────────────────────────────────────────── */
 export const footer = {
   descriptor:
     "An SMS-native evidence engine for plaintiff personal-injury firms.",
-  // Required verbatim. (Brief §6.)
+  // Required verbatim (v1 §6). Survives the architecture change as written.
   disclaimer:
     "PIRRA is a legal-team support tool for law firms. It is not a law firm, does not provide legal or medical advice, and does not guarantee any legal outcome, including that any communication will be treated as privileged. Evidence-rule and privilege architecture described here is designed to support, not guarantee, privilege and admissibility, and is subject to review by counsel in each jurisdiction. FRE references describe the standards the system is built against.",
   // TODO: replace with the real contact address

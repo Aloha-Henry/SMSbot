@@ -49,6 +49,18 @@ it into court-ready exhibits with every fact traced back to the message it came 
 
 ## Source docs
 
+**Current architecture of record:**
+
+- [`docs/source/PIRRA-Final-Design-Proposal-v1.1.md`](docs/source/PIRRA-Final-Design-Proposal-v1.1.md)
+  — post-review consensus draft (Aug 13 2026). Three blind AI review rounds plus
+  reconciliation: 31 dispositioned changes, one closed design decision, one restructured
+  legal theory, one human-verified statute. **Supersedes DR-0001 through DR-0004 where they
+  conflict.** Citation register in §8 carries per-authority verification status.
+- [`docs/source/PIRRA-Landing-Page-Brief-v2.md`](docs/source/PIRRA-Landing-Page-Brief-v2.md)
+  — the brief `web/` is built to. Supersedes brief v1.
+
+**Earlier work, preserved as written:**
+
 Original strategy work, preserved as written. Where these conflict with a decision record,
 **the decision record wins**.
 

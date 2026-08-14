@@ -2,6 +2,12 @@
 
 **Status:** Accepted · **Date:** 2026-08-11 · **Builds on:** [DR-0001](./0001-evidence-privilege-and-scope.md)
 
+
+> **SUPERSEDED IN LARGE PART by `docs/source/PIRRA-Final-Design-Proposal-v1.1.md`**
+> (Aug 13 2026), which reflects three rounds of adversarial AI review plus reconciliation.
+> Retained for the reasoning trail. Where this record and v1.1 conflict, **v1.1 wins**.
+> Notably: D8's pre-commit EXIF stripping is **retired** in favour of a sealed raw-media vault plus sanitized derivatives (v1.1 §2.5) — stripping received ESI after a hold attaches was an avoidable FRCP 37(e) fight.
+
 > Not legal advice. Every legal position below is subject to review by outside counsel per jurisdiction.
 
 Produced from an adversarial review round with an outside model. Three decisions survived it,
