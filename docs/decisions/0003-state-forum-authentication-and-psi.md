@@ -2,6 +2,12 @@
 
 **Status:** Accepted · **Date:** 2026-08-11 · **Supersedes:** DR-0001 D3 (doctrinal stack)
 
+
+> **SUPERSEDED IN LARGE PART by `docs/source/PIRRA-Final-Design-Proposal-v1.1.md`**
+> (Aug 13 2026), which reflects three rounds of adversarial AI review plus reconciliation.
+> Retained for the reasoning trail. Where this record and v1.1 conflict, **v1.1 wins**.
+> Notably: v1.1 §2.3 demotes PSI to a lane and makes **803(3)/present-state the highway**, adds the density principle, and restores 803(5) as a fallback row.
+
 > Not legal advice. Every position below is subject to review by counsel per jurisdiction.
 
 Originated from a co-founder review that identified a forum assumption baked into DR-0001 and

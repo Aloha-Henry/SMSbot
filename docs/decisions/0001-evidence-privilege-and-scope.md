@@ -2,6 +2,12 @@
 
 **Status:** Accepted · **Date:** 2026-08-11 · **Supersedes:** conflicting portions of `source/PIRRA-PRD.md` and `source/PIRRA-Privilege-Architecture.md`
 
+
+> **SUPERSEDED IN LARGE PART by `docs/source/PIRRA-Final-Design-Proposal-v1.1.md`**
+> (Aug 13 2026), which reflects three rounds of adversarial AI review plus reconciliation.
+> Retained for the reasoning trail. Where this record and v1.1 conflict, **v1.1 wins**.
+> Notably: D2's conduit/Kovel framing is restructured in v1.1 §3.3, and *Heppner* is corrected — it contains **no necessity holding**; v1.0's contrary statement was a drift error.
+
 > Not legal advice. Every position below is subject to review by outside counsel per jurisdiction before it is asserted to a customer.
 
 ---
