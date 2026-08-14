@@ -190,6 +190,17 @@
 
   .gate { margin-top: 14px; padding: 12px 14px; border: 1px dashed var(--rule); border-radius: 3px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; font-size: 13.5px; color: var(--ink-soft); }
 
+  .rehab-form { display: flex; gap: 12px; align-items: flex-end; flex-wrap: wrap; }
+  .rehab-form label { display: flex; flex-direction: column; gap: 5px; font-family: var(--mono); font-size: 9.5px; letter-spacing: .08em; color: var(--ink-faint); }
+  .rehab-form input, .rehab-form select { padding: 7px 9px; border: 1px solid var(--rule); border-radius: 3px; background: var(--paper); color: var(--ink); font: inherit; font-size: 13px; }
+  .rf-row { display: grid; grid-template-columns: 90px 1fr auto; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--rule); align-items: baseline; }
+  .rf-row:last-child { border-bottom: 0; }
+  .rf-row .d { font-family: var(--mono); font-size: 10.5px; color: var(--ink-faint); }
+  .rf-row .q { font-family: var(--serif); font-size: 14.5px; }
+  .gate-check { display: flex; gap: 9px; align-items: flex-start; padding: 11px 13px; border: 1px solid var(--danger); background: var(--danger-wash); border-radius: 3px; margin-bottom: 12px; }
+  .gate-check input { margin-top: 3px; }
+  .gate-check span { font-size: 13.5px; }
+
   .hint { font-family: var(--mono); font-size: 10.5px; color: var(--ink-faint); line-height: 1.7; margin-top: 10px; }
   .legend { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; font-family: var(--mono); font-size: 10px; color: var(--ink-faint); }
 
@@ -241,6 +252,7 @@
     <button data-go="thread"><span class="num">03</span> Thread</button>
     <button data-go="flags"><span class="num">04</span> Flags <span class="dot" id="flagcount">3</span></button>
     <button data-go="exhibit"><span class="num">05</span> Exhibits</button>
+    <button data-go="rehab"><span class="num">06</span> Rehabilitation finder</button>
   </nav>
 
   <main>
@@ -276,7 +288,7 @@
         <p style="margin-top:7px">
           <span class="elect">&#10003; PHOTO CAPTURE — ATTORNEY-ELECTED FOR THIS CASE</span>
           <span style="font-family:var(--mono);font-size:10.5px;color:var(--ink-faint);margin-left:10px">
-            off by default · location metadata stripped at ingest
+            off by default · native binary sealed in vault · sanitized derivative on working surfaces
           </span>
         </p>
       </div>
@@ -320,13 +332,13 @@
       <div class="vh">
         <p class="kick">SURFACE 03</p>
         <h1>Thread</h1>
-        <p>What the client sees is one continuous conversation. What the system stores is three severable streams — plus a quarantine store that never enters Stream 1 at all.</p>
+        <p>What the client sees is one continuous conversation. Underneath, every event carries a message_class, and the intelligence plane that analyses it never shares an export path with the evidence plane that holds it.</p>
       </div>
       <div class="card">
         <div class="card-h">
           <h2>Sample Client A</h2>
           <span class="legend" style="margin-left:auto">
-            <span class="b b-s1">STREAM 1</span><span class="b b-s3">STREAM 3</span><span class="b b-q">QUARANTINE</span>
+            <span class="b b-s1">EVIDENCE PLANE</span><span class="b b-s2">INTELLIGENCE PLANE</span><span class="b b-q">LIABILITY-FLAGGED</span>
           </span>
         </div>
         <div class="thread" id="th-body"></div>
@@ -355,7 +367,7 @@
       <div class="vh">
         <p class="kick">SURFACE 05</p>
         <h1>Exhibit builder</h1>
-        <p>Draws structurally from Stream 1 only — there is no code path from the intelligence layer into an export. Every figure carries the reference it came from.</p>
+        <p>Draws structurally from the evidence plane only — there is no code path from the intelligence plane into an export. Every figure carries the reference it came from, and nothing is ever labelled admissible.</p>
       </div>
       <div class="card">
         <div class="card-h"><h2>Output</h2></div>
@@ -365,6 +377,36 @@
           <div class="gate" id="ex-gate"></div>
         </div>
       </div>
+    </section>
+
+    <!-- 06 REHABILITATION FINDER -->
+    <section class="view" id="v-rehab">
+      <div class="vh">
+        <p class="kick">SURFACE 06</p>
+        <h1>Rehabilitation finder</h1>
+        <p>The defense impeaches with an inconsistent statement. Give this its date and topic and it returns every prior consistent entry on that topic that predates it — provenance cited, ready for counsel to evaluate against the forum's prior-consistent rule.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-h"><h2>Find prior consistent entries</h2><span class="meta">CA-2026.1</span></div>
+        <div class="card-b">
+          <div class="rehab-form">
+            <label>IMPEACHING STATEMENT DATE
+              <input type="date" id="rf-date" value="2026-07-19">
+            </label>
+            <label>TOPIC
+              <select id="rf-topic">
+                <option>Lifting / carrying</option>
+                <option>Sleep disruption</option>
+                <option>Missed family activity</option>
+              </select>
+            </label>
+            <button class="btn" id="rf-run">Find</button>
+          </div>
+          <div id="rf-out" style="margin-top:16px"></div>
+        </div>
+      </div>
+      <p class="hint">Early, dense capture is what makes this work — entries almost always predate whatever the defense impeaches with later. Whether the pathway is open is counsel's call, not the system's; nothing here is labelled admissible.</p>
     </section>
   </main>
 </div>
@@ -385,11 +427,11 @@
     { id:"M-0001", wk:1,  who:"PIRRA",    stream:"s1", t:"Hi — this is PIRRA, an AI assistant provided by your legal team. I'll check in now and then about how you're feeling and how recovery is going. Your legal team reads these. The other side may see them too, so please be straight with me — including the good days. Anything about how the accident happened, save that for your legal team, not here. If it's ever an emergency, call 911." },
     { id:"M-0014", wk:2,  who:"PIRRA",    stream:"s1", t:"How's the pain right now, 0 to 10?" },
     { id:"M-0015", wk:2,  who:"Client",   stream:"s1", t:"About an 8. Can't turn my head to back out of the driveway." },
-    { id:"M-0031", wk:3,  who:"Client",   stream:"s1", t:"Sending a picture of the bruising I mentioned — it's spread down to the shoulder blade.", media:"INJURY · WK 03 · LOCATION STRIPPED AT INGEST" },
+    { id:"M-0031", wk:3,  who:"Client",   stream:"s1", t:"Sending a picture of the bruising I mentioned — it's spread down to the shoulder blade.", media:"INJURY · WK 03 · NATIVE BINARY SEALED IN VAULT · SANITIZED DERIVATIVE SHOWN" },
     { id:"M-0038", wk:5,  who:"Client",   stream:"s1", t:"Had to skip PT twice this week, couldn't get a ride." },
     { id:"M-0041", wk:6,  who:"PIRRA",    stream:"s1", t:"What can't you do today that you could before?" },
     { id:"M-0042", wk:6,  who:"Client",   stream:"s1", t:"Can't pick up my daughter. She's 4 and she doesn't understand why." },
-    { id:"M-0059", wk:7,  who:"Client",   stream:"q",  t:"Here's what the intersection looks like — you can see how bad the sightline is from that direction.", media:"SCENE PHOTO · CLASSIFIED AS LIABILITY · NOT IN STREAM 1", q:true },
+    { id:"M-0059", wk:7,  who:"Client",   stream:"q",  t:"Here's what the intersection looks like — you can see how bad the sightline is from that direction.", media:"SCENE PHOTO · LIABILITY-FLAGGED · OFF ALL EXHIBIT SURFACES", q:true },
     { id:"M-0067", wk:8,  who:"Client",   stream:"q",  t:"I keep going over it — I was reaching for my phone right before it happened, maybe if I hadn't…", q:true },
     { id:"M-0068", wk:8,  who:"PIRRA",    stream:"s1", t:"That's one for your legal team — send it to them directly and we'll leave it there. Back to today: how's the pain right now?" },
     { id:"M-0071", wk:8,  who:"Client",   stream:"s1", t:"Bad. 9. Flared up after I tried carrying groceries." },
@@ -416,7 +458,7 @@
       d:"Week 8 flare-up attributed to carrying groceries; week 5 entry reports inability to lift over 10 lbs. May be ordinary variation, may need addressing before deposition.",
       ref:"M-0071", done:false },
     { id:"F4", tier:"ev", t:"Scene image quarantined", sla:"4h · 2h left",
-      d:"Client submitted a photograph of the collision intersection at week 7. Image classifier caught it pre-commit and routed it to quarantine — never written to Stream 1. Location metadata was stripped at ingest per the photo protocol. Requires attorney review.",
+      d:"Client submitted a photograph of the collision intersection at week 7. Native binary sealed in the raw-media vault with metadata intact; a sanitized derivative serves working surfaces. Flagged as liability content and excluded from every exhibit surface. Nothing deleted. Requires attorney review.",
       ref:"M-0059", done:false },
     { id:"F3", tier:"op", t:"Treatment gap — 2 missed PT sessions", sla:null,
       d:"Two consecutive missed physical therapy appointments at week 5, transport-related. Surfaced before it becomes a defense argument about care delay.",
@@ -431,7 +473,7 @@
   ];
 
   // ── state ──────────────────────────────────────────────────────────────
-  var role = "para", output = "demand", approved = false;
+  var role = "para", output = "demand", approved = false, impeachAck = false;
   var $ = function (s) { return document.querySelector(s); };
   var el = function (tag, cls, txt) { var n = document.createElement(tag); if (cls) n.className = cls; if (txt != null) n.textContent = txt; return n; };
 
@@ -489,7 +531,7 @@
       body.appendChild(el("p", "qt", "“" + t.q + "”"));
       var tags = el("div", "tags");
       tags.appendChild(el("span", "b " + (t.p === "PRESENT-CONDITION" ? "b-ok" : "b-mut"), t.p));
-      tags.appendChild(el("span", "b b-s1", "STREAM 1"));
+      tags.appendChild(el("span", "b b-s1", "EVIDENCE PLANE"));
       if (t.photo) tags.appendChild(el("span", "b b-ok", "PHOTO ATTACHED"));
       var lk = el("button", "lnk", t.ref + " ↗");
       lk.addEventListener("click", function () { jump(t.ref); });
@@ -525,14 +567,16 @@
       var who = el("div", "who");
       who.appendChild(el("span", "nm", m.who.toUpperCase()));
       who.appendChild(el("span", "", "wk " + m.wk));
-      var badge = m.stream === "q" ? ["b-q", "QUARANTINE"] : m.stream === "s3" ? ["b-s3", "STREAM 3 · PRIVILEGED"] : ["b-s1", "STREAM 1 · DISCOVERABLE"];
+      var badge = m.stream === "q" ? ["b-q", "client_statement · LIABILITY-FLAGGED"]
+        : m.stream === "s3" ? ["b-s3", "attorney_communication · WITHHELD, PRIVILEGE LOG"]
+        : m.who === "PIRRA" ? ["b-s1", "agent_prompt"] : ["b-s1", "client_statement · PRODUCTION-READY"];
       who.appendChild(el("span", "b " + badge[0], badge[1]));
       d.appendChild(who);
       d.appendChild(el("div", "bub", m.t));
       if (m.media) d.appendChild(photoNode(m.media));
       if (m.q) d.appendChild(el("div", "qnote", m.media
-        ? "Image classifier flagged this pre-commit. Never written to Stream 1 — producing the record cannot produce it. Immutable in quarantine; attorney notified."
-        : "Classified pre-commit. Never written to Stream 1 — producing the record cannot produce this. Immutable in quarantine; attorney notified."));
+        ? "Image classifier flagged this on arrival. Committed immutably like every other event — excluded from exhibit surfaces, routed to counsel by alert. Never deleted: deletion inside a tamper-evident chain is provable spoliation."
+        : "Not pursued, not answered. Committed immutably like every other event — excluded from exhibit surfaces, routed to counsel by alert. Never deleted: this is a party-opponent statement and destroying it is worse than holding it."));
       d.appendChild(el("div", "ref", m.id));
       box.appendChild(d);
     });
@@ -570,7 +614,7 @@
       var h = el("div", "fh");
       h.appendChild(el("span", "ft", f.t));
       h.appendChild(el("span", "b " + (f.tier === "ev" ? "b-ev" : "b-op"), f.tier === "ev" ? "EVIDENTIARY" : "OPERATIONAL"));
-      h.appendChild(el("span", "b b-s2", "STREAM 2 · WORK PRODUCT"));
+      h.appendChild(el("span", "b b-s2", "INTELLIGENCE PLANE · ASSERTED ITEM-BY-ITEM"));
       if (f.sla && !f.done) h.appendChild(el("span", "sla", "SLA " + f.sla));
       if (f.done) h.appendChild(el("span", "b b-ok", "ACKNOWLEDGED"));
       card.appendChild(h);
@@ -615,7 +659,7 @@
     var ex = el("div", "exhibit");
     var name = OUTPUTS.filter(function (x) { return x.k === output; })[0].n;
     ex.appendChild(el("h3", null, name + " — Sample Client A"));
-    ex.appendChild(el("div", "sub", "PI-2026-0417 · WEEKS 1–14 · DRAWN FROM STREAM 1 ONLY"));
+    ex.appendChild(el("div", "sub", "PI-2026-0417 · WEEKS 1–14 · EVIDENCE PLANE ONLY · NO INTELLIGENCE-PLANE FIELD IN ANY EXPORT"));
     TIMELINE.slice(0, 4).forEach(function (t) {
       var q = el("blockquote");
       q.appendChild(el("div", null, "“" + t.q + "”"));
@@ -640,15 +684,34 @@
     ex.appendChild(nt);
     p.appendChild(ex);
 
+    // Notice state machine (v1.1 §4.7) — the engine refuses to represent a
+    // certification route as ready until service requirements are satisfied.
+    var ns = el("div", "integrity");
+    ns.style.cssText = "margin-top:12px;border:1px solid var(--rule);background:var(--surface-2);padding:11px 13px;font-family:var(--mono);font-size:9.5px;letter-spacing:.05em;line-height:2;color:var(--ink-soft)";
+    ns.textContent = "NOTICE STATE — CERTIFICATION_ELIGIBLE \u2713 \u00B7 NOTICE_SERVED \u2713 \u00B7 OBJECTION_RECEIVED \u2014 \u00B7 LIVE_FOUNDATION_REQUIRED \u2014"
+      + "   |   Certification mode: 902(11) \u00B7 pack CA-2026.1";
+    p.appendChild(ns);
+
     var g = $("#ex-gate"); g.textContent = "";
+    if (!approved) {
+      var chk = el("label", "gate-check");
+      var box = document.createElement("input"); box.type = "checkbox"; box.checked = impeachAck;
+      box.addEventListener("change", function () { impeachAck = box.checked; renderExhibit(); });
+      chk.appendChild(box);
+      chk.appendChild(el("span", null, "Pre-demand impeachment-surface review complete \u2014 I have seen the entries that cut against this claim and the defense's likely party-opponent mining list."));
+      g.appendChild(chk);
+    }
     if (approved) {
       g.appendChild(el("span", "b b-ok", "APPROVED"));
       g.appendChild(el("span", null, "Released to the firm file. Exhibit PDF and the milestone sync to the case-management system — no Stream 2 field is included, because the connector has no endpoint for one."));
     } else if (role === "atty") {
       var b = el("button", "btn", "Approve + serve");
+      b.disabled = !impeachAck;
       b.addEventListener("click", function () { approved = true; renderExhibit(); });
       g.appendChild(b);
-      g.appendChild(el("span", null, "Attorney approval gates every export. Nothing leaves the workbench without it."));
+      g.appendChild(el("span", null, impeachAck
+        ? "Attorney approval gates every export. Nothing leaves the workbench without it."
+        : "The impeachment-surface review is a required step \u2014 find what the defense will mine before the adjuster does."));
     } else {
       var d = el("button", "btn", "Approve + serve"); d.disabled = true;
       g.appendChild(d);
@@ -656,7 +719,60 @@
     }
   }
 
+
+  // ── rehabilitation finder (v1.1 §4.8) ──────────────────────────────────
+  var PRIOR = {
+    "Lifting / carrying": [
+      ["2026-03-09", "back locked when I tried to pick up the laundry basket", "LOG-0031"],
+      ["2026-04-02", "neighbour carried the groceries in for me", "LOG-0140"],
+      ["2026-06-14", "tried to lift my daughter out of the bath and couldn't. called my mom over", "LOG-0417"],
+      ["2026-07-28", "back to half days, still can't lift anything heavy", "LOG-0502"]
+    ],
+    "Sleep disruption": [
+      ["2026-03-11", "woke up 4 times again", "LOG-0044"],
+      ["2026-05-20", "maybe three hours total last night", "LOG-0333"],
+      ["2026-07-02", "slept through the night for the first time", "LOG-0455"]
+    ],
+    "Missed family activity": [
+      ["2026-03-21", "missed my daughter's recital, couldn't sit that long", "LOG-0088"],
+      ["2026-05-04", "couldn't really sit through my kid's practice this morning", "LOG-0302"]
+    ]
+  };
+
+  function renderRehab() {
+    var d = $("#rf-date").value, topic = $("#rf-topic").value, out = $("#rf-out");
+    out.textContent = "";
+    var all = PRIOR[topic] || [];
+    var hits = all.filter(function (r) { return r[0] < d; });
+
+    var head = el("p", "hint");
+    head.style.marginTop = "0";
+    head.textContent = hits.length
+      ? hits.length + " prior consistent " + (hits.length === 1 ? "entry" : "entries") + " on this topic predate " + d + "."
+      : "No entries on this topic predate " + d + ".";
+    out.appendChild(head);
+
+    hits.forEach(function (r) {
+      var row = el("div", "rf-row");
+      row.appendChild(el("div", "d", r[0]));
+      row.appendChild(el("div", "q", "\u201C" + r[1] + "\u201D"));
+      var lk = el("button", "lnk", r[2] + " \u2197");
+      lk.addEventListener("click", function () { alert("In the product this opens the source message with its full provenance.\n\nReference: " + r[2]); });
+      row.appendChild(lk);
+      out.appendChild(row);
+    });
+
+    if (hits.length) {
+      var note = el("div", "integrity");
+      note.style.cssText = "margin-top:14px;border:1px solid var(--rule);background:var(--surface-2);padding:11px 13px;font-family:var(--mono);font-size:10px;line-height:1.7;color:var(--ink-soft)";
+      note.textContent = "CANDIDATE PATHWAY \u2014 prior consistent statement. Basis: entries predate the impeaching statement. "
+        + "Whether the pathway is open depends on the forum's rule and the ground of attack. Counsel review required. Not labelled admissible.";
+      out.appendChild(note);
+    }
+  }
+  $("#rf-run").addEventListener("click", renderRehab);
+
   // ── init ───────────────────────────────────────────────────────────────
-  renderThread(); renderFlags(); renderExhibit(); renderThreadHint(); updateCount();
+  renderThread(); renderFlags(); renderExhibit(); renderThreadHint(); updateCount(); renderRehab();
 })();
 </script>

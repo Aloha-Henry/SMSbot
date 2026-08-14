@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Deposition-preparation log — PIRRA (sample)</title>
+<style>
+:root{
+  --paper:#FAFAF7; --surface:#fff; --surface-2:#F2F1EA;
+  --ink:#14161A; --ink-soft:#4C525C; --ink-faint:#7D838D; --rule:#E3E1D8;
+  --accent:#0E4F52; --accent-wash:#E2ECEC; --flag:#8A5A2B;
+  --serif:Charter,"Bitstream Charter","Sitka Text",Cambria,Georgia,"Times New Roman",serif;
+  --sans:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,"Cascadia Mono",Consolas,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);
+     font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+.bar{background:var(--accent);color:var(--paper);font-family:var(--mono);font-size:10.5px;
+     letter-spacing:.09em;padding:7px 18px;display:flex;justify-content:space-between;
+     gap:14px;flex-wrap:wrap;align-items:center}
+.bar a{color:var(--paper);text-decoration:none;border-bottom:1px solid rgba(250,250,247,.5)}
+.bar button{font:inherit;color:inherit;background:none;border:1px solid rgba(250,250,247,.55);
+            border-radius:2px;padding:2px 9px;cursor:pointer}
+
+.sheet{max-width:760px;margin:26px auto 70px;background:var(--surface);
+       border:1px solid var(--rule);padding:44px 48px 40px}
+
+.exh-head{border-bottom:2px solid var(--ink);padding-bottom:14px;margin-bottom:26px}
+.exh-head .kicker{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--ink-faint)}
+.exh-head h1{font-size:25px;font-weight:600;letter-spacing:-.01em;margin:7px 0 6px;line-height:1.15}
+.exh-head .meta{font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;color:var(--ink-soft);
+                display:flex;gap:6px 18px;flex-wrap:wrap}
+
+h2{font-size:15.5px;font-weight:600;margin:30px 0 10px;padding-bottom:5px;border-bottom:1px solid var(--rule)}
+h2:first-of-type{margin-top:0}
+p{margin:0 0 12px}
+.small{font-family:var(--mono);font-size:10.5px;line-height:1.7;color:var(--ink-faint)}
+
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);
+       border:1px solid var(--rule);margin:0 0 22px}
+.tile{background:var(--surface);padding:13px 14px}
+.tile .v{font-size:17px;font-weight:600;line-height:1.2;display:block}
+.tile .l{font-family:var(--mono);font-size:9px;letter-spacing:.08em;color:var(--ink-faint);
+         margin-top:4px;display:block}
+
+table{width:100%;border-collapse:collapse;font-size:13.5px;margin:0 0 14px}
+th{font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;font-weight:500;color:var(--ink-soft);
+   text-align:left;padding:7px 10px;background:var(--surface-2);border-bottom:1px solid var(--rule)}
+td{padding:8px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+td.ref,td.dt{font-family:var(--mono);font-size:10.5px;color:var(--ink-faint);white-space:nowrap}
+
+blockquote{margin:0 0 14px;padding-left:14px;border-left:2px solid var(--rule);font-size:15px}
+blockquote .src{display:block;font-family:var(--mono);font-size:9.5px;color:var(--ink-faint);margin-top:4px}
+
+.integrity{margin-top:24px;border:1px solid var(--accent);background:var(--accent-wash);
+           padding:14px 16px;font-family:var(--mono);font-size:10px;line-height:1.8;color:var(--ink-soft)}
+.integrity b{color:var(--ink);letter-spacing:.08em}
+
+.pathway{margin-top:16px;border-left:3px solid var(--flag);background:#FBF4EA;padding:12px 15px}
+.pathway .h{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;color:var(--flag);display:block;margin-bottom:5px}
+.pathway p{margin:0;font-size:13.5px;color:var(--ink-soft)}
+.pathway p+p{margin-top:7px}
+
+.decl{font-size:14.5px}
+.decl ol{padding-left:20px;margin:0 0 14px}
+.decl li{margin-bottom:9px}
+.sig{margin-top:30px;border-top:1px solid var(--rule);padding-top:18px;
+     display:grid;grid-template-columns:1fr 200px;gap:22px;align-items:end}
+.sig .line{border-bottom:1px solid var(--ink);height:26px}
+.sig .cap{font-family:var(--mono);font-size:9.5px;color:var(--ink-faint);margin-top:5px}
+
+.state{display:flex;flex-wrap:wrap;gap:5px;margin:0 0 14px}
+.state span{font-family:var(--mono);font-size:9px;letter-spacing:.06em;padding:3px 8px;
+            border:1px solid var(--rule);border-radius:2px;color:var(--ink-faint)}
+.state span.on{border-color:var(--accent);background:var(--accent-wash);color:var(--accent);font-weight:600}
+.state span.next{border-style:dashed}
+
+.foot{margin-top:34px;border-top:1px solid var(--rule);padding-top:14px;
+      font-family:var(--mono);font-size:9.5px;line-height:1.8;color:var(--ink-faint)}
+
+.idx{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.idx a{background:var(--surface);padding:18px 20px;text-decoration:none;color:inherit;display:block}
+.idx a:hover{background:var(--surface-2)}
+.idx .t{font-size:17px;font-weight:600;display:block}
+.idx .d{font-size:13.5px;color:var(--ink-soft);margin-top:5px;display:block}
+.idx .r{font-family:var(--mono);font-size:9.5px;letter-spacing:.07em;color:var(--accent);margin-top:9px;display:block}
+
+@media (max-width:680px){
+  .sheet{margin:14px 12px 50px;padding:26px 20px}
+  .tiles{grid-template-columns:1fr}
+  .sig{grid-template-columns:1fr}
+}
+@media print{
+  .bar{display:none}
+  body{background:#fff;font-size:10.5pt;line-height:1.4}
+  .sheet{max-width:none;margin:0;border:0;padding:0}
+  h2{margin-top:18px}
+  .integrity,.pathway,table,blockquote{page-break-inside:avoid}
+  a{color:#000;text-decoration:none}
+}
+</style>
+</head><body>
+<div class="bar">
+  <span>SAMPLE EXHIBIT — ILLUSTRATIVE ONLY · NOT A REAL CLIENT FILE</span>
+  <span style="display:flex;gap:14px;align-items:center">
+    <a href="/exhibits/">All samples</a>
+    <button type="button" onclick="window.print()">Print / Save as PDF</button>
+  </span>
+</div>
+<div class="sheet"><div class="exh-head">
+  <div class="kicker">WITNESS PREPARATION</div>
+  <h1>Deposition Preparation Log</h1>
+  <div class="meta"><span>Maria S. (sample)</span> <span>Period: Mar 3 – Aug 1</span> <span>Built to disclosure standard</span></div>
+</div><div class="pathway" style="margin-top:0;margin-bottom:22px">
+<span class="h">READ THIS FIRST</span>
+<p>This log is built on the assumption that it will be produced. Using a document to refresh a
+witness's recollection can trigger production of that document; this one is prepared to withstand
+that, not to avoid it. It contains the client's own entries, complete, including entries that do
+not help.</p>
+</div>
+
+<h2>Chronological entries by topic</h2>
+<table>
+  <thead><tr><th>DATE</th><th>REF</th><th>TOPIC</th><th>VERBATIM</th></tr></thead>
+  <tbody><tr><td class="dt">Mar 9</td><td class="ref">LOG-0031</td><td>Sleep</td><td>&ldquo;woke up 4 times, back locked when I got up&rdquo;</td></tr><tr><td class="dt">Mar 21</td><td class="ref">LOG-0088</td><td>Family activity</td><td>&ldquo;missed my daughter's recital, couldn't sit that long&rdquo;</td></tr><tr><td class="dt">Apr 2</td><td class="ref">LOG-0140</td><td>Assistance</td><td>&ldquo;neighbour carried the groceries in for me&rdquo;</td></tr><tr><td class="dt">May 2</td><td class="ref">LOG-0289</td><td>Flare-up</td><td>&ldquo;shoulder locked up on the second set. had to stop early&rdquo;</td></tr><tr><td class="dt">May 4</td><td class="ref">LOG-0302</td><td>Family activity</td><td>&ldquo;couldn't really sit through my kid's practice this morning&rdquo;</td></tr><tr><td class="dt">Jun 14</td><td class="ref">LOG-0417</td><td>Assistance</td><td>&ldquo;tried to lift my daughter out of the bath and couldn't. called my mom over&rdquo;</td></tr><tr><td class="dt">Jul 2</td><td class="ref">LOG-0455</td><td>Improvement</td><td>&ldquo;slept through the night for the first time. more like a 4 today&rdquo;</td></tr><tr><td class="dt">Jul 28</td><td class="ref">LOG-0502</td><td>Lifting</td><td>&ldquo;back to half days at work, still can't lift anything heavy&rdquo;</td></tr></tbody></table>
+
+<h2>Topic index</h2>
+<table>
+  <thead><tr><th>TOPIC</th><th>ENTRIES</th><th>FIRST</th><th>LAST</th></tr></thead>
+  <tbody>
+    <tr><td>Sleep disruption</td><td class="dt">61</td><td class="dt">Mar 4</td><td class="dt">Jul 2</td></tr>
+    <tr><td>Lifting / carrying</td><td class="dt">44</td><td class="dt">Mar 9</td><td class="dt">Aug 1</td></tr>
+    <tr><td>Missed family activity</td><td class="dt">27</td><td class="dt">Mar 21</td><td class="dt">Jul 19</td></tr>
+    <tr><td>Assistance required</td><td class="dt">11</td><td class="dt">Apr 2</td><td class="dt">Jul 28</td></tr>
+    <tr><td>Reported improvement</td><td class="dt">38</td><td class="dt">Jun 1</td><td class="dt">Aug 1</td></tr>
+  </tbody>
+</table>
+
+<h2>Entries that cut against the claim</h2>
+<p>Listed deliberately. A record that contains only helpful entries is a record the defense gets to
+attack as curated; the complete version is the credible one, and counsel should see these before
+the other side does.</p>
+<table>
+  <thead><tr><th>DATE</th><th>REF</th><th>ENTRY</th></tr></thead>
+  <tbody>
+    <tr><td class="dt">Apr 19</td><td class="ref">LOG-0203</td><td>&ldquo;good weekend, made it to the beach for about an hour&rdquo;</td></tr>
+    <tr><td class="dt">Jun 4–13</td><td class="ref">SYS-0061</td><td>Nine days, no response. Logged as an administrative gap.</td></tr>
+    <tr><td class="dt">Jul 2</td><td class="ref">LOG-0455</td><td>&ldquo;slept through the night for the first time&rdquo;</td></tr>
+  </tbody>
+</table><div class="integrity">
+<b>RECORD INTEGRITY</b><br>
+412 entries · Mar 3 – Aug 1 · no entry removed or omitted<br>
+Append-only event store · SHA-256 hash chain, unbroken on last verification<br>
+Independent trusted timestamps (RFC 3161) · scheduled integrity job re-verifies against anchored digests<br>
+Complete record: good days and difficult days both included · non-response logged with neutral status codes<br>
+No client data placed on any blockchain.
+</div><div class="pathway"><span class="h">CANDIDATE EVIDENTIARY PATHWAY — COUNSEL REVIEW REQUIRED</span><p>Prepared on the expectation of production. Where a witness reviews a writing to refresh recollection, the adverse party's entitlement to that writing is assumed rather than resisted.</p><p>Contemporaneous entries may also support rehabilitation where a prior consistent statement pathway is open in the forum — that determination is counsel's, not the system's.</p></div><div class="foot">
+PIRRA is a legal-team support tool for law firms. It is not a law firm, does not provide legal or
+medical advice, and does not guarantee any legal outcome, including that any communication will be
+treated as privileged. Evidence-rule architecture described here is designed to support, not
+guarantee, privilege and admissibility, and is subject to review by counsel in each jurisdiction.<br>
+Every figure in this document is synthetic. Client, firm, providers and dates are invented.
+</div></div>
+</body></html>
