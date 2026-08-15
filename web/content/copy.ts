@@ -28,8 +28,10 @@ export const cta = {
   secondaryHref: "/exhibits/",
   demo: "Open the workbench prototype",
   demoHref: "/demo/",
+  setup: "See case setup",
+  setupHref: "/demo/onboarding",
   demoNote:
-    "A working prototype on an invented case — no real client, no real firm, not a live system. Switch roles to see which decisions are reserved for counsel.",
+    "Working prototypes on an invented case — no real client, no real firm, not a live system. Case setup is the two minutes an attorney spends directing PIRRA; the workbench is what the team works in afterwards.",
 } as const;
 
 export const gate = {

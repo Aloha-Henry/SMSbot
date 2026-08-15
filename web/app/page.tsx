@@ -206,6 +206,7 @@ export default function Home() {
 
           <div className="mt-11 flex flex-wrap items-center gap-x-8 gap-y-4">
             <PrimaryCta />
+            <TextLink href={cta.setupHref}>{cta.setup} &rarr;</TextLink>
             <TextLink href={cta.demoHref}>{cta.demo} &rarr;</TextLink>
           </div>
           <p className="mt-4 max-w-[62ch] font-mono text-[11.5px] leading-relaxed text-ink-faint">

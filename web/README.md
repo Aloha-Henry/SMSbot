@@ -1,7 +1,8 @@
 # PIRRA — landing page
 
 Next.js 15 (App Router) + Tailwind v4 + TypeScript. Static export, no backend.
-Built to [`docs/source/PIRRA-Landing-Page-Brief.md`](../docs/source/PIRRA-Landing-Page-Brief.md).
+Built to [`docs/source/PIRRA-Landing-Page-Brief-v2.md`](../docs/source/PIRRA-Landing-Page-Brief-v2.md),
+on the architecture in [`PIRRA-Final-Design-Proposal-v1.1.md`](../docs/source/PIRRA-Final-Design-Proposal-v1.1.md).
 
 ## Run it
 
@@ -36,17 +37,20 @@ Every push to the branch then auto-deploys, and each PR gets its own preview URL
 
 ## Editing copy
 
-**All copy lives in [`content/copy.ts`](content/copy.ts).** Never inline strings in
-components. Copy is final per brief §5 — read §0 before changing a word. The
-short version:
+**Landing copy lives in [`content/copy.ts`](content/copy.ts); wizard copy in
+[`content/onboarding.ts`](content/onboarding.ts).** Never inline strings in
+components. Copy is final per brief v2 §6 — read v2 §0 and v1 §0 before changing
+a word. The short version:
 
 - *preserves evidence that would otherwise be lost* — **never** *creates evidence*
-- no privilege guarantees, anywhere — architecture-descriptive only
+- no privilege guarantees and no admissibility guarantees, anywhere
 - no outcome or settlement promises
 - AI status always disclosed
 - banned for the product: companion, coach, nurse navigator, AI legal assistant,
-  chatbot, therapy, journal-as-product
-- the only hard numbers on the page are the FRE citations and `$149`
+  chatbot, therapy, journal-as-product, demand engine, disguised
+- **no pass-through language.** `$149` flat, published, sold to the firm. How a
+  firm accounts for it is the firm's question, and we give no ethics advice
+- **no rule numbers in the hero** — citations only in section E, stated precisely
 
 ## Swap points
 
@@ -56,7 +60,7 @@ Four `TODO`s, each a single edit:
 |---|---|
 | Pilot form endpoint | `components/PilotForm.tsx` → `submitPilotRequest()` |
 | Analytics | `app/layout.tsx` → `{/* TODO: analytics */}` |
-| Sample exhibit PDF | `public/sample-exhibit.pdf` (placeholder) |
+| Sample exhibits | `scripts/build-exhibits.py` → `public/exhibits/` |
 | Contact address | `content/copy.ts` → `footer.contact` |
 
 ## The gate
@@ -106,6 +110,31 @@ The depo log deliberately includes an adverse-entries section. That is the produ
 argument, not an oversight — a record containing only helpful entries is one the
 defense gets to attack as curated.
 
+## The `/demo/onboarding` route — protocol wizard
+
+The attorney-facing case setup, built to `PIRRA-Protocol-Wizard-Brief`. A Next.js
+route behind the same gate. Copy lives in
+[`content/onboarding.ts`](content/onboarding.ts); the state machine is
+[`components/onboarding/Wizard.tsx`](components/onboarding/Wizard.tsx).
+
+Flow: case card → whether → conversation mode → details → review → launched →
+case controls (mode change, pause, turn off).
+
+**Three rules this route cannot break**, all noted in the copy file's header:
+
+1. **The decline path captures no reason.** A stored "attorney doubted client
+   credibility" field is a discoverable disaster. Screen 1 records the election
+   and nothing else. Do not add a notes affordance.
+2. **Pricing appears exactly once** — the review screen, verbatim.
+3. **Extra banned words beyond the landing page's list**: AI employee,
+   elicitation, evidence generation, admissible, guaranteed, privileged (as a
+   promise), demand engine. Modes are "conversation modes"; the flow is "case
+   setup" / "direction".
+
+The one micro-animation in the whole prototype is the seal at **Authorize** —
+motion earns it there because the click *is* the documented direction.
+`prefers-reduced-motion` skips straight to the timestamp.
+
 ## The `/demo/` route
 
 `public/demo/index.html` is the interactive workbench prototype — a single self-contained
@@ -119,8 +148,9 @@ a conversation you want during a pilot negotiation.
 
 ## Known placeholders
 
-- `public/sample-exhibit.pdf` is a generated placeholder with no client data,
-  real or synthetic. Replace before the page goes to firms.
+- Every sample surface is synthetic: the client is "Maria S. (sample)", and the
+  exhibits, threads and case file are invented. Nothing may be swapped for real
+  content without scrubbing every field.
 - Surface mockups in `components/Mockups.tsx` are illustrative CSS/SVG with
   obviously synthetic content — never real screenshots. Scrub every field if
   you swap them for captures.
@@ -130,6 +160,10 @@ a conversation you want during a pilot negotiation.
 ## Accessibility and performance
 
 Semantic landmarks, single `h1`, labelled form controls, visible focus rings,
-`prefers-reduced-motion` honored, `aria-label` on both illustrative SVGs. System
-fonts only — no webfont round-trip. No tracker, no chat widget, no autoplay,
-no `localStorage`/`sessionStorage`.
+`prefers-reduced-motion` honored, `aria-label` on illustrative SVGs. Mode
+selection and toggles use real radio and checkbox inputs, so keyboard behaviour
+comes free. System fonts only — no webfont round-trip. No tracker, no chat
+widget, no autoplay.
+
+`sessionStorage` is used in exactly one place — the gate's unlock flag — and
+goes away with the gate. Nothing else stores anything client-side.
