@@ -55,6 +55,23 @@ body {
   }
 }
 
+/* The one micro-animation on the whole prototype: the authorize seal.
+   Motion earns its place here because the click IS the documented direction. */
+@keyframes pirra-seal {
+  0% {
+    opacity: 0;
+    transform: scale(1.5) rotate(-7deg);
+  }
+  55% {
+    opacity: 1;
+    transform: scale(0.95) rotate(-3deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(-3deg);
+  }
+}
+
 /* Gate: gentle shake on a wrong code. No lockout, no alarm. */
 @keyframes shake {
   0%,

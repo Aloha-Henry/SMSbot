@@ -106,6 +106,31 @@ The depo log deliberately includes an adverse-entries section. That is the produ
 argument, not an oversight — a record containing only helpful entries is one the
 defense gets to attack as curated.
 
+## The `/demo/onboarding` route — protocol wizard
+
+The attorney-facing case setup, built to `PIRRA-Protocol-Wizard-Brief`. A Next.js
+route behind the same gate. Copy lives in
+[`content/onboarding.ts`](content/onboarding.ts); the state machine is
+[`components/onboarding/Wizard.tsx`](components/onboarding/Wizard.tsx).
+
+Flow: case card → whether → conversation mode → details → review → launched →
+case controls (mode change, pause, turn off).
+
+**Three rules this route cannot break**, all noted in the copy file's header:
+
+1. **The decline path captures no reason.** A stored "attorney doubted client
+   credibility" field is a discoverable disaster. Screen 1 records the election
+   and nothing else. Do not add a notes affordance.
+2. **Pricing appears exactly once** — the review screen, verbatim.
+3. **Extra banned words beyond the landing page's list**: AI employee,
+   elicitation, evidence generation, admissible, guaranteed, privileged (as a
+   promise), demand engine. Modes are "conversation modes"; the flow is "case
+   setup" / "direction".
+
+The one micro-animation in the whole prototype is the seal at **Authorize** —
+motion earns it there because the click *is* the documented direction.
+`prefers-reduced-motion` skips straight to the timestamp.
+
 ## The `/demo/` route
 
 `public/demo/index.html` is the interactive workbench prototype — a single self-contained
