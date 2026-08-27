@@ -18,15 +18,34 @@ before repeating any specific claim externally.
 - SmartAdvocate integration; "every CMS" positioning; inactivity monitoring and engagement
   badges on the attorney dashboard.
 - **A family-law case type** — horizontal drift beyond PI.
-- SMS used as deep links **into the app** — SMS is their notification channel, not their capture
-  channel.
+- **CaseChat™ (launched Jan 2025, upgraded since): a real SMS capture channel.** One firm SMS
+  number; the client texts it with no app required; every message on both sides is captured in
+  real time, labeled as SMS, and synced to the CMS. Real-time translation (Spanish, Tagalog,
+  "and beyond"). AI overlay highlights important messages and "flags potential risks."
+  Automated one-way SMS: reminders, case-phase updates, adoption nudges, custom autoresponders.
+  Magic-link SMS onboarding, no passwords.
+  **Correction to the first draft of this note, which called their SMS "deep links into the
+  app" — that was wrong.** The deep links exist, but CaseChat itself is genuine two-way
+  SMS-to-case-file capture.
 
 ## Tripwire status (per the Aug scan: "exhibit," "FRE," "902," "1006," "provenance," "privilege")
 
 **NOT crossed.** No exhibit, certification, authentication, provenance, privilege, or
 work-product language anywhere found. Their evidence story remains "documentation that
-strengthens demand letters." No conversational AI check-in shipped — their AI is analysis-side
-(summaries, document triage, gap signals), and the client is still self-logging in an app.
+strengthens demand letters."
+
+**And still no conversational AI.** This is the load-bearing fact, and the Aug scan had it
+right: CaseChat is *human* attorney/staff ↔ client texting with an AI overlay (highlighting,
+risk flags, translation) and canned automation (reminders, phase messages, autoresponders).
+Nobody — human or machine — asks the client "how's the pain right now?" and follows up on the
+answer. Their structured capture (pain scores 0–10, photos) still lives in the app as
+self-logging, pushed along by streak counters and milestone badges; the SMS reminders exist to
+drive app adoption.
+
+**Their two halves don't combine.** The SMS lane has conversation but no structure, and costs
+staff time per message. The app lane has structure but no conversation, and depends on client
+self-discipline. PIRRA's entire design is the combination: structured, present-tense,
+event-proximate capture *through* conversation *on* SMS — no app, no staff time per check-in.
 
 ## The two honest erosions
 
@@ -59,11 +78,27 @@ strengthens demand letters." No conversational AI check-in shipped — their AI 
    the records exist. They are writing the defense's brief against their own users' data.
 6. **Horizontal vs. narrow.** Family law says general client-portal play. We stay in the sliver.
 
+## Two new observations from the deeper pass
+
+- **Gamified pain logging is an impeachment surface.** Streak counters and "milestone
+  achievements" reward the act of making entries. On cross: *"You earned badges for logging
+  pain entries?"* — a rewarded record is a manufactured-entry narrative waiting to be told.
+  PIRRA deliberately attaches no incentive to content, ever. This belongs in the attack-bank
+  thinking as a contrast, not on the public page.
+- **CaseChat captures everything with no containment.** The client's texts to the firm —
+  including liability statements — flow into a synced CMS record, and they affirmatively invite
+  witness/other-driver photos. Their AI "flags potential risks," and those flags apparently
+  sync into the CMS with everything else: no work-product architecture, no exhibit-surface
+  separation, no discipline about what the flag itself discloses.
+
 ## The line for the pitch
 
-Quilia hands your client a form and hopes they fill it in; PIRRA holds the conversation and
-builds the record. Quilia's data ends up "ready for demand preparation" — their words; ask them
-who authenticates it, and how. (Do not name them on the live page; category language only.)
+Their SMS is a pipe; ours is an instrument. CaseChat moves the client's words into the file —
+whatever they happen to be, at staff expense, with no evidence architecture underneath. PIRRA
+conducts the conversation: present-tense, event-proximate, attorney-directed, committed to a
+tamper-evident record with an authentication plan per forum. Their data ends up "ready for
+demand preparation" — their words; ask who authenticates it, and how. (Category language only
+on the live page; never name them.)
 
 ## Watch next
 
