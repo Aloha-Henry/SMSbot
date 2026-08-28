@@ -32,6 +32,12 @@ it into court-ready exhibits with every fact traced back to the message it came 
   present sense impression and its cadence consequence, the prior-consistent-statement gap, the
   RFA template, and the photo split. Written to bring a co-founder or a fresh session up to speed.
 
+- [`docs/briefs/outside-ai-research-brief.md`](docs/briefs/outside-ai-research-brief.md)
+  — **research briefing for an outside AI session.** Self-contained: product, architecture,
+  evidence theory, the California election model, the attack bank, eight ranked research
+  questions, and a mandatory verification protocol. Written to be pasted into Gemini or any
+  other model for a research pass.
+
 - [`docs/briefs/evidence-architecture-brief.md`](docs/briefs/evidence-architecture-brief.md)
   ([rendered](docs/briefs/evidence-architecture-brief.html)) — two-page brief for outside
   adversarial review. How the FRE and case law drove the architecture, and the six places we
