@@ -100,6 +100,18 @@ tamper-evident record with an authentication plan per forum. Their data ends up 
 demand preparation" — their words; ask who authenticates it, and how. (Category language only
 on the live page; never name them.)
 
+## Pricing correction (affects our own page)
+
+**Quilia publishes pricing: $10 per monthly active client** (their own site; sourced from
+their pilot-launch article, so confirm currency before quoting a number anywhere). This
+falsifies the Aug scan's "the whole set is contact-sales-only; $149 is the only public number"
+and it falsified the live pricing section's "Everyone else in this space makes you 'contact
+sales'" — removed from the page the day this was found. Our honest wedge is the *model*, not
+publication: flat per-case versus a per-client monthly meter that runs for the life of the
+case. A 14-month case at $10/month is ~$140 anyway — but metered, unpredictable, and shaped
+like a software subscription rather than a case cost. State ours positively; never make
+category-wide factual claims again.
+
 ## Watch next
 
 - **Case Signal shipping** — if it becomes client-facing conversational capture, the check-in

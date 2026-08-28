@@ -215,7 +215,11 @@ export const pricing = {
   headline: "$149 per case. Flat. Published.",
   subhead:
     "No seats. No annual contract. No migration. Works with any case-management system.",
-  body: 'Everyone else in this space makes you "contact sales." We don\'t. One flat, published price per case, start to finish. How your firm accounts for it is your call — we keep it simple on our end.',
+  // "Everyone else makes you contact sales" was removed deliberately: at least
+  // one competitor publishes per-client monthly pricing, so the claim was
+  // falsifiable by exactly the reader most worth convincing. State our model
+  // positively; never make a category-wide factual claim we can't substantiate.
+  body: 'One flat, published price per case, start to finish — not a subscription, and not a per-client monthly meter that keeps running as long as the case does. How your firm accounts for it is your call — we keep it simple on our end.',
   smallprint:
     "Extended-litigation cases may tier higher. Dropped-case terms available. Pricing shown is for the pilot program.",
 } as const;
