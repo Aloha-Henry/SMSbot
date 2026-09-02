@@ -111,7 +111,7 @@
         <rect class="gate" x="466" y="114" width="8" height="72"/>
         <text class="eb eb-a" x="486" y="128">CLOSED</text>
         <text class="s" x="486" y="145">privilege objection · work-product objection</text>
-        <text class="s" x="486" y="160">held up by: direction letter · attorney in-thread</text>
+        <text class="s" x="486" y="160">held up by: direction letter · communications reach counsel</text>
         <text class="s" x="486" y="174">message_class · plane separation · attorney adjudication</text>
         <text class="s" x="486" y="188">zero-retention terms · tenant isolation</text>
 
@@ -268,7 +268,7 @@
         <text class="al" x="1068" y="106">adjudicates flags</text>
         <!-- attorney -> evidence (replies in-thread) -->
         <path class="ln-e" d="M910,60 H820 V130" marker-end="url(#f-e)"/>
-        <text class="al" x="826" y="100">replies in-thread</text>
+        <text class="al" x="826" y="100">receives · may reply</text>
         <text class="al" x="826" y="113">attorney_communication</text>
 
         <!-- export fn -->
@@ -305,7 +305,7 @@
       <thead><tr><th>PIECE</th><th>LOCKS</th><th>WHY IT MATTERS</th></tr></thead>
       <tbody>
         <tr><td>Written direction letter + protocol object, timestamped</td><td><span class="pill p1">DOOR 1</span></td><td>Establishes counsel's direction. This is the Heppner ground the design answers head-on.</td></tr>
-        <tr><td>Attorney genuinely in-thread, engagement logged</td><td><span class="pill p1">DOOR 1</span></td><td>Turns "channel to counsel" from a label into a fact. A nominal presence dies on one deposition question.</td></tr>
+        <tr><td>The communications actually reach counsel, and the client is told so</td><td><span class="pill p1">DOOR 1</span></td><td>The fight is not how often the lawyer replies. It is whether she was communicating with her lawyer or with a vendor. Firm number, written direction, the onboarding notice that her legal team reads these, and the record landing in the client file make it a communication to counsel. Replying is optional; receipt is the point.</td></tr>
         <tr><td><code>message_class</code> on every event</td><td><span class="pill p1">DOOR 1</span> <span class="pill p3">DOOR 3</span></td><td>Lets counsel produce the record while withholding attorney messages with a privilege log. Without it, using the record waives counsel's words too.</td></tr>
         <tr><td>Two schemas, no export path from intelligence</td><td><span class="pill p1">DOOR 1</span> <span class="pill p3">DOOR 3</span></td><td>The analysis cannot leak into a production even through a diligent paralegal. Absence of the path, not a permission flag.</td></tr>
         <tr><td>Attorney-only disposition of evidentiary flags</td><td><span class="pill p1">DOOR 1</span></td><td>Puts a lawyer's mental impressions on each flag. That is what upgrades it to opinion work product, absolute in California.</td></tr>
