@@ -18,10 +18,12 @@ it into court-ready exhibits with every fact traced back to the message it came 
 | [`docs/OVERVIEW.md`](docs/OVERVIEW.md) | Self-contained summary of the entire plan — problem, product, market, legal architecture, business model, and open risks. Written to be read cold, or handed to an outside reviewer. |
 | [`docs/system-map.md`](docs/system-map.md) | **Start here.** Actors, lifecycle, the three storage streams, the liability boundary, and the build target. |
 | [`docs/system-map.html`](docs/system-map.html) | Same map, rendered with full diagrams. |
+| [`docs/three-doors.html`](docs/three-doors.html) | **The privilege picture in two figures.** How defense counsel reaches the record, which architecture piece locks each route, and what the Twilio → Supabase build has to do to honor it. |
 | [`docs/decisions/0001`](docs/decisions/0001-evidence-privilege-and-scope.md) | The decisions that shaped it — evidence posture, privilege theory, scope boundaries. Supersedes conflicting parts of the source docs. |
 | [`docs/decisions/0002`](docs/decisions/0002-containment-cms-firewall-and-pilot-metrics.md) | Liability containment engine, the zero-endpoint CMS firewall, and what a pilot can and cannot prove. Includes rejected proposals and why. |
 | [`docs/decisions/0003`](docs/decisions/0003-state-forum-authentication-and-psi.md) | State forum, vendor business-record authentication, present sense impression over recorded recollection, and the RFA template. Supersedes DR-0001 D3. |
 | [`docs/decisions/0004`](docs/decisions/0004-jurisdiction-packs.md) | Jurisdiction packs — adopted, but governing characterization at export rather than capture, so the record stays uniform. Pack schema and authoring rules. |
+| [`docs/decisions/0005`](docs/decisions/0005-autonomy-levels-and-privilege-control-surface.md) | **The privilege control surface.** Autonomy levels 0–4, approval regimes, non-electable floors, Door 2 and Door 3 hardening, and the refinement of D11: privileged until elected, production-safe when elected, survivable if privilege fails. |
 | [`docs/research/state-evidence-survey.md`](docs/research/state-evidence-survey.md) | Per-jurisdiction survey of whether our theories are actually available. Hawaii started; internal input only, never customer-facing. |
 
 ## Briefs

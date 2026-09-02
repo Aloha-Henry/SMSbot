@@ -1,0 +1,329 @@
+<title>The Three Doors</title>
+<style>
+  :root {
+    --serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, "Cascadia Mono", Consolas, monospace;
+    --paper:#F0F1F3; --surface:#FAFBFC; --surface-2:#E9EBEF;
+    --ink:#16181D; --ink-soft:#5B616B; --ink-faint:#878D97; --rule:#D2D6DD;
+    --accent:#243C6B; --accent-wash:#E3E8F4;
+    --egress:#8F6415; --egress-wash:#F4EAD6;
+    --danger:#8C2F39; --danger-wash:#F5E2E4;
+    --ok:#2F6B4F; --ok-wash:#DFEDE5;
+  }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+    --paper:#121419; --surface:#191C23; --surface-2:#22262F;
+    --ink:#E5E8ED; --ink-soft:#9AA2AE; --ink-faint:#6E7783; --rule:#2D323C;
+    --accent:#93A9E6; --accent-wash:#1D2440; --egress:#D6A648; --egress-wash:#302713;
+    --danger:#E28C95; --danger-wash:#331B1F; --ok:#7FC0A0; --ok-wash:#16301F; } }
+  :root[data-theme="dark"] {
+    --paper:#121419; --surface:#191C23; --surface-2:#22262F;
+    --ink:#E5E8ED; --ink-soft:#9AA2AE; --ink-faint:#6E7783; --rule:#2D323C;
+    --accent:#93A9E6; --accent-wash:#1D2440; --egress:#D6A648; --egress-wash:#302713;
+    --danger:#E28C95; --danger-wash:#331B1F; --ok:#7FC0A0; --ok-wash:#16301F; }
+
+  *{box-sizing:border-box}
+  body{margin:0;padding:0 24px 90px;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto}
+  .col{max-width:68ch}
+  header.mast{border-bottom:2px solid var(--ink);padding:52px 0 18px;margin-bottom:38px}
+  .stamp{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--ink-faint);display:flex;gap:8px 20px;flex-wrap:wrap;margin-bottom:16px}
+  h1{font-size:clamp(30px,5vw,42px);line-height:1.1;font-weight:600;letter-spacing:-.015em;margin:0 0 14px;text-wrap:balance}
+  .spine{font-size:18px;color:var(--ink-soft);max-width:64ch;margin:0}
+  .spine strong{color:var(--ink)}
+  section{margin-bottom:56px}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;color:var(--accent);margin:0 0 8px}
+  h2{font-size:25px;font-weight:600;letter-spacing:-.01em;margin:0 0 12px;text-wrap:balance}
+  p{margin:0 0 14px}
+  figure{margin:28px 0 0;padding:0}
+  .scroll{overflow-x:auto;background:var(--surface);border:1px solid var(--rule);padding:22px 20px}
+  figure svg{display:block;max-width:100%;height:auto;min-width:720px}
+  figcaption{font-family:var(--mono);font-size:11.5px;line-height:1.55;color:var(--ink-soft);margin-top:11px;max-width:80ch}
+
+  .bx{fill:var(--surface);stroke:var(--rule);stroke-width:1}
+  .bx-a{fill:var(--accent-wash);stroke:var(--accent);stroke-width:1.15}
+  .bx-e{fill:var(--egress-wash);stroke:var(--egress);stroke-width:1.15}
+  .bx-d{fill:var(--danger-wash);stroke:var(--danger);stroke-width:1.15}
+  .bx-o{fill:var(--ok-wash);stroke:var(--ok);stroke-width:1.15}
+  .band{fill:var(--surface-2);opacity:.55}
+  .ln{stroke:var(--ink-soft);stroke-width:1.2;fill:none}
+  .ln-a{stroke:var(--accent);stroke-width:1.4;fill:none}
+  .ln-e{stroke:var(--egress);stroke-width:1.4;fill:none}
+  .ln-d{stroke:var(--danger);stroke-width:1.4;fill:none}
+  .dash{stroke-dasharray:4 4}
+  .gate{fill:var(--accent)}
+  .mk{fill:var(--ink-soft)} .mk-a{fill:var(--accent)} .mk-e{fill:var(--egress)} .mk-d{fill:var(--danger)}
+  .t{font:600 12.5px var(--serif);fill:var(--ink)}
+  .s{font:400 9.5px var(--mono);fill:var(--ink-soft)}
+  .l{font:500 10px var(--mono);fill:var(--ink-faint);letter-spacing:.09em}
+  .al{font:400 9.5px var(--mono);fill:var(--ink-soft)}
+  .eb{font:500 9.5px var(--mono);letter-spacing:.11em}
+  .eb-a{fill:var(--accent)} .eb-e{fill:var(--egress)} .eb-d{fill:var(--danger)} .eb-o{fill:var(--ok)}
+  .x{stroke:var(--danger);stroke-width:2.2}
+
+  .tbl{overflow-x:auto;margin-top:22px}
+  table{border-collapse:collapse;width:100%;min-width:640px;background:var(--surface);border:1px solid var(--rule);font-size:14.5px}
+  th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--rule);vertical-align:top}
+  th{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;font-weight:500;color:var(--ink-soft);background:var(--surface-2)}
+  tbody tr:last-child td{border-bottom:0}
+  .pill{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.07em;padding:2px 7px;border:1px solid currentColor;border-radius:2px;white-space:nowrap}
+  .p1{color:var(--danger)} .p2{color:var(--danger)} .p3{color:var(--egress)} .pi{color:var(--ink-faint)}
+  .note{border-left:3px solid var(--accent);background:var(--accent-wash);padding:15px 19px;margin-top:22px}
+  .note p{margin:0;font-size:15.5px}
+  footer.end{border-top:1px solid var(--rule);padding-top:18px;font-family:var(--mono);font-size:11px;line-height:1.7;color:var(--ink-faint)}
+</style>
+
+<div class="wrap">
+<header class="mast">
+  <div class="stamp"><span>PIRRA</span><span>PRIVILEGE ARCHITECTURE</span><span>WORKING DIAGRAM</span><span>AUG 2026</span></div>
+  <h1>Defense counsel reaches the record through three doors. The architecture locks two and hands the attorney the key to the third.</h1>
+  <p class="spine"><strong>Privilege and work product are what counsel asserts.</strong> The architecture is what makes the assertion true. Twilio retention, plane separation and the export path are where the assertion is actually won or lost.</p>
+</header>
+
+<section>
+  <p class="eyebrow">FIGURE 1</p>
+  <h2>The three doors</h2>
+  <div class="col"><p>Every route the defense has to the record, what stands in each one, and the one route that is supposed to open. The dashed line at the bottom is the honest limit: no lock covers the facts themselves.</p></div>
+
+  <figure>
+    <div class="scroll">
+      <svg viewBox="0 0 1180 600" role="img" aria-label="Defense counsel on the left has three routes to the record store on the right. Door one, a discovery request to the firm, and door two, a subpoena to PIRRA or Twilio, are closed by gates whose locks are the architecture pieces. Door three, waiver, runs the other way: the record passes from the store through the attorney, who holds the only key, to the defense. A dashed line at the bottom shows the facts are always reachable by deposition regardless.">
+        <defs>
+          <marker id="d-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><polygon class="mk-d" points="0,1.5 10,5 0,8.5"/></marker>
+          <marker id="e-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><polygon class="mk-e" points="0,1.5 10,5 0,8.5"/></marker>
+          <marker id="n-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><polygon class="mk" points="0,1.5 10,5 0,8.5"/></marker>
+        </defs>
+
+        <!-- defense -->
+        <rect class="bx-d" x="40" y="215" width="170" height="100"/>
+        <text class="eb eb-d" x="56" y="240">THE OTHER SIDE</text>
+        <text class="t" x="56" y="264">Defense counsel</text>
+        <text class="s" x="56" y="282">wants the thread, the</text>
+        <text class="s" x="56" y="296">flags, and the lawyer's notes</text>
+
+        <!-- lane bands -->
+        <rect class="band" x="230" y="104" width="470" height="92"/>
+        <rect class="band" x="230" y="374" width="470" height="92"/>
+
+        <!-- DOOR 1 -->
+        <text class="l" x="230" y="96">DOOR 1 · DISCOVERY REQUEST TO THE FIRM</text>
+        <path class="ln-d" d="M210,150 H458" marker-end="url(#d-arr)"/>
+        <text class="al" x="236" y="141">"produce all writings recording her symptoms"</text>
+        <rect class="gate" x="466" y="114" width="8" height="72"/>
+        <text class="eb eb-a" x="486" y="128">CLOSED</text>
+        <text class="s" x="486" y="145">privilege objection · work-product objection</text>
+        <text class="s" x="486" y="160">held up by: direction letter · communications reach counsel</text>
+        <text class="s" x="486" y="174">message_class · plane separation · attorney adjudication</text>
+        <text class="s" x="486" y="188">zero-retention terms · tenant isolation</text>
+
+        <!-- DOOR 2 -->
+        <text class="l" x="230" y="231">DOOR 2 · SUBPOENA TO PIRRA OR TWILIO</text>
+        <path class="ln-d" d="M210,285 H458" marker-end="url(#d-arr)"/>
+        <text class="al" x="236" y="276">a third party holding a copy hands it over</text>
+        <rect class="gate" x="466" y="249" width="8" height="72"/>
+        <text class="eb eb-a" x="486" y="263">CLOSED</text>
+        <text class="s" x="486" y="280">vendor subpoena protocol: notify the firm,</text>
+        <text class="s" x="486" y="294">produce nothing without a court order</text>
+        <text class="s" x="486" y="308">Twilio message-body retention OFF · enterprise terms</text>
+        <text class="s" x="486" y="322">firm asserts privilege on the client's behalf</text>
+
+        <!-- DOOR 3 (reversed) -->
+        <text class="l" x="230" y="366">DOOR 3 · WAIVER BY THE PLAINTIFF'S OWN SIDE</text>
+        <path class="ln-e" d="M720,420 H556"/>
+        <rect class="bx-e" x="396" y="396" width="150" height="50"/>
+        <text class="eb eb-e" x="410" y="414">HOLDS THE ONLY KEY</text>
+        <text class="t" x="410" y="434">Attorney</text>
+        <path class="ln-e" d="M396,420 H218" marker-end="url(#e-arr)"/>
+        <text class="al" x="236" y="411">opens only when counsel elects</text>
+        <text class="s" x="236" y="462">what opens it: attaching the exhibit to a demand · giving the record to a testifying expert</text>
+        <text class="s" x="236" y="476">letting the client study the transcript before testifying (CA §771) · nothing else</text>
+
+        <!-- store -->
+        <rect class="bx" x="720" y="90" width="420" height="364"/>
+        <text class="l" x="736" y="112">THE RECORD STORE</text>
+
+        <rect class="bx-e" x="736" y="124" width="388" height="98"/>
+        <text class="eb eb-e" x="752" y="146">RECORD · client ↔ PIRRA</text>
+        <text class="t" x="752" y="170">Privilege, argued as the firm's channel to counsel</text>
+        <text class="s" x="752" y="188">untested for an AI intermediary — so also built production-safe:</text>
+        <text class="s" x="752" y="202">complete, hash-chained, steered away from liability, never deleted</text>
+
+        <rect class="bx-a" x="736" y="234" width="388" height="98"/>
+        <text class="eb eb-a" x="752" y="256">INTELLIGENCE · flags, protocol, annotations</text>
+        <text class="t" x="752" y="280">Work product — absolute once a lawyer's judgment is on it</text>
+        <text class="s" x="752" y="298">the layer that would actually hurt the client if it leaked:</text>
+        <text class="s" x="752" y="312">every place her story wobbled, listed by her own side</text>
+
+        <rect class="bx-a" x="736" y="344" width="388" height="98"/>
+        <text class="eb eb-a" x="752" y="366">ATTORNEY MESSAGES · counsel in the thread</text>
+        <text class="t" x="752" y="390">Ordinary attorney-client privilege</text>
+        <text class="s" x="752" y="408">tagged attorney_communication so producing the record</text>
+        <text class="s" x="752" y="422">never drags counsel's own words along with it</text>
+
+        <!-- always-open facts lane -->
+        <path class="ln dash" d="M125,315 V545 H712" marker-end="url(#n-arr)"/>
+        <text class="l" x="230" y="528">ALWAYS OPEN · NO LOCK EXISTS</text>
+        <text class="al" x="230" y="565">the defense deposes the client and gets the facts — never the documents, never the analysis</text>
+        <rect class="bx" x="720" y="520" width="420" height="50"/>
+        <text class="t" x="736" y="542">The facts themselves</text>
+        <text class="s" x="736" y="559">deposition · interrogatories · her testimony from present memory</text>
+      </svg>
+    </div>
+    <figcaption>Doors 1 and 2 are closed by facts the architecture makes true. Door 3 runs the other direction and only the attorney can open it. The dashed route is not a failure of the design; privilege has never protected facts, only communications and analysis.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <p class="eyebrow">FIGURE 2</p>
+  <h2>Where the doors actually get locked: the Twilio → Supabase build</h2>
+  <div class="col"><p>The proof of concept either honors this or it doesn't. Each labeled edge is a requirement, and the one edge drawn crossed out is the most important thing in the picture.</p></div>
+
+  <figure>
+    <div class="scroll">
+      <svg viewBox="0 0 1180 560" role="img" aria-label="Data flows from the client's phone through Twilio, with message-body retention off, into the capture engine, which classifies, hashes and commits each event into a Supabase evidence schema. Extraction writes flags into a separate intelligence schema. The attorney replies in-thread into the evidence schema and adjudicates flags in the intelligence schema. An export function reads only the evidence schema and produces the record at the attorney's election. A crossed-out edge shows that no path exists from the intelligence schema to export. A timestamp authority anchors the hash chain and an enterprise LLM endpoint with zero retention serves the capture engine.">
+        <defs>
+          <marker id="f-n" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><polygon class="mk" points="0,1.5 10,5 0,8.5"/></marker>
+          <marker id="f-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><polygon class="mk-a" points="0,1.5 10,5 0,8.5"/></marker>
+          <marker id="f-e" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><polygon class="mk-e" points="0,1.5 10,5 0,8.5"/></marker>
+        </defs>
+
+        <!-- attorney (top right) -->
+        <rect class="bx-e" x="910" y="22" width="210" height="54"/>
+        <text class="eb eb-e" x="926" y="42">HUMAN · OUTSIDE THE SYSTEM</text>
+        <text class="t" x="926" y="64">Attorney</text>
+
+        <!-- phone -->
+        <rect class="bx" x="30" y="200" width="120" height="60"/>
+        <text class="t" x="46" y="225">Client phone</text>
+        <text class="s" x="46" y="243">SMS · no app</text>
+        <path class="ln" d="M150,230 H184" marker-end="url(#f-n)"/>
+
+        <!-- twilio -->
+        <rect class="bx-d" x="190" y="186" width="176" height="88"/>
+        <text class="eb eb-d" x="206" y="206">THIRD PARTY · DOOR 2</text>
+        <text class="t" x="206" y="228">Twilio</text>
+        <text class="s" x="206" y="246">message-body retention OFF</text>
+        <text class="s" x="206" y="260">enterprise / HIPAA-eligible terms</text>
+        <path class="ln" d="M366,230 H394" marker-end="url(#f-n)"/>
+        <text class="al" x="368" y="221">webhook</text>
+
+        <!-- capture -->
+        <rect class="bx" x="400" y="180" width="200" height="100"/>
+        <text class="l" x="416" y="200">CAPTURE ENGINE</text>
+        <text class="t" x="416" y="222">classify → hash → commit</text>
+        <text class="s" x="416" y="240">uniform for every firm and case</text>
+        <text class="s" x="416" y="254">liability content: steer · flag · never delete</text>
+        <text class="s" x="416" y="268">neutral prompt text only</text>
+
+        <!-- llm -->
+        <rect class="bx" x="400" y="320" width="200" height="56"/>
+        <text class="t" x="416" y="342">Model endpoint</text>
+        <text class="s" x="416" y="360">enterprise · zero retention · no training</text>
+        <path class="ln" d="M500,320 V286" marker-end="url(#f-n)"/>
+
+        <!-- timestamp authority -->
+        <rect class="bx" x="400" y="440" width="200" height="56"/>
+        <text class="t" x="416" y="462">Timestamp authority</text>
+        <text class="s" x="416" y="480">RFC 3161 · anchors the chain head on a schedule</text>
+        <path class="ln" d="M600,468 H626 V330 H654" marker-end="url(#f-n)"/>
+        <text class="al" x="608" y="459">anchor</text>
+
+        <!-- supabase container -->
+        <rect class="bx" x="640" y="100" width="500" height="380"/>
+        <text class="l" x="656" y="122">SUPABASE · POSTGRES · ONE TENANT PER FIRM (RLS)</text>
+
+        <!-- evidence schema -->
+        <rect class="bx-e" x="660" y="136" width="224" height="250"/>
+        <text class="eb eb-e" x="676" y="158">EVIDENCE SCHEMA</text>
+        <text class="t" x="676" y="180">events (append-only)</text>
+        <text class="s" x="676" y="197">message_class · non-null enum</text>
+        <text class="s" x="676" y="211">hash_prev / hash_self in a trigger</text>
+        <text class="s" x="676" y="225">UPDATE and DELETE rejected</text>
+        <text class="t" x="676" y="252">sealed raw-media bucket</text>
+        <text class="s" x="676" y="269">exact binary, metadata intact, access-logged</text>
+        <text class="t" x="676" y="296">derivatives bucket</text>
+        <text class="s" x="676" y="313">sanitized copies for working surfaces</text>
+        <text class="t" x="676" y="340">audit + integrity logs</text>
+        <text class="s" x="676" y="357">production-ready by design</text>
+        <text class="s" x="676" y="371">a self-authenticating system can't hide its own trail</text>
+
+        <!-- intelligence schema -->
+        <rect class="bx-a" x="910" y="136" width="210" height="150"/>
+        <text class="eb eb-a" x="926" y="158">INTELLIGENCE SCHEMA</text>
+        <text class="t" x="926" y="180">flags · protocol · annotations</text>
+        <text class="s" x="926" y="197">separate schema, separate service role</text>
+        <text class="s" x="926" y="211">attorney disposition on every</text>
+        <text class="s" x="926" y="225">evidentiary flag → opinion work product</text>
+        <text class="s" x="926" y="248">sync to the case-management system</text>
+        <text class="s" x="926" y="262">has no endpoint for this schema. Absent,</text>
+        <text class="s" x="926" y="276">not disabled.</text>
+
+        <!-- capture -> evidence -->
+        <path class="ln-e" d="M600,230 H654" marker-end="url(#f-e)"/>
+        <!-- capture -> intelligence (routed over the top) -->
+        <path class="ln-a" d="M600,206 H622 V128 H1015 V130" marker-end="url(#f-a)"/>
+        <text class="al" x="700" y="122" style="fill:var(--accent)">extraction · flags</text>
+
+        <!-- attorney -> intelligence (adjudicates) -->
+        <path class="ln-e" d="M1060,76 V130" marker-end="url(#f-e)"/>
+        <text class="al" x="1068" y="106">adjudicates flags</text>
+        <!-- attorney -> evidence (replies in-thread) -->
+        <path class="ln-e" d="M910,60 H820 V130" marker-end="url(#f-e)"/>
+        <text class="al" x="826" y="100">receives · may reply</text>
+        <text class="al" x="826" y="113">attorney_communication</text>
+
+        <!-- export fn -->
+        <rect class="bx-e" x="660" y="410" width="224" height="50"/>
+        <text class="t" x="676" y="431">Export function</text>
+        <text class="s" x="676" y="448">reads the evidence schema. Cannot join anything else.</text>
+        <path class="ln-e" d="M772,386 V404" marker-end="url(#f-e)"/>
+
+        <!-- the crossed edge: intelligence -> export -->
+        <path class="ln-d dash" d="M1015,286 V435 H892"/>
+        <line class="x" x1="948" y1="422" x2="968" y2="448"/>
+        <line class="x" x1="968" y1="422" x2="948" y2="448"/>
+        <text class="eb eb-d" x="978" y="416">NO PATH EXISTS</text>
+        <text class="s" x="978" y="432">not a permission flag —</text>
+        <text class="s" x="978" y="446">a query that cannot be written</text>
+
+        <!-- production -->
+        <rect class="bx-e" x="660" y="500" width="224" height="50"/>
+        <text class="eb eb-e" x="676" y="518">DOOR 3 · ONLY WHEN ELECTED</text>
+        <text class="t" x="676" y="540">Produced record + privilege log</text>
+        <path class="ln-e" d="M772,460 V494" marker-end="url(#f-e)"/>
+        <text class="al" x="780" y="481">attorney's election</text>
+      </svg>
+    </div>
+    <figcaption>The two schemas are the two protections made physical. The export function is a database function over the evidence schema alone; the intelligence schema has no route out, not because a setting says so but because no query exists. Twilio is drawn red because a copy sitting there is Door 2 standing open.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <p class="eyebrow">THE MAP</p>
+  <h2>Every architecture piece, the door it locks, and why</h2>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>PIECE</th><th>LOCKS</th><th>WHY IT MATTERS</th></tr></thead>
+      <tbody>
+        <tr><td>Written direction letter + protocol object, timestamped</td><td><span class="pill p1">DOOR 1</span></td><td>Establishes counsel's direction. This is the Heppner ground the design answers head-on.</td></tr>
+        <tr><td>The communications actually reach counsel, and the client is told so</td><td><span class="pill p1">DOOR 1</span></td><td>The fight is not how often the lawyer replies. It is whether she was communicating with her lawyer or with a vendor. Firm number, written direction, the onboarding notice that her legal team reads these, and the record landing in the client file make it a communication to counsel. Replying is optional; receipt is the point.</td></tr>
+        <tr><td><code>message_class</code> on every event</td><td><span class="pill p1">DOOR 1</span> <span class="pill p3">DOOR 3</span></td><td>Lets counsel produce the record while withholding attorney messages with a privilege log. Without it, using the record waives counsel's words too.</td></tr>
+        <tr><td>Two schemas, no export path from intelligence</td><td><span class="pill p1">DOOR 1</span> <span class="pill p3">DOOR 3</span></td><td>The analysis cannot leak into a production even through a diligent paralegal. Absence of the path, not a permission flag.</td></tr>
+        <tr><td>Attorney-only disposition of evidentiary flags</td><td><span class="pill p1">DOOR 1</span></td><td>Puts a lawyer's mental impressions on each flag. That is what upgrades it to opinion work product, absolute in California.</td></tr>
+        <tr><td>Zero-retention, no-training model terms; tenant isolation</td><td><span class="pill p1">DOOR 1</span> <span class="pill p2">DOOR 2</span></td><td>Confidentiality expectation. Heppner lost partly on consumer terms of service.</td></tr>
+        <tr><td>Twilio body retention off; enterprise terms</td><td><span class="pill p2">DOOR 2</span></td><td>A third-party copy is a subpoena target and weakens the confidentiality claim for everything.</td></tr>
+        <tr><td>Vendor subpoena protocol in the firm contract</td><td><span class="pill p2">DOOR 2</span></td><td>PIRRA notifies the firm and produces nothing without a court order; the firm asserts privilege on the client's behalf.</td></tr>
+        <tr><td>Liability steering: never asks, never pursues, routes to counsel</td><td><span class="pill p3">DOOR 3</span></td><td>Limits what is in the record before anyone elects to open it. Still committed, never deleted.</td></tr>
+        <tr><td>The §771 prep protocol: attorney works from the record, client never studies it</td><td><span class="pill p3">DOOR 3</span></td><td>California makes production mandatory for writings a witness used to refresh, including before testifying. This is the most likely accidental opening.</td></tr>
+        <tr><td>Hash chain, append-only, independent timestamps</td><td><span class="pill pi">NONE</span></td><td>Insurance, not a lock. If privilege fails or when counsel elects, the record is complete, authenticated and credible. And nothing can be deleted, so spoliation is off the table.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note col"><p><strong>Boiled all the way down:</strong> privilege and work product are what counsel asserts; the architecture is what makes the assertion true; the export path and Twilio's retention settings are where it is actually won or lost; and the only door that should ever open is the one the attorney chooses to open.</p></div>
+</section>
+
+<footer class="end">
+  Not legal advice. Statutory references are from working memory except CA Evid. Code §791, and must be pulled before use outside the team.<br>
+  Companion to docs/system-map.html and the v1.1 design proposal.
+</footer>
+</div>
