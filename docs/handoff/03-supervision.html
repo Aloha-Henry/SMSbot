@@ -1,0 +1,375 @@
+<title>Supervision by Default</title>
+<style>
+  :root {
+    --serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, "Cascadia Mono", Consolas, monospace;
+    --paper:#F0F1F3; --surface:#FAFBFC; --surface-2:#E9EBEF;
+    --ink:#16181D; --ink-soft:#5B616B; --ink-faint:#878D97; --rule:#D2D6DD;
+    --accent:#243C6B; --accent-wash:#E3E8F4;
+    --firm:#8F6415; --firm-wash:#F4EAD6;
+    --danger:#8C2F39; --danger-wash:#F5E2E4;
+    --ok:#2F6B4F; --ok-wash:#DFEDE5;
+  }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+    --paper:#121419; --surface:#191C23; --surface-2:#22262F;
+    --ink:#E5E8ED; --ink-soft:#9AA2AE; --ink-faint:#6E7783; --rule:#2D323C;
+    --accent:#93A9E6; --accent-wash:#1D2440; --firm:#D6A648; --firm-wash:#302713;
+    --danger:#E28C95; --danger-wash:#331B1F; --ok:#7FC0A0; --ok-wash:#16301F; } }
+  :root[data-theme="dark"] {
+    --paper:#121419; --surface:#191C23; --surface-2:#22262F;
+    --ink:#E5E8ED; --ink-soft:#9AA2AE; --ink-faint:#6E7783; --rule:#2D323C;
+    --accent:#93A9E6; --accent-wash:#1D2440; --firm:#D6A648; --firm-wash:#302713;
+    --danger:#E28C95; --danger-wash:#331B1F; --ok:#7FC0A0; --ok-wash:#16301F; }
+
+  *{box-sizing:border-box}
+  body{margin:0;padding:0 24px 90px;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto}
+  .col{max-width:66ch}
+  header.mast{border-bottom:2px solid var(--ink);padding:52px 0 18px;margin-bottom:38px}
+  .stamp{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--ink-faint);display:flex;gap:8px 20px;flex-wrap:wrap;margin-bottom:16px}
+  h1{font-size:clamp(30px,5vw,42px);line-height:1.1;font-weight:600;letter-spacing:-.015em;margin:0 0 14px;text-wrap:balance}
+  .spine{font-size:18px;color:var(--ink-soft);max-width:64ch;margin:0}
+  .spine strong{color:var(--ink)}
+  section{margin-bottom:56px}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;color:var(--firm);margin:0 0 8px}
+  h2{font-size:25px;font-weight:600;letter-spacing:-.01em;margin:0 0 12px;text-wrap:balance}
+  h3{font-size:17px;font-weight:600;margin:0 0 6px}
+  p{margin:0 0 14px}
+  figure{margin:24px 0 0;padding:0}
+  .scroll{overflow-x:auto;background:var(--surface);border:1px solid var(--rule);padding:22px 20px}
+  figure svg{display:block;max-width:100%;height:auto;min-width:760px}
+  figcaption{font-family:var(--mono);font-size:11.5px;line-height:1.55;color:var(--ink-soft);margin-top:11px;max-width:84ch}
+  table{border-collapse:collapse;width:100%;font-size:14px;margin-top:14px;background:var(--surface)}
+  th,td{border:1px solid var(--rule);padding:9px 11px;vertical-align:top;text-align:left;line-height:1.45}
+  th{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--ink-soft);background:var(--surface-2);font-weight:500}
+  td.k{font-family:var(--mono);font-size:11.5px;white-space:nowrap}
+  .never{display:grid;grid-template-columns:1fr 1fr;gap:26px;max-width:96ch}
+  @media (max-width:760px){.never{grid-template-columns:1fr}}
+  .never ul{margin:0;padding-left:18px;font-size:15px;color:var(--ink-soft)}
+  .never li{margin-bottom:7px}
+  .never b{color:var(--ink)}
+  .rec{border:1px solid var(--rule);background:var(--surface);padding:22px 26px;max-width:760px;margin-top:18px;font-size:14px}
+  .rec .hd{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--ink-faint);display:flex;justify-content:space-between;border-bottom:1px solid var(--rule);padding-bottom:8px;margin-bottom:12px}
+  .rec h4{font-size:17px;margin:0 0 10px}
+  .rec dl{display:grid;grid-template-columns:170px 1fr;gap:6px 16px;margin:0}
+  .rec dt{font-family:var(--mono);font-size:11px;color:var(--ink-faint);letter-spacing:.06em;padding-top:2px}
+  .rec dd{margin:0}
+  .foot{border-top:1px solid var(--rule);padding-top:16px;font-family:var(--mono);font-size:11px;line-height:1.6;color:var(--ink-faint);max-width:90ch}
+
+  .bx{fill:var(--surface);stroke:var(--rule);stroke-width:1}
+  .bx-a{fill:var(--accent-wash);stroke:var(--accent);stroke-width:1.15}
+  .bx-f{fill:var(--firm-wash);stroke:var(--firm);stroke-width:1.15}
+  .bx-d{fill:var(--danger-wash);stroke:var(--danger);stroke-width:1.15}
+  .bx-o{fill:var(--ok-wash);stroke:var(--ok);stroke-width:1.15}
+  .band{fill:var(--surface-2);opacity:.6}
+  .ln{stroke:var(--ink-soft);stroke-width:1.2;fill:none}
+  .ln-f{stroke:var(--firm);stroke-width:1.5;fill:none}
+  .ln-a{stroke:var(--accent);stroke-width:1.4;fill:none}
+  .dash{stroke-dasharray:4 4}
+  .t{font:600 13px var(--serif);fill:var(--ink)}
+  .t2{font:400 12px var(--serif);fill:var(--ink-soft)}
+  .s{font:400 10px var(--mono);fill:var(--ink-soft)}
+  .l{font:500 10px var(--mono);fill:var(--ink-faint);letter-spacing:.08em}
+  .lf{font:500 10px var(--mono);fill:var(--firm);letter-spacing:.08em}
+  .la{font:500 10px var(--mono);fill:var(--accent);letter-spacing:.08em}
+  .ld{font:500 10px var(--mono);fill:var(--danger);letter-spacing:.08em}
+  .lo{font:500 10px var(--mono);fill:var(--ok);letter-spacing:.08em}
+  .mk{fill:var(--ink-soft)} .mk-f{fill:var(--firm)}
+  .btn{fill:var(--surface);stroke:var(--firm);stroke-width:1}
+</style>
+
+<div class="wrap">
+<header class="mast">
+  <div class="stamp"><span>PIRRA</span><span>HANDOFF 3 OF 3</span><span>SUPERVISION · FOR THE ATTORNEY AND ETHICS COUNSEL</span><span>SEPT 2026</span></div>
+  <h1>Nobody performs a task called supervision.</h1>
+  <p class="spine">Rule 5.3 asks a lawyer for three things about a nonlawyer assistant: reasonable measures, direct supervisory authority, and knowledge of and response to its conduct. PIRRA produces the record of all three <strong>underneath four things the attorney was going to do anyway</strong>. If a supervisory act takes more than one tap, the product is designed wrong.</p>
+</header>
+
+<!-- ═══ FIGURE 1 ═══ -->
+<section>
+  <p class="eyebrow">FIGURE 1</p>
+  <h2>Three duties, four ordinary acts, one record</h2>
+  <figure>
+  <div class="scroll">
+  <svg viewBox="0 0 1180 400" role="img" aria-label="Rule 5.3's three duties on the left map to four ordinary attorney acts in the middle, which produce the supervision record items on the right.">
+    <defs>
+      <marker id="s-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="mk"/></marker>
+      <marker id="s-arf" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="mk-f"/></marker>
+    </defs>
+    <text x="150" y="36" text-anchor="middle" class="l">RULE 5.3 ASKS FOR</text>
+    <text x="590" y="36" text-anchor="middle" class="lf">THE ATTORNEY ACTUALLY DOES</text>
+    <text x="1010" y="36" text-anchor="middle" class="la">THE RECORD THAT ACCRUES</text>
+
+    <!-- duties -->
+    <rect x="40" y="60" width="220" height="86" rx="4" class="bx"/>
+    <text x="150" y="88" text-anchor="middle" class="t">Reasonable measures</text>
+    <text x="150" y="108" text-anchor="middle" class="t2">that the assistant's conduct is</text>
+    <text x="150" y="124" text-anchor="middle" class="t2">compatible with the lawyer's duties</text>
+    <rect x="40" y="170" width="220" height="86" rx="4" class="bx"/>
+    <text x="150" y="198" text-anchor="middle" class="t">Direct supervisory authority</text>
+    <text x="150" y="218" text-anchor="middle" class="t2">over the work, with the power</text>
+    <text x="150" y="234" text-anchor="middle" class="t2">to change or stop it</text>
+    <rect x="40" y="280" width="220" height="86" rx="4" class="bx"/>
+    <text x="150" y="308" text-anchor="middle" class="t">Knowledge and response</text>
+    <text x="150" y="328" text-anchor="middle" class="t2">know what the assistant did;</text>
+    <text x="150" y="344" text-anchor="middle" class="t2">act when it matters</text>
+
+    <!-- acts -->
+    <rect x="450" y="52" width="280" height="62" rx="4" class="bx-f"/>
+    <text x="466" y="76" class="t">Set up the case</text>
+    <text x="466" y="94" class="t2">two minutes, once: mode, level, approve library, authorize</text>
+    <text x="716" y="104" text-anchor="end" class="lf">STAGE 1</text>
+    <rect x="450" y="130" width="280" height="62" rx="4" class="bx-f"/>
+    <text x="466" y="154" class="t">Read the weekly digest</text>
+    <text x="466" y="172" class="t2">on a phone; opening it is the receipt</text>
+    <text x="716" y="182" text-anchor="end" class="lf">WEEKLY</text>
+    <rect x="450" y="208" width="280" height="62" rx="4" class="bx-f"/>
+    <text x="466" y="232" class="t">Tap on evidentiary flags</text>
+    <text x="466" y="250" class="t2">noted · add a thought · escalate to the thread</text>
+    <text x="716" y="260" text-anchor="end" class="lf">AS THEY COME</text>
+    <rect x="450" y="286" width="280" height="62" rx="4" class="bx-f"/>
+    <text x="466" y="310" class="t">Elect at export</text>
+    <text x="466" y="328" class="t2">after the mandatory impeachment-surface review</text>
+    <text x="716" y="338" text-anchor="end" class="lf">PRE-DEMAND</text>
+
+    <!-- duty -> act lines -->
+    <line x1="260" y1="103" x2="450" y2="83" class="ln" marker-end="url(#s-ar)"/>
+    <line x1="260" y1="213" x2="450" y2="90" class="ln dash" marker-end="url(#s-ar)"/>
+    <line x1="260" y1="220" x2="450" y2="317" class="ln dash" marker-end="url(#s-ar)"/>
+    <line x1="260" y1="323" x2="450" y2="161" class="ln" marker-end="url(#s-ar)"/>
+    <line x1="260" y1="330" x2="450" y2="239" class="ln" marker-end="url(#s-ar)"/>
+
+    <!-- record -->
+    <rect x="880" y="52" width="260" height="46" rx="4" class="bx-a"/>
+    <text x="896" y="72" class="t">Direction letter</text>
+    <text x="896" y="88" class="s">hash-anchored · protocol version · level · regime</text>
+    <rect x="880" y="106" width="260" height="46" rx="4" class="bx-a"/>
+    <text x="896" y="126" class="t">Floors that cannot be turned off</text>
+    <text x="896" y="142" class="s">no tools · no liability · no human name · safety</text>
+    <rect x="880" y="160" width="260" height="46" rx="4" class="bx-a"/>
+    <text x="896" y="180" class="t">Receipt log</text>
+    <text x="896" y="196" class="s">digest opened · thread opened · when · by whom</text>
+    <rect x="880" y="214" width="260" height="46" rx="4" class="bx-a"/>
+    <text x="896" y="234" class="t">Dispositions</text>
+    <text x="896" y="250" class="s">every flag answered · counsel's impressions</text>
+    <rect x="880" y="268" width="260" height="46" rx="4" class="bx-a"/>
+    <text x="896" y="288" class="t">Change events</text>
+    <text x="896" y="304" class="s">mode change · pause · turn off · dated</text>
+    <rect x="880" y="322" width="260" height="46" rx="4" class="bx-a"/>
+    <text x="896" y="342" class="t">Election and export log</text>
+    <text x="896" y="358" class="s">what left · when · after which review</text>
+
+    <!-- act -> record -->
+    <line x1="730" y1="75" x2="880" y2="75" class="ln-f" marker-end="url(#s-arf)"/>
+    <line x1="730" y1="83" x2="880" y2="129" class="ln-f" marker-end="url(#s-arf)"/>
+    <line x1="730" y1="161" x2="880" y2="183" class="ln-f" marker-end="url(#s-arf)"/>
+    <line x1="730" y1="239" x2="880" y2="237" class="ln-f" marker-end="url(#s-arf)"/>
+    <line x1="730" y1="317" x2="880" y2="345" class="ln-f" marker-end="url(#s-arf)"/>
+    <line x1="730" y1="95" x2="880" y2="291" class="ln-f dash" marker-end="url(#s-arf)"/>
+  </svg>
+  </div>
+  <figcaption>Setting up the case is the direction and installs the measures. Reading the digest is the knowledge. Tapping a flag is the response, and each tap is also an entry carrying counsel's impressions. Electing at export is the authority exercised. The record on the right exports in one click whenever anyone asks how the assistant was supervised on this case.</figcaption>
+  </figure>
+</section>
+
+<!-- ═══ FIGURE 2 ═══ -->
+<section>
+  <p class="eyebrow">FIGURE 2</p>
+  <h2>The attorney's week, on a phone</h2>
+  <figure>
+  <div class="scroll">
+  <svg viewBox="0 0 1180 400" role="img" aria-label="Three phone screens: Monday's digest, a flag with three disposition buttons, and a pending approvals list that is usually empty at the default level.">
+    <!-- phone 1 -->
+    <rect x="60" y="30" width="300" height="340" rx="18" class="bx"/>
+    <text x="210" y="60" text-anchor="middle" class="l">MONDAY · DIGEST</text>
+    <rect x="80" y="76" width="260" height="270" rx="6" class="bx-a"/>
+    <text x="96" y="100" class="t">Maria S. · week 3</text>
+    <text x="96" y="118" class="s">13 client statements · 2 flags for you</text>
+    <line x1="96" y1="130" x2="324" y2="130" class="ln dash"/>
+    <text x="96" y="152" class="t2">Non-response Mar 18–20; PT Mar 19</text>
+    <text x="96" y="168" class="t2">missed. Dana reached out; client</text>
+    <text x="96" y="184" class="t2">replied (daughter ill).</text>
+    <text x="96" y="208" class="t2">Sat: missed daughter's recital,</text>
+    <text x="96" y="224" class="t2">"couldn't sit that long." Back 6.</text>
+    <text x="96" y="248" class="t2">Pain: back 4–6, shoulder 4.</text>
+    <text x="96" y="264" class="t2">Sitting "about the same" since Sat.</text>
+    <rect x="96" y="290" width="228" height="40" rx="4" class="bx-o"/>
+    <text x="210" y="309" text-anchor="middle" class="lo">OPENED 10:20 · RECEIPT LOGGED</text>
+    <text x="210" y="323" text-anchor="middle" class="s">nothing else to do</text>
+
+    <!-- phone 2 -->
+    <rect x="440" y="30" width="300" height="340" rx="18" class="bx"/>
+    <text x="590" y="60" text-anchor="middle" class="l">WEDNESDAY · ONE FLAG</text>
+    <rect x="460" y="76" width="260" height="270" rx="6" class="bx-d"/>
+    <text x="476" y="100" class="ld">INCONSISTENCY + PRIOR CONDITION</text>
+    <text x="476" y="122" class="t">Maria S. · LOG-0084</text>
+    <line x1="476" y1="134" x2="704" y2="134" class="ln dash"/>
+    <text x="476" y="156" class="t2">"my back's been a thing since I fell</text>
+    <text x="476" y="172" class="t2">off a ladder in 2019 but never like</text>
+    <text x="476" y="188" class="t2">this, that was a week of advil"</text>
+    <text x="476" y="212" class="s">vs. LOG-0014, Mar 3: "no, never"</text>
+    <rect x="476" y="232" width="228" height="30" rx="4" class="btn"/>
+    <text x="590" y="252" text-anchor="middle" class="lf">NOTED</text>
+    <rect x="476" y="268" width="228" height="30" rx="4" class="btn"/>
+    <text x="590" y="288" text-anchor="middle" class="lf">ADD A THOUGHT</text>
+    <rect x="476" y="304" width="228" height="30" rx="4" class="btn"/>
+    <text x="590" y="324" text-anchor="middle" class="lf">ESCALATE TO THE THREAD</text>
+
+    <!-- phone 3 -->
+    <rect x="820" y="30" width="300" height="340" rx="18" class="bx"/>
+    <text x="970" y="60" text-anchor="middle" class="l">ANY DAY · APPROVALS</text>
+    <rect x="840" y="76" width="260" height="270" rx="6" class="bx"/>
+    <text x="856" y="100" class="t">Pending approvals</text>
+    <text x="856" y="118" class="s">Level 2 · library regime</text>
+    <line x1="856" y1="130" x2="1084" y2="130" class="ln dash"/>
+    <text x="970" y="200" text-anchor="middle" class="t2">Nothing pending.</text>
+    <text x="970" y="222" text-anchor="middle" class="s">Every agent message this month came</text>
+    <text x="970" y="236" text-anchor="middle" class="s">from the library you approved on Mar 2.</text>
+    <text x="970" y="270" text-anchor="middle" class="s">This list fills only if you elect</text>
+    <text x="970" y="284" text-anchor="middle" class="s">per-message review or Level 3–4</text>
+    <text x="970" y="298" text-anchor="middle" class="s">with first-N-days review.</text>
+  </svg>
+  </div>
+  <figcaption>From the thirty-day demo case: four digests opened, seven thread receipts, three attorney dispositions, two attorney messages in the thread, zero approvals pending. About one coffee a week. The Wednesday screen is what "add a thought" became on Mar 25: "Pre-existing-condition point for the damages theory, not a credibility problem on its face: she volunteered it. Discuss with client by phone."</figcaption>
+  </figure>
+</section>
+
+<!-- ═══ FIGURE 3 ═══ -->
+<section>
+  <p class="eyebrow">FIGURE 3</p>
+  <h2>How much the attorney delegates, and what never can be</h2>
+  <figure>
+  <div class="scroll">
+  <svg viewBox="0 0 1180 360" role="img" aria-label="Autonomy levels 0 through 4 as ascending steps, each stating what the attorney approves and what the assistant may do, resting on a bar of floors that cannot be turned off at any level.">
+    <defs>
+      <marker id="l-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="mk-f"/></marker>
+    </defs>
+    <!-- steps -->
+    <rect x="40" y="220" width="200" height="60" rx="3" class="bx"/>
+    <text x="140" y="244" text-anchor="middle" class="t">Level 0 · Relay</text>
+    <text x="140" y="262" text-anchor="middle" class="t2">counsel writes every message</text>
+    <rect x="260" y="190" width="200" height="90" rx="3" class="bx"/>
+    <text x="360" y="214" text-anchor="middle" class="t">Level 1 · Questionnaire</text>
+    <text x="360" y="232" text-anchor="middle" class="t2">counsel's questions, on cadence</text>
+    <text x="360" y="250" text-anchor="middle" class="t2">no follow-ups</text>
+    <rect x="480" y="150" width="200" height="130" rx="3" class="bx-f"/>
+    <text x="580" y="174" text-anchor="middle" class="t">Level 2 · Library</text>
+    <text x="580" y="192" text-anchor="middle" class="lf">DEFAULT</text>
+    <text x="580" y="212" text-anchor="middle" class="t2">selects from approved prompts</text>
+    <text x="580" y="228" text-anchor="middle" class="t2">may quote client's own words back</text>
+    <text x="580" y="244" text-anchor="middle" class="t2">composes nothing</text>
+    <text x="580" y="266" text-anchor="middle" class="s">approve the library once</text>
+    <rect x="700" y="110" width="200" height="170" rx="3" class="bx"/>
+    <text x="800" y="134" text-anchor="middle" class="t">Level 3 · Bounded</text>
+    <text x="800" y="154" text-anchor="middle" class="t2">generates follow-ups that pass</text>
+    <text x="800" y="170" text-anchor="middle" class="t2">the neutral-prompt validator</text>
+    <text x="800" y="194" text-anchor="middle" class="s">first-N-days review on</text>
+    <text x="800" y="210" text-anchor="middle" class="s">in-tenant model or</text>
+    <text x="800" y="224" text-anchor="middle" class="s">zero-retention enterprise terms</text>
+    <rect x="920" y="70" width="220" height="210" rx="3" class="bx"/>
+    <text x="1030" y="94" text-anchor="middle" class="t">Level 4 · Autonomous</text>
+    <text x="1030" y="114" text-anchor="middle" class="t2">open conversation within</text>
+    <text x="1030" y="130" text-anchor="middle" class="t2">the floors</text>
+    <text x="1030" y="154" text-anchor="middle" class="s">first-N-days review on</text>
+    <text x="1030" y="170" text-anchor="middle" class="s">post-hoc receipt required</text>
+    <text x="1030" y="186" text-anchor="middle" class="s">most warmth · most density</text>
+    <text x="1030" y="202" text-anchor="middle" class="s">most third parties in the thread</text>
+
+    <!-- arrow along steps -->
+    <line x1="60" y1="46" x2="1120" y2="46" class="ln-f" marker-end="url(#l-ar)"/>
+    <text x="60" y="36" class="lf">MORE DELEGATION · MORE SUPERVISION REQUIRED · THE ATTORNEY CHOOSES PER CASE</text>
+
+    <!-- floors -->
+    <rect x="40" y="296" width="1100" height="50" rx="3" class="bx-d"/>
+    <text x="590" y="316" text-anchor="middle" class="ld">FLOORS · CANNOT BE ELECTED OFF AT ANY LEVEL</text>
+    <text x="590" y="334" text-anchor="middle" class="t2">no tool use · reads the evidence plane only · never discusses liability · never answers legal or medical questions · never under a human's name · safety escalation always on · full outbound logging · disclosure names the attorney · written before read</text>
+  </svg>
+  </div>
+  <figcaption>The ladder is the attorney's dial and the supervision instrument at once: choosing a level is a documented act, and the level determines what the digest and approvals screens will ask for. Levels 0–2 keep the fewest third parties in the thread. The floors sit under every level and are not settings.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <p class="eyebrow">THE EXPORT</p>
+  <h2>What "show me how the AI was supervised on this case" produces</h2>
+  <p class="col">One click. Formatted for the two audiences that will ever ask: a disciplinary inquiry and a malpractice carrier. Values below are from the thirty-day synthetic demo case.</p>
+  <div class="rec">
+    <div class="hd"><span>SUPERVISION RECORD · MARIA S. (SYNTHETIC)</span><span>MAR 2 – APR 1, 2026</span></div>
+    <h4>Attorney-directed AI assistant · protocol PIRRA-STD-1.4</h4>
+    <dl>
+      <dt>Supervising attorney</dt><dd>Sara Alvarez</dd>
+      <dt>Direction</dt><dd>Authorized Mar 2, 16:41. Level 2 (library with sourced slots). Approval regime: library. Topics authorized and prohibited listed. Forum pinned CA Superior. Letter hash 4c9e…b17a.</dd>
+      <dt>Measures</dt><dd>52 of 52 agent messages cite an approved library prompt; 0 composed. 3 quoted-client-words slots validated verbatim. 1 prohibited-topic steer executed (Mar 11). 2 questions routed to a person, 0 answered by the assistant. Assistant had no access to the intelligence plane or the case file.</dd>
+      <dt>Client disclosure</dt><dd>Disclosure v4 delivered Mar 3, 09:12 (AI status; attorney named; attorney decides use; monitoring hours; 911; STOP; HUMAN). Consent Mar 3, 09:20.</dd>
+      <dt>Knowledge</dt><dd>4 weekly digests, each opened by the supervising attorney (Mar 9, 16, 23, 30). Thread opened 4 times.</dd>
+      <dt>Response</dt><dd>9 flags raised, 9 disposed. Attorney: 3 (1 noted, 1 thought added, 1 escalated to the thread with a same-day call). Paralegal: 6. Attorney messages in thread: 2, labeled.</dd>
+      <dt>Changes</dt><dd>None. No pause, no mode change, no turn-off in period.</dd>
+      <dt>Approvals</dt><dd>None pending at any time.</dd>
+      <dt>Exports</dt><dd>None. Impeachment-surface review not yet performed; export blocked.</dd>
+      <dt>Firm policy</dt><dd>AI-use policy v2026.09, generated from firm settings on the four Rule of Court 10.430 headings, in force throughout.</dd>
+    </dl>
+  </div>
+</section>
+
+<section>
+  <p class="eyebrow">THE OTHER HALF</p>
+  <h2>What the attorney never has to do</h2>
+  <div class="never">
+    <div>
+      <h3>Not asked of the attorney</h3>
+      <ul>
+        <li><b>No reply quota.</b> Receipt is what matters, not how often the attorney writes in the thread.</li>
+        <li><b>No attestation ritual.</b> Opening the digest is the receipt.</li>
+        <li><b>No hunting.</b> Evidentiary flags come to the phone. Operational noise goes to the paralegal.</li>
+        <li><b>No policy drafting.</b> The firm's AI-use policy is generated from settings and kept in sync.</li>
+        <li><b>No record assembly.</b> The export above is one click.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Guarded against on the attorney's behalf</h3>
+      <ul>
+        <li><b>Handing the transcript to the client before testimony</b> triggers the §771 warning.</li>
+        <li><b>Sharing with an expert</b> triggers a warning.</li>
+        <li><b>Partial production</b> is not offered; elections are of the whole record.</li>
+        <li><b>Exporting before the impeachment-surface review</b> is blocked, not discouraged.</li>
+        <li><b>Using a consumer AI tool on the record</b> is named in the firm policy as the one thing that waives what it touches.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <p class="eyebrow">FOR ETHICS COUNSEL</p>
+  <h2>Where each California authority lands</h2>
+  <table>
+    <thead><tr><th>Authority</th><th>What it asks</th><th>What in the product answers it</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Rule 5.3</td><td>Measures, authority, knowledge and response over a nonlawyer assistant</td><td>Figure 1, entire</td></tr>
+      <tr><td class="k">Proposed 5.1 (2026)</td><td>Firm policies governing the use of AI</td><td>Policy generated from firm settings; re-issued on change</td></tr>
+      <tr><td class="k">Proposed 1.4 Cmt 5</td><td>Disclose AI use that materially affects the manner of representation</td><td>Disclosure v4 names the AI, the attorney, and who decides use; engagement-letter addendum</td></tr>
+      <tr><td class="k">Proposed 1.6 "reveal"</td><td>Exposure to AI systems that may retain or use the information</td><td>Zero-retention terms; in-tenant models for Levels 1–2; customer-managed keys; documented Twilio residuals</td></tr>
+      <tr><td class="k">May 2026 agentic guidance</td><td>Meaningful lawyer review where agents make substantive determinations or transmit externally</td><td>Assistant makes no determinations and transmits to no one but the client; flags require human disposition</td></tr>
+      <tr><td class="k">Rule of Court 10.430</td><td>Confidentiality, oversight, disclosure, bias headings for AI policies</td><td>Firm policy template on those four headings; compliance snapshot tied to configuration</td></tr>
+      <tr><td class="k">SB 574 (pending)</td><td>No delegating the practice of law to AI; "public generative AI system"</td><td>Assistant answers no legal questions and routes them; in-tenant deployment; counsel question on definitions</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<p class="foot">Companion documents: 01 PIRRA in One Picture and 02 Build Spec. Detail: DR-0005 (autonomy levels and floors), docs/research/california-ethics-governance-2026.md, and the thirty-day demo case in docs/demo-case (timeline.md §3–5 is the supervision record this page renders). Not legal advice; the proposed rules are proposed, and nothing here promises privilege or admissibility.</p>
+</div>
+
+<style media="print">
+  @page { size: letter landscape; margin: 0.45in 0.5in; }
+  :root { --paper:#FFFFFF; --surface:#FFFFFF; --surface-2:#EEF0F3; }
+  body { padding: 0; font-size: 13px; }
+  header.mast { padding-top: 6px; margin-bottom: 18px; }
+  h1 { font-size: 26px; }
+  section { margin-bottom: 26px; break-inside: avoid-page; }
+  figure { break-inside: avoid-page; }
+  .scroll { overflow: visible; border: 1px solid #D2D6DD; padding: 10px 8px; }
+  figure svg { min-width: 0; width: 100%; }
+  table { font-size: 11px; }
+  pre { font-size: 10px; white-space: pre-wrap; word-break: break-word; }
+  .toc { display: none; }
+  a { color: inherit; text-decoration: none; }
+</style>
