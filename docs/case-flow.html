@@ -152,7 +152,7 @@
       <div class="card c"><b>Reply YES</b> (or STOP, or a question, which routes to the paralegal).</div>
     </div>
     <div class="cell">
-      <div class="card e"><b>Disclosure set, verbatim from firm config.</b> AI status · provided by the firm · directed by the named attorney · not a lawyer or doctor · goes into your file, your legal team reads it · may be used in your case · 911 for emergencies · STOP any time.<small>message_class = agent_prompt · Rule 1.4 Cmt 5 · bot-disclosure law · TCPA</small></div>
+      <div class="card e"><b>Disclosure set, verbatim from firm config.</b> AI status · provided by the firm · directed by the named attorney · not a lawyer or doctor · goes into your file, your legal team reads it · your attorney decides whether and how it is used · 911 for emergencies · STOP any time.<small>message_class = agent_prompt · Rule 1.4 Cmt 5 · bot-disclosure law · TCPA</small></div>
       <div class="card e"><b>Consent logged as a system event.</b> Timestamp, number, exact text consented to, hash.<small>message_class = system_event · notice state → DISCLOSED_CONSENTED</small></div>
     </div>
     <div class="cell">
@@ -274,7 +274,7 @@
       <div class="phone">
         <div class="hdr">FROM (808) 555-0142 · [FIRM] · DAY 0</div>
         <div class="bub in">Hi Maria, this is PIRRA, an AI assistant provided by Kealoha &amp; Park and directed by your attorney, Leilani Park. Leilani asked me to help keep an accurate record of how your recovery is going, by text, a few times a week.<span class="tag">AGENT_PROMPT · DISCLOSURE 1 OF 3</span></div>
-        <div class="bub in">A few things first. I'm an AI, not a person, and I'm not a lawyer or a doctor. What you tell me goes into your file at Kealoha &amp; Park for your legal team; Leilani can read it and reply right here. Anything in your file may be used in your case, so just be accurate. Good days count as much as hard ones. In an emergency, call 911. Text STOP any time to stop these messages.<span class="tag">AGENT_PROMPT · DISCLOSURE 2 OF 3</span></div>
+        <div class="bub in">A few things first. I'm an AI, not a person, and I'm not a lawyer or a doctor. What you tell me goes into your file at Kealoha &amp; Park for your legal team; Leilani can read it and reply right here. Leilani decides whether and how anything in your file is used in your case, so just be accurate. Good days count as much as hard ones. In an emergency, call 911. Text STOP any time to stop these messages.<span class="tag">AGENT_PROMPT · DISCLOSURE 2 OF 3</span></div>
         <div class="bub in">Are you OK texting with me about your recovery? Reply YES to start.<span class="tag">AGENT_PROMPT · CONSENT GATE 3 OF 3</span></div>
         <div class="bub outb">YES<span class="tag">CLIENT_STATEMENT · LOG-0001</span></div>
         <div class="bub sys">CONSENT RECORDED · 2026-09-04 09:12:41 HST · text hash 9f3a…c21e · notice state → DISCLOSED_CONSENTED</div>
@@ -284,7 +284,7 @@
     </div>
     <ul class="notes">
       <li><b>Every disclosure the rules ask for is in message two,</b> in the order a person would want to hear it: what I am, who I work for, where your words go, that they can be used, what to do in an emergency, how to stop. Nothing is buried in a link.</li>
-      <li><b>"May be used in your case" is deliberate.</b> The v1.1 design calls for the sharpened notice. A client who understands the thread is part of their file gives more accurate answers, and the defense loses the "she thought it was private" attack.</li>
+      <li><b>"Leilani decides whether and how" is deliberate</b> (revised Sept 5). It states the one purpose: collected confidentially for counsel, released only on counsel's decision. It replaces v1.1's blunter "may be used in your case," which an outside reviewer read as in tension with confidentiality at the moment of communication; whether the sharpened notice is still needed is a counsel question. A client who understands the thread is part of their file gives more accurate answers, and the defense loses the "she thought it was private" attack.</li>
       <li><b>The attorney is named, not just the firm.</b> That is what makes "directed by your attorney" a fact the client can check, and it is what the Rule 1.4 disclosure comment expects.</li>
       <li><b>Nothing captures before YES.</b> A STOP ends it and is logged. A question ("is this really from Leilani?") goes to the paralegal's inbox as a human task, and PIRRA does not answer it.</li>
       <li><b>No warmth theater.</b> Message one is friendly because it is plain, not because it pretends. The landing page's line applies here: warmth from craft, not from pretending to be human.</li>
