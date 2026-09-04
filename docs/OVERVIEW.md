@@ -75,16 +75,16 @@ Three layers exist in this space, and the occupancy map is the whole strategic a
 PIRRA's moat is layers 2 and 3. Layer 1 is no longer a differentiator, which means the pitch
 must lead with what comes *out* of the system, never with "we're conversational."
 
-Others: **Quilia** (~800 firms) ships weekly and has human attorney↔client messaging, but no
-AI check-in, no evidence generation, no FRE architecture — the most dangerous competitor by
-velocity. **Hona** *(updated Sept 4, 2026)* launched "Lia," a conversational SMS agent that
+Others: **Quilia** (~800 firms) ships weekly, has human attorney↔client messaging (CaseChat) and,
+*corrected Sept 5, 2026*, AI-guided in-app prompts with case memory; no evidence generation, no FRE
+architecture — the most dangerous competitor by velocity. **EvenUp** *(added Sept 5)* launched
+Communication Agents in Dec 2025: SMS and voice treatment check-ins and liability-verification
+agents, so it is a capture competitor as well as a downstream consumer of exhibits. **Hona** *(updated Sept 4, 2026)* launched "Lia," a conversational SMS agent that
 checks in after treatment visits, collects symptoms, flags treatment gaps and escalates to the
-case owner, at 500+ firms. It is now the nearest competitor: same channel, same check-in
+case owner, at 500+ firms. It is among the nearest competitors: same channel, same check-in
 mechanic, no evidence layer (no exhibits, certification, hash chain, classification, liability
 boundary or privilege posture). See `research/competitive-watch-2026-09-hona.md`. **Case
 Status** remains a status portal. **Supio / Eve** are attorney-facing.
-**EvenUp** is a downstream consumer of PIRRA data as much as a competitor — PIRRA exhibits feed
-EvenUp demands.
 
 Pricing is itself a wedge: the entire category is contact-sales-only. PIRRA's $149 is the only
 public number in the ecosystem.

@@ -1,0 +1,84 @@
+<title>PIRRA Competitive Matrix</title>
+<style>
+  :root {
+    --serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, "Cascadia Mono", Consolas, monospace;
+    --paper:#F0F1F3; --surface:#FAFBFC; --surface-2:#E9EBEF;
+    --ink:#16181D; --ink-soft:#5B616B; --ink-faint:#878D97; --rule:#D2D6DD;
+    --accent:#243C6B; --accent-wash:#E3E8F4; --firm:#8F6415; --firm-wash:#F4EAD6; --danger:#8C2F39; --danger-wash:#F5E2E4;
+  }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+    --paper:#121419; --surface:#191C23; --surface-2:#22262F; --ink:#E5E8ED; --ink-soft:#9AA2AE; --ink-faint:#6E7783; --rule:#2D323C;
+    --accent:#93A9E6; --accent-wash:#1D2440; --firm:#D6A648; --firm-wash:#302713; --danger:#E28C95; --danger-wash:#331B1F; } }
+  :root[data-theme="dark"] {
+    --paper:#121419; --surface:#191C23; --surface-2:#22262F; --ink:#E5E8ED; --ink-soft:#9AA2AE; --ink-faint:#6E7783; --rule:#2D323C;
+    --accent:#93A9E6; --accent-wash:#1D2440; --firm:#D6A648; --firm-wash:#302713; --danger:#E28C95; --danger-wash:#331B1F; }
+  *{box-sizing:border-box}
+  body{margin:0;padding:0 24px 60px;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:15px;line-height:1.5}
+  .wrap{max-width:1180px;margin:0 auto}
+  header{border-bottom:2px solid var(--ink);padding:44px 0 14px;margin-bottom:22px}
+  .stamp{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--ink-faint);display:flex;gap:8px 20px;flex-wrap:wrap;margin-bottom:12px}
+  h1{font-size:28px;line-height:1.1;font-weight:600;letter-spacing:-.015em;margin:0 0 8px}
+  .spine{font-size:15px;color:var(--ink-soft);max-width:80ch;margin:0}
+  .warn{border-left:3px solid var(--danger);background:var(--danger-wash);padding:10px 14px;font-size:13.5px;line-height:1.45;margin:14px 0 18px;max-width:96ch}
+  table{border-collapse:collapse;width:100%;font-size:12px;background:var(--surface)}
+  th,td{border:1px solid var(--rule);padding:7px 9px;vertical-align:top;text-align:left;line-height:1.42}
+  th{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--ink-soft);background:var(--surface-2);font-weight:500}
+  th.p{color:var(--accent);background:var(--accent-wash)}
+  td.p{background:var(--accent-wash);color:var(--ink)}
+  td.r{font-family:var(--mono);font-size:10px;color:var(--ink-faint);white-space:nowrap;letter-spacing:.04em}
+  td{color:var(--ink-soft)} td b{color:var(--ink)}
+  .nv{font-family:var(--mono);font-size:9.5px;color:var(--ink-faint);letter-spacing:.04em}
+  h2{font-size:19px;margin:26px 0 8px}
+  .diff{max-width:96ch;font-size:14px;color:var(--ink-soft)}
+  .diff li{margin-bottom:7px}
+  .diff b{color:var(--ink)}
+  .src{margin-top:18px;font-family:var(--mono);font-size:10px;line-height:1.6;color:var(--ink-faint);max-width:100ch}
+</style>
+<style media="print">
+  @page { size: letter landscape; margin: 0.4in 0.45in; }
+  :root { --paper:#FFFFFF; --surface:#FFFFFF; --surface-2:#EEF0F3; }
+  body { padding: 0; font-size: 12px; }
+  header { padding-top: 4px; margin-bottom: 12px; }
+  h1 { font-size: 22px; }
+  table { font-size: 10px; }
+  th,td { padding: 4px 6px; }
+  .diff { font-size: 11px; }
+  .warn { font-size: 11px; }
+</style>
+
+<div class="wrap">
+<header>
+  <div class="stamp"><span>PIRRA</span><span>COMPETITIVE MATRIX · INTERNAL</span><span>SEPT 5, 2026</span></div>
+  <h1>Where PIRRA sits among the tools that talk to PI clients</h1>
+  <p class="spine">A working comparison for the team and advisors. Every cell about another company comes from that company's public materials on the date noted, read through search summaries where the sites were unreachable from our environment. "Not verified in public materials" means exactly that, not that the capability is absent.</p>
+</header>
+
+<div class="warn"><b>Corrections, Sept 5.</b> Two earlier claims were wrong and are withdrawn: that Quilia has "no conversational AI" (its AI page describes case memory and prompts that ask clients for gaps in plain language), and that EvenUp is only a downstream consumer of records (its Communication Agents, launched Dec 2025, run treatment check-ins with clients by SMS and voice). The Hona note's "first funded competitor with a conversational SMS agent" is therefore also wrong; EvenUp was earlier. Our competitive-watch files carry the same corrections.</div>
+
+<table>
+  <thead><tr><th></th><th class="p">PIRRA</th><th>Quilia</th><th>Hona (Lia)</th><th>EvenUp (Communication Agents)</th><th>Case Status · CMS texting</th></tr></thead>
+  <tbody>
+    <tr><td class="r">WHAT IT IS</td><td class="p"><b>Recovery-record capture</b> between intake and resolution, with exhibits on counsel's request</td><td>Client app and portal for PI firms; CaseChat two-way SMS (staff ↔ client) with AI overlay; treatment and pain-score tracking; ~800 firms</td><td>Client portal, intake, voice AI receptionist; Lia AI case manager (Sept 2026); 500+ firms</td><td>Demand and medical-record AI plus Communication Agents (Dec 2025): AI voice and SMS agents across the case lifecycle</td><td>Status portals; texting built into case-management systems</td></tr>
+    <tr><td class="r">WHO TALKS TO THE CLIENT</td><td class="p"><b>A disclosed AI on the firm's number,</b> directed by the named attorney; composes nothing at the default level; staff and attorney reply in the same thread, labeled</td><td>Staff by SMS; in-app AI-guided prompts ("if this, then that"), reminders, and "a living memory of each case" that asks clients for gaps in plain language</td><td>Lia by text after each visit; also answers client questions from the case file; escalates to the case owner</td><td>Treatment Check-In Agents by SMS or voice, 24/7, English and Spanish; other agents for claims initiation, records follow-up, balance verification</td><td>Staff, ad hoc</td></tr>
+    <tr><td class="r">PURPOSE OF THE CONVERSATION</td><td class="p"><b>Capture how the client is doing, in her words,</b> for counsel's record; present-tense questions where natural; memory of what she said</td><td>Client engagement, adherence, data collection into the case file</td><td>Adherence and case management: appointments, treatment details, symptoms, provider info</td><td>Adherence and operational throughput: "recoup staff capacity per case"</td><td>Case-status updates outbound</td></tr>
+    <tr><td class="r">OUTPUT</td><td class="p"><b>Attorney-ready exhibits with provenance to the message,</b> recovery-curve chart, depo-prep log, custodian certification, supervision record</td><td>Structured data, AI summaries and digests in the app and CMS; "documentation that strengthens demand letters"</td><td>CMS fields, dashboard, escalations; "negotiate with a complete record"</td><td>Demand packages and medical chronologies (attorney-side); agent transcripts into the workflow</td><td>Message history</td></tr>
+    <tr><td class="r">RECORD DESIGN</td><td class="p"><b>Classified at write; append-only hash chain; independent timestamps; adverse entries kept; unstated facts left unstated; client-facing AI has no case-file access and no tools</b></td><td><span class="nv">Not verified in public materials</span></td><td><span class="nv">Not verified in public materials.</span> Lia's thread by design mixes case answers, scheduling and client statements</td><td><span class="nv">Not verified in public materials</span></td><td><span class="nv">Not applicable</span></td></tr>
+    <tr><td class="r">LIABILITY BOUNDARY</td><td class="p"><b>Never discussed;</b> steered to the attorney, flagged, kept</td><td><span class="nv">Not verified</span></td><td><span class="nv">Not verified</span></td><td>Liability and coverage verification is a named agent workflow</td><td><span class="nv">Not applicable</span></td></tr>
+    <tr><td class="r">DISCLOSURE CONTROL</td><td class="p"><b>Nothing leaves the firm without the attorney's authorized decision;</b> complete originals preserved; no partial-record productions offered</td><td>Firm controls its data; <span class="nv">export policy not verified</span></td><td>Firm controls its data; <span class="nv">export policy not verified</span></td><td>Firm controls its data; <span class="nv">export policy not verified</span></td><td>Firm controls its data</td></tr>
+    <tr><td class="r">PRIVILEGE POSTURE STATED</td><td class="p"><b>Designed to support privilege and work product; no guarantee;</b> channel-to-counsel theory, direction letter, election model, under California counsel review</td><td><span class="nv">None stated in public materials</span></td><td>HIPAA and AI-disclosure guardrails stated</td><td><span class="nv">None stated for agents in public materials</span></td><td><span class="nv">None</span></td></tr>
+    <tr><td class="r">SUPERVISION</td><td class="p"><b>Autonomy levels elected per case; passive receipts; three-tap dispositions; one-click Rule 5.3 record; firm policy generated from settings</b></td><td>Attorney dashboard, alerts</td><td>Escalation to case owner; pause per client; user management</td><td>Escalation to staff; <span class="nv">supervision record not verified</span></td><td>—</td></tr>
+    <tr><td class="r">PRICE</td><td class="p"><b>$149 per case, flat, published</b></td><td>~$10 per monthly active client (public)</td><td>Quote-based</td><td>Quote-based</td><td>Bundled</td></tr>
+  </tbody>
+</table>
+
+<h2>Where the difference actually is</h2>
+<ol class="diff">
+  <li><b>The purpose of the conversation.</b> The other agents are built for adherence and staff capacity, and collect symptoms on the way. PIRRA's conversation exists to capture the client's account for counsel, and its questions, memory and pacing are designed for that.</li>
+  <li><b>The output.</b> We have not found another product whose deliverable is an exhibit with provenance to the message and a custodian certification behind it. That is a statement about what we found, not proof of absence.</li>
+  <li><b>Record design that has to be true from message one.</b> Neutral questions, adverse entries kept, classification at write, an append-only chain, and an assistant that cannot see the case file. These are design decisions, not features, and they are hard to add to a product whose agent already answers case questions in the same thread.</li>
+  <li><b>Disclosure control and supervision as product behavior.</b> We describe what the software does (nothing leaves without the attorney's decision; the supervision record accrues by default) and do not describe legal outcomes.</li>
+</ol>
+
+<p class="src">Sources, all Sept 4–5, 2026, via search summaries because the sites are blocked from our environment: quilia.com/how-it-works/artificial-intelligence and product pages; hona.com (home, /personal-injury, /ai), support.hona.com "What is Lia?", ABA Journal launch coverage; evenuplaw.com/products/communication-agents and the Dec 3, 2025 press release; Capterra and GetApp pricing pages. Spot-check each before external use. Never for the live site. Detail in docs/research/competitive-watch-2026-08.md and competitive-watch-2026-09-hona.md.</p>
+</div>

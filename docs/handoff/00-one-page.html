@@ -7,115 +7,126 @@
     --ink:#16181D; --ink-soft:#5B616B; --ink-faint:#878D97; --rule:#D2D6DD;
     --accent:#243C6B; --accent-wash:#E3E8F4;
     --firm:#8F6415; --firm-wash:#F4EAD6;
-    --danger:#8C2F39; --danger-wash:#F5E2E4;
+    --client:#4A5A7A; --client-wash:#E7EAF2;
     --ok:#2F6B4F; --ok-wash:#DFEDE5;
   }
   @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
     --paper:#121419; --surface:#191C23; --surface-2:#22262F;
     --ink:#E5E8ED; --ink-soft:#9AA2AE; --ink-faint:#6E7783; --rule:#2D323C;
     --accent:#93A9E6; --accent-wash:#1D2440; --firm:#D6A648; --firm-wash:#302713;
-    --danger:#E28C95; --danger-wash:#331B1F; --ok:#7FC0A0; --ok-wash:#16301F; } }
+    --client:#A9B4CC; --client-wash:#1E2330; --ok:#7FC0A0; --ok-wash:#16301F; } }
   :root[data-theme="dark"] {
     --paper:#121419; --surface:#191C23; --surface-2:#22262F;
     --ink:#E5E8ED; --ink-soft:#9AA2AE; --ink-faint:#6E7783; --rule:#2D323C;
     --accent:#93A9E6; --accent-wash:#1D2440; --firm:#D6A648; --firm-wash:#302713;
-    --danger:#E28C95; --danger-wash:#331B1F; --ok:#7FC0A0; --ok-wash:#16301F; }
+    --client:#A9B4CC; --client-wash:#1E2330; --ok:#7FC0A0; --ok-wash:#16301F; }
 
   *{box-sizing:border-box}
-  body{margin:0;padding:0 24px 60px;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
-  .sheet{max-width:960px;margin:40px auto 0;background:var(--surface);border:1px solid var(--rule);padding:34px 40px 28px}
-  .stamp{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--ink-faint);display:flex;justify-content:space-between;gap:8px 20px;flex-wrap:wrap;margin-bottom:12px}
-  h1{font-size:30px;line-height:1.1;font-weight:600;letter-spacing:-.015em;margin:0 0 8px;text-wrap:balance}
-  .spine{font-size:15.5px;color:var(--ink-soft);margin:0 0 18px;max-width:78ch}
+  body{margin:0;padding:0 24px 60px;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:15.5px;line-height:1.5;-webkit-font-smoothing:antialiased}
+  .sheet{max-width:920px;margin:40px auto 0;background:var(--surface);border:1px solid var(--rule);padding:36px 44px 30px}
+  .stamp{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--ink-faint);display:flex;justify-content:space-between;gap:8px 20px;flex-wrap:wrap;margin-bottom:14px}
+  h1{font-size:31px;line-height:1.1;font-weight:600;letter-spacing:-.015em;margin:0 0 10px;text-wrap:balance}
+  .spine{font-size:16px;color:var(--ink-soft);margin:0 0 20px;max-width:76ch;line-height:1.5}
   .spine strong{color:var(--ink)}
-  .cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px;border-top:2px solid var(--ink);padding-top:14px}
-  @media (max-width:760px){.cols{grid-template-columns:1fr}}
-  .k{font-family:var(--mono);font-size:10px;letter-spacing:.13em;color:var(--accent);margin:0 0 6px}
-  .cols p{font-size:13.5px;line-height:1.5;margin:0 0 8px;color:var(--ink-soft)}
-  .cols p b{color:var(--ink)}
-  .thesis{margin:18px 0 12px;border-left:3px solid var(--firm);background:var(--firm-wash);padding:10px 16px;font-size:15px;line-height:1.45}
-  table{border-collapse:collapse;width:100%;font-size:11.5px;margin-top:8px}
-  th,td{border:1px solid var(--rule);padding:6px 8px;vertical-align:top;text-align:left;line-height:1.4}
-  th{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--ink-soft);background:var(--surface-2);font-weight:500}
-  th.p{color:var(--accent);background:var(--accent-wash)}
-  td.p{background:var(--accent-wash);color:var(--ink)}
-  td.r{font-family:var(--mono);font-size:10px;color:var(--ink-faint);white-space:nowrap;letter-spacing:.04em}
-  td b{color:var(--ink)}
-  td{color:var(--ink-soft)}
-  .bottom{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:14px;border-top:1px solid var(--rule);padding-top:12px}
-  @media (max-width:760px){.bottom{grid-template-columns:1fr}}
-  .bottom p{font-size:12.5px;line-height:1.45;color:var(--ink-soft);margin:0}
-  .bottom b{color:var(--ink)}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;border-top:2px solid var(--ink);padding-top:14px}
+  @media (max-width:760px){.steps{grid-template-columns:1fr 1fr}}
+  .steps .n{font-family:var(--mono);font-size:10px;letter-spacing:.13em;color:var(--accent);margin:0 0 5px}
+  .steps h3{font-size:15.5px;margin:0 0 5px;line-height:1.25}
+  .steps p{font-size:13px;line-height:1.48;margin:0;color:var(--ink-soft)}
+  .two{display:grid;grid-template-columns:1.05fr 1fr;gap:22px;margin-top:20px}
+  @media (max-width:760px){.two{grid-template-columns:1fr}}
+  .k{font-family:var(--mono);font-size:10px;letter-spacing:.13em;color:var(--accent);margin:0 0 8px}
+  .phone{border:1px solid var(--rule);border-radius:12px;padding:12px 12px 10px;background:var(--paper)}
+  .bub{max-width:90%;padding:7px 10px;border-radius:12px;font-size:12.5px;line-height:1.4;margin:0 0 6px}
+  .bub.c{background:var(--client);color:#fff;margin-left:auto;border-bottom-right-radius:3px}
+  .bub.a{background:var(--surface-2);color:var(--ink);border-bottom-left-radius:3px}
+  .bub .m{display:block;font-family:var(--mono);font-size:8.5px;letter-spacing:.08em;opacity:.75;margin-top:3px}
+  .gap{font-family:var(--mono);font-size:9px;letter-spacing:.1em;color:var(--ink-faint);text-align:center;margin:8px 0}
+  .insight{font-size:13px;line-height:1.5;color:var(--ink-soft)}
+  .insight p{margin:0 0 8px}
+  .insight b{color:var(--ink)}
+  .rec{border-left:3px solid var(--accent);background:var(--accent-wash);padding:8px 12px;font-family:var(--mono);font-size:10.5px;line-height:1.55;color:var(--ink);margin:6px 0 10px}
+  .why{margin-top:18px;border-top:1px solid var(--rule);padding-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  @media (max-width:760px){.why{grid-template-columns:1fr}}
+  .why p{font-size:13px;line-height:1.48;color:var(--ink-soft);margin:0 0 8px}
+  .why b{color:var(--ink)}
+  .invite{margin-top:16px;border:1px solid var(--firm);background:var(--firm-wash);padding:12px 16px;display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center}
+  @media (max-width:760px){.invite{grid-template-columns:1fr}}
+  .invite p{margin:0;font-size:13.5px;line-height:1.45}
+  .invite .price{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--firm);white-space:nowrap;text-align:right}
   .foot{margin-top:12px;font-family:var(--mono);font-size:9.5px;line-height:1.5;color:var(--ink-faint)}
 </style>
 <style media="print">
   @page { size: letter portrait; margin: 0.35in 0.4in; }
-  :root { --paper:#FFFFFF; --surface:#FFFFFF; --surface-2:#EEF0F3; }
-  body { padding: 0; }
-  .sheet { margin: 0; border: none; padding: 0; max-width: none; zoom: 0.80; }
+  :root { --paper:#F6F7F9; --surface:#FFFFFF; --surface-2:#EEF0F3; }
+  body { padding: 0; background:#fff; }
+  .sheet { margin: 0; border: none; padding: 0; max-width: none; zoom: 0.77; }
   .stamp { margin-bottom: 8px; }
-  h1 { font-size: 23px; margin-bottom: 6px; }
+  h1 { font-size: 22px; margin-bottom: 6px; }
   .spine { font-size: 12.5px; margin-bottom: 10px; }
-  .cols { gap: 16px; padding-top: 10px; }
-  .cols p { font-size: 11.2px; line-height: 1.42; margin-bottom: 6px; }
-  .thesis { font-size: 12px; margin: 10px 0 6px; padding: 8px 12px; }
-  table { font-size: 9.6px; }
-  th,td { padding: 3px 5px; line-height: 1.35; }
-  .bottom { margin-top: 10px; padding-top: 8px; gap: 16px; }
-  .bottom p { font-size: 10.6px; }
+  .steps { gap: 12px; padding-top: 10px; }
+  .steps h3 { font-size: 12.5px; }
+  .steps p, .insight, .why p { font-size: 10.8px; line-height: 1.42; }
+  .two { gap: 16px; margin-top: 12px; }
+  .bub { font-size: 10.5px; padding: 5px 8px; }
+  .rec { font-size: 9px; }
+  .why { margin-top: 10px; padding-top: 8px; gap: 16px; }
+  .invite { margin-top: 10px; padding: 8px 12px; }
+  .invite p { font-size: 11px; }
+  .invite .price { font-size: 9.5px; }
   .foot { font-size: 8px; margin-top: 8px; }
 </style>
 
 <div class="sheet">
-  <div class="stamp"><span>PIRRA · PERSONAL INJURY RECOVERY &amp; RESPONSE AGENT</span><span>ONE PAGE · SEPT 2026 · CONFIDENTIAL DRAFT</span></div>
-  <h1>The pain journal your clients will actually keep, built as evidence from the first message.</h1>
-  <p class="spine">PIRRA is an SMS-native, attorney-directed AI that captures a personal-injury client's recovery in their own words during the months between intake and resolution, and turns it into <strong>court-ready exhibits where every figure clicks back to the text message it came from</strong>. The client sees a text thread. The firm sees a workbench. The court sees a PDF. One flat price per case.</p>
+  <div class="stamp"><span>PIRRA · PERSONAL INJURY RECOVERY &amp; RESPONSE AGENT</span><span>FOR PLAINTIFF PI FIRMS · SEPT 2026</span></div>
+  <h1>An attorney-directed assistant that stays in touch with your client for the whole recovery, and keeps the record you'll need.</h1>
+  <p class="spine">PIRRA is a disclosed AI assistant on your firm's number. It checks in with the client a few times a week, remembers what she told it, asks what's changed, and turns the months between intake and resolution into <strong>a faithful, source-linked recovery record</strong>. The complete record stays inside your firm. You decide what, if anything, becomes an exhibit.</p>
 
-  <div class="cols">
+  <div class="steps">
+    <div><p class="n">1 · THE CLIENT</p><h3>Consistent, personal contact by text</h3><p>Disclosed as an AI, directed by your named attorney, on your number. It asks how she is right now, follows up on what she said last week, and gives her room to explain. No app. A person at the firm is one word away.</p></div>
+    <div><p class="n">2 · COUNSEL</p><h3>A faithful record, every entry sourced</h3><p>Every message is written to an append-only, timestamped log before anything reads it. Each fact in the timeline links to its message. Good days and hard days are both kept. Nothing the client didn't say is estimated.</p></div>
+    <div><p class="n">3 · THE FIRM</p><h3>Confidential by design, released only on your decision</h3><p>The assistant never discusses fault, never answers legal or case questions, never contacts anyone but the client. Nothing leaves the firm without the attorney's authorized decision. Supervision is built in, with a record to show for it.</p></div>
+    <div><p class="n">4 · WHEN YOU NEED IT</p><h3>Attorney-ready exhibits, built to evidence standards</h3><p>A two-page demand exhibit, a recovery-curve chart, a depo-prep log and a custodian certification, generated when you ask and labeled for counsel's review in your forum.</p></div>
+  </div>
+
+  <div class="two">
     <div>
-      <p class="k">WHAT WE ARE BUILDING</p>
-      <p><b>A disclosed AI assistant on the firm's number,</b> directed by the named attorney, checks in a few times a week and after appointments: how are you right now, what can't you do today. The client answers by text or voice. No app, no login.</p>
-      <p><b>An append-only, hash-chained, independently timestamped record</b> where every message is classified at write and every derived fact links to its source. Neutral questions from a counsel-approved library. Good days kept. Liability content steered to the attorney and never deleted.</p>
-      <p><b>Exhibits on demand:</b> the two-page demand-packet exhibit, the recovery-curve summary chart, the depo-prep log, and a custodian certification in the form the forum accepts. Released only when the attorney elects, and only as a whole record.</p>
+      <p class="k">ONE EXCHANGE, FROM A SYNTHETIC CASE</p>
+      <div class="phone">
+        <div class="bub c">missed my daughter's recital. couldn't sit that long on those little chairs, stood in the back and then had to leave. cried in the car<span class="m">MARIA · SAT 4:20 PM · LOG-0071</span></div>
+        <div class="bub a">That sounds really disappointing, Maria. Do you want to tell me more about how the afternoon went?<span class="m">PIRRA · 4:21 PM</span></div>
+        <div class="bub c">it was 45 minutes. I lasted maybe 15 on the chair then stood in the back, then my back started spasming so I went to the car. she looked for me after. I'm a 6 right now and it's still spasming<span class="m">MARIA · 4:29 PM · LOG-0073</span></div>
+        <div class="gap">· · · TWO DAYS LATER · · ·</div>
+        <div class="bub a">You mentioned "couldn't sit that long" on Saturday. Since then — easier, harder, or about the same?<span class="m">PIRRA · MON 9:19 AM · QUOTES HER OWN WORDS</span></div>
+        <div class="bub c">about the same. I stand at the counter to eat now<span class="m">MARIA · 9:26 AM · LOG-0078</span></div>
+      </div>
     </div>
-    <div>
-      <p class="k">WHY FIRMS NEED IT</p>
-      <p><b>Non-economic damages are the majority of settlement value and the least-documented part of every file.</b> The months between intake and demand produce nothing, and the demand is reconstructed from memory and medical records.</p>
-      <p><b>Clients don't keep journals.</b> The few who do hand the firm an uncontrolled diary the defense can subpoena and cherry-pick.</p>
-      <p><b>Defense counsel now asks for AI use in discovery.</b> Federal courts split in 2026 on whether a litigant's AI conversations are protected; the loser used a consumer tool with no attorney direction. Firms need a record attorney-directed by design and survivable if produced.</p>
-      <p><b>California is writing AI duties into the Rules of Professional Conduct.</b> Firms need supervision that happens by default, with a record to show for it.</p>
-    </div>
-    <div>
-      <p class="k">HOW IT IS DIFFERENT</p>
-      <p><b>Everyone else builds a communication tool or a case manager and calls its byproduct a record.</b> PIRRA builds the record as evidence from message one and lets the attorney decide whether it is ever seen.</p>
-      <p><b>The question asked.</b> A case manager asks "did you go to PT." PIRRA asks the damages question, in the present tense, at a density the evidence rules reward.</p>
-      <p><b>The output.</b> Nobody else produces a document a firm attaches to a demand or takes to mediation, with provenance to the message and a custodian certification behind it.</p>
-      <p><b>The architecture.</b> The client-facing AI reads the thread and nothing else: no case file, no tools, no case-status answers. Two planes: the record, and the work product prepared for counsel. One gate out, and the attorney holds it.</p>
-      <p><b>Supervision as a product.</b> Autonomy levels elected per case, receipts logged by reading, three-tap dispositions, a one-click Rule 5.3 record.</p>
+    <div class="insight">
+      <p class="k">WHAT COUNSEL SAW</p>
+      <p><b>Monday's digest, on her phone:</b> "Sat: missed daughter's recital, 'couldn't sit that long.' Back 6, spasming. Sitting 'about the same' since." Opening it logged her review. Nothing else was asked of her.</p>
+      <p><b>In the timeline, two entries she can trust:</b></p>
+      <div class="rec">T-30 · event: Sat, time not stated · reported 16:20 · missed recital; could not sit; left; "cried in the car" · source LOG-0071<br>T-31 · same event · reported 16:29 · ~15 min seated, spasm, left for car · "6 right now, still spasming" · source LOG-0073 · candidate pathway: present sensation (CA Evid. Code §1250), for counsel's review</div>
+      <p><b>In the exhibit, if counsel prepares one:</b> the verbatim excerpt with its log reference and a point on the recovery curve. <b>What did not happen:</b> no question about the crash, no suggestion of what to report, no reading her scores back, no comment on her case.</p>
     </div>
   </div>
 
-  <div class="thesis"><b>A case manager's log is not an exhibit.</b> A treatment timeline exported from a chat thread that also answered case-status questions is the uncontrolled diary with a logo on it, because the record was not designed as evidence from the first message and cannot be retrofitted.</div>
-
-  <table>
-    <thead><tr><th></th><th class="p">PIRRA</th><th>Quilia</th><th>Hona (with "Lia")</th><th>Case Status · CMS texting</th><th>EvenUp · Supio</th></tr></thead>
-    <tbody>
-      <tr><td class="r">WHAT IT IS</td><td class="p"><b>Evidence capture</b> between intake and resolution</td><td>Client app and portal; human two-way SMS (CaseChat) with AI overlay</td><td>Client portal, voice AI receptionist, intake; Lia AI case manager (Sept 2026)</td><td>Status portals; texting built into case-management systems</td><td>Demand and medical-record AI, attorney-facing</td></tr>
-      <tr><td class="r">WHO ASKS THE CLIENT</td><td class="p"><b>A disclosed AI, attorney-directed,</b> from a counsel-approved library</td><td>Staff, by text; app prompts for pain scores and photos; no conversational AI</td><td>Lia, after each visit: treatment details, symptoms, provider; also answers questions from the case file</td><td>Staff, ad hoc</td><td>Nobody; reads records</td></tr>
-      <tr><td class="r">THE QUESTION</td><td class="p"><b>How are you right now; what can't you do</b> (damages, present tense)</td><td>Log your pain; upload photos</td><td>Did you go; what happened; next appointment (adherence)</td><td>Case updates outbound</td><td>—</td></tr>
-      <tr><td class="r">OUTPUT</td><td class="p"><b>Exhibits with provenance,</b> summary chart, depo log, custodian certification</td><td>Data in the app and CMS; "documentation that strengthens demands"</td><td>CMS fields, dashboard, escalations; "negotiate with a complete record"</td><td>Message history</td><td>Demand letters (a downstream consumer of PIRRA exhibits)</td></tr>
-      <tr><td class="r">RECORD DESIGN</td><td class="p"><b>Classified at write, hash-chained, timestamped, adverse entries kept, no deletion, no case-file access for the AI</b></td><td>None found</td><td>None found; Lia's thread mixes case answers, scheduling and statements</td><td>None</td><td>n/a</td></tr>
-      <tr><td class="r">LIABILITY BOUNDARY</td><td class="p"><b>Never discussed;</b> steered, flagged, kept</td><td>Not addressed</td><td>Not addressed</td><td>Not addressed</td><td>n/a</td></tr>
-      <tr><td class="r">PRIVILEGE POSTURE</td><td class="p"><b>Channel to counsel; direction letter; election model; survivable if produced</b></td><td>Not addressed</td><td>HIPAA and AI disclosure only</td><td>Not addressed</td><td>Work product, attorney-side</td></tr>
-      <tr><td class="r">SUPERVISION</td><td class="p"><b>Autonomy levels, receipts, dispositions, one-click Rule 5.3 record, generated firm policy</b></td><td>Dashboard</td><td>Escalate to case owner; pause; user management</td><td>—</td><td>Attorney review of drafts</td></tr>
-      <tr><td class="r">PRICE</td><td class="p"><b>$149 per case, flat, published</b></td><td>~$10 per monthly active client</td><td>Quote-based</td><td>Bundled</td><td>Quote-based</td></tr>
-    </tbody>
-  </table>
-
-  <div class="bottom">
-    <div><p><b>Where we are.</b> Architecture of record complete after three blind review rounds and two outside legal critiques. Prototypes live. A thirty-day synthetic case exists end to end with thread, source-linked timeline, flags and supervision record. Proof of concept built; build spec written against the rules. Next: a PI attorney and an adversarial reviewer on the demo case, California counsel on the open questions, then a synthetic-data pilot.</p></div>
-    <div><p><b>What we will not say.</b> We do not promise privilege or admissibility, anywhere. The record is built so that if produced it is accurate and complete, and the attorney, not the software, decides what is released. We preserve evidence that would otherwise be lost; we do not create it. The AI never pretends to be a person, never discusses fault, never talks to anyone but the client.</p></div>
+  <div class="why">
+    <div>
+      <p class="k">WHY FIRMS ARE ASKING FOR THIS</p>
+      <p><b>Non-economic loss is often the largest and least-documented part of a recovery.</b> Medical records show treatment, not the recital or the car seat. Clients rarely keep journals, and a self-kept diary is open to attack as curated. A record built with neutral questions, good days included, is harder to attack.</p>
+      <p><b>Opposing counsel now asks about AI in discovery.</b> Federal courts split in 2026 on whether a litigant's AI conversations are protected; the case that lost involved a consumer tool with no attorney direction. PIRRA is attorney-directed from the first message and built to stand up if produced.</p>
+    </div>
+    <div>
+      <p class="k">WHAT WE PROMISE, AND WHAT WE DON'T</p>
+      <p><b>We promise the product's behavior.</b> Nothing leaves your firm without the attorney's authorized decision. The complete original record is always preserved. At the default setting the assistant composes nothing: it selects from questions you approved and may quote the client's own words back, verified against the log.</p>
+      <p><b>We do not promise legal outcomes.</b> Privilege and work-product protection depend on the relationship and the circumstances, not on a permission setting. The architecture is designed to support them and is under review by California counsel. Which exhibits to prepare, and whether to produce any underlying record, are counsel's decisions, made with the waiver rules in mind.</p>
+    </div>
   </div>
 
-  <p class="foot">Competitor descriptions are from public materials as of September 2026 (Quilia product pages and changelog; Hona site, help center and launch coverage; vendor pricing pages) and should be spot-checked before external use. Not legal advice. Synthetic case examples only. Detail: docs/OVERVIEW.md, docs/decisions/0001–0005, docs/research/competitive-watch-2026-09-hona.md, docs/demo-case.</p>
+  <div class="invite">
+    <p><b>Pilot.</b> A small number of firms, synthetic cases first, then live cases under California counsel's review. Pilot firms get the case-setup wizard, the workbench, the exhibits and a direct line to the founders. Reply to this email to request a place or to see the thirty-day synthetic case end to end.</p>
+    <div class="price">$149 PER CASE · FLAT<br>DECLINED CASES: NO CHARGE</div>
+  </div>
+
+  <p class="foot">The exchange above is from a synthetic case (client, firm, attorney and messages are invented). Not legal advice. PIRRA preserves evidence that would otherwise be lost; it does not create it. The assistant never pretends to be a person, never discusses fault, and never contacts anyone but the client. A separate comparison with other client-communication and case-management tools is available on request.</p>
 </div>

@@ -64,7 +64,7 @@ jurisdiction awareness, or any privilege or work-product theory.
 
 ## 4. What is the same
 
-Be honest about this. For the first time, a funded competitor with 500 firms has:
+Be honest about this. A funded competitor with 500 firms has (and, *corrected Sept 5*, not for the first time: EvenUp's Communication Agents ran SMS and voice treatment check-ins from Dec 2025, and Quilia's app carries AI-guided prompts and case memory):
 
 | Hona / Lia | PIRRA |
 |---|---|
@@ -139,7 +139,7 @@ published, one job. The PRD's "published pricing is itself a wedge" claim remain
 
 ## 6. Threat assessment
 
-**Hona is now the nearest competitor and the most likely to drift into the sliver**, because they
+**Hona is among the nearest competitors and, with EvenUp, the most likely to drift into the sliver**, because they
 already own the conversational SMS channel and the client relationship surface at 500 firms. The
 drift move is obvious: "Export a treatment timeline PDF." Watch for it. When it comes, the
 argument is §5.3: a timeline exported from a case-manager thread is the uncontrolled diary with a
@@ -175,3 +175,27 @@ PIRRA's record sits beside Hona's portal rather than against it. Note only; no a
 "User Management," ABA Journal "Personal injury case management platform Hona launches AI agent"
 (corrected 9/3/2026), Law.com coverage quoted therein, Capterra/GetApp pricing pages, YC company
 page, all via search-engine summaries. Direct fetch blocked for every Hona domain.*
+
+## 8. Corrections (Sept 5, 2026)
+
+An outside reviewer checked two cells of the comparison built from this note against current
+product pages. Both were wrong and are withdrawn:
+
+- **Quilia, "no conversational AI."** Quilia's AI page describes "a living memory of each case," AI
+  that "spots gaps that quietly lower case value and asks clients for them in plain language," and
+  "smart if-this-then-that prompts" that guide clients. That is AI-directed client prompting in the
+  app, even if CaseChat SMS remains staff-to-client. The Aug note's finding is stale as to the app
+  and stands only as to CaseChat.
+- **EvenUp, "downstream consumer only."** EvenUp launched **Communication Agents** on Dec 3, 2025:
+  AI voice and SMS agents including **Treatment Check-In Agents** that "conduct friendly,
+  conversational check-ins around the clock via SMS or voice calls in English and Spanish," with
+  7K+ automated SMS in the first 90 days per EvenUp's own blog, plus agents for claims initiation,
+  liability and coverage verification, records follow-up and balance verification.
+
+Consequences: Hona was not the first funded competitor with a conversational SMS agent; EvenUp was
+earlier and is larger. EvenUp's liability-verification agent means at least one competitor's agent
+discusses liability with clients by design, which sharpens PIRRA's boundary as a difference. The
+comparison document (`docs/handoff/00b-competitive-matrix.html`) uses "not verified in public
+materials" where we found nothing, never "none." Sources: quilia.com/how-it-works/artificial-intelligence;
+evenuplaw.com/products/communication-agents and the Dec 3, 2025 Business Wire release; both via search
+summary, sites blocked from this environment.
