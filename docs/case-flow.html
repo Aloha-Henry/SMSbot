@@ -1,0 +1,356 @@
+<title>PIRRA — Case Flow</title>
+<style>
+  :root {
+    --serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, "Cascadia Mono", Consolas, monospace;
+    --paper:#F0F1F3; --surface:#FAFBFC; --surface-2:#E9EBEF;
+    --ink:#16181D; --ink-soft:#5B616B; --ink-faint:#878D97; --rule:#D2D6DD;
+    --accent:#243C6B; --accent-wash:#E3E8F4;
+    --egress:#8F6415; --egress-wash:#F4EAD6;
+    --danger:#8C2F39; --danger-wash:#F5E2E4;
+    --ok:#2F6B4F; --ok-wash:#DFEDE5;
+    --client:#4A5A7A; --client-wash:#E7EAF2;
+  }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+    --paper:#121419; --surface:#191C23; --surface-2:#22262F;
+    --ink:#E5E8ED; --ink-soft:#9AA2AE; --ink-faint:#6E7783; --rule:#2D323C;
+    --accent:#93A9E6; --accent-wash:#1D2440; --egress:#D6A648; --egress-wash:#302713;
+    --danger:#E28C95; --danger-wash:#331B1F; --ok:#7FC0A0; --ok-wash:#16301F;
+    --client:#A9B4CC; --client-wash:#1E2330; } }
+  :root[data-theme="dark"] {
+    --paper:#121419; --surface:#191C23; --surface-2:#22262F;
+    --ink:#E5E8ED; --ink-soft:#9AA2AE; --ink-faint:#6E7783; --rule:#2D323C;
+    --accent:#93A9E6; --accent-wash:#1D2440; --egress:#D6A648; --egress-wash:#302713;
+    --danger:#E28C95; --danger-wash:#331B1F; --ok:#7FC0A0; --ok-wash:#16301F;
+    --client:#A9B4CC; --client-wash:#1E2330; }
+
+  *{box-sizing:border-box}
+  body{margin:0;padding:0 24px 90px;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto}
+  .col{max-width:68ch}
+  header.mast{border-bottom:2px solid var(--ink);padding:52px 0 18px;margin-bottom:38px}
+  .stamp{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--ink-faint);display:flex;gap:8px 20px;flex-wrap:wrap;margin-bottom:16px}
+  h1{font-size:clamp(30px,5vw,42px);line-height:1.1;font-weight:600;letter-spacing:-.015em;margin:0 0 14px;text-wrap:balance}
+  .spine{font-size:18px;color:var(--ink-soft);max-width:64ch;margin:0}
+  .spine strong{color:var(--ink)}
+  section{margin-bottom:56px}
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;color:var(--accent);margin:0 0 8px}
+  h2{font-size:25px;font-weight:600;letter-spacing:-.01em;margin:0 0 12px;text-wrap:balance}
+  h3{font-size:17px;font-weight:600;margin:0 0 6px}
+  p{margin:0 0 14px}
+  figcaption{font-family:var(--mono);font-size:11.5px;line-height:1.55;color:var(--ink-soft);margin-top:11px;max-width:80ch}
+  code{font-family:var(--mono);font-size:.86em;background:var(--surface-2);padding:1px 5px;border-radius:3px}
+
+  /* ── Swimlane flow ─────────────────────────────────────────────── */
+  .flow{overflow-x:auto;border:1px solid var(--rule);background:var(--surface);padding:0 0 18px}
+  .grid{display:grid;grid-template-columns:150px repeat(3,minmax(250px,1fr));min-width:920px}
+  .lanehead{position:sticky;top:0;background:var(--surface-2);border-bottom:1px solid var(--rule);padding:12px 14px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--ink-soft)}
+  .lanehead b{display:block;font-family:var(--serif);font-size:15px;letter-spacing:0;color:var(--ink);margin-top:3px;font-weight:600}
+  .lanehead.c b{color:var(--client)} .lanehead.e b{color:var(--accent)} .lanehead.f b{color:var(--egress)}
+  .stage{grid-column:1;border-top:1px solid var(--rule);padding:16px 14px 18px;background:var(--surface-2)}
+  .stage .n{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--ink-faint)}
+  .stage .t{font-weight:600;font-size:14.5px;line-height:1.3;margin-top:4px}
+  .stage .w{font-family:var(--mono);font-size:10px;color:var(--ink-soft);margin-top:6px;line-height:1.5}
+  .cell{border-top:1px solid var(--rule);border-left:1px solid var(--rule);padding:14px 14px 16px;position:relative;font-size:13.5px;line-height:1.5;color:var(--ink-soft)}
+  .cell:empty::after{content:"";position:absolute;left:50%;top:0;bottom:0;border-left:1px dashed var(--rule)}
+  .card{border-radius:4px;padding:9px 11px;margin:0 0 8px;font-size:13px;line-height:1.45;color:var(--ink);border:1px solid var(--rule);background:var(--paper)}
+  .card.c{background:var(--client-wash);border-color:var(--client)}
+  .card.e{background:var(--accent-wash);border-color:var(--accent)}
+  .card.f{background:var(--egress-wash);border-color:var(--egress)}
+  .card.d{background:var(--danger-wash);border-color:var(--danger)}
+  .card.o{background:var(--ok-wash);border-color:var(--ok)}
+  .card b{font-weight:600}
+  .card small{display:block;font-family:var(--mono);font-size:10px;color:var(--ink-soft);margin-top:5px;line-height:1.5}
+  .who{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--ink-faint);margin:0 0 4px}
+  .out{margin-top:8px;padding-top:7px;border-top:1px dashed var(--rule);font-family:var(--mono);font-size:10.5px;line-height:1.55;color:var(--ink-soft)}
+  .out b{color:var(--ink);font-weight:600}
+  .arrow{display:inline-block;font-family:var(--mono);color:var(--ink-faint);font-size:11px;margin:0 3px}
+  .plane{grid-column:1 / -1;background:var(--surface-2);border-top:2px solid var(--ink);padding:10px 14px;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--ink-soft);display:flex;gap:26px;flex-wrap:wrap}
+  .plane span b{color:var(--ink)}
+  .dot{display:inline-block;width:9px;height:9px;border-radius:2px;vertical-align:-1px;margin-right:6px;border:1px solid}
+  .dot.c{background:var(--client-wash);border-color:var(--client)} .dot.e{background:var(--accent-wash);border-color:var(--accent)}
+  .dot.f{background:var(--egress-wash);border-color:var(--egress)} .dot.d{background:var(--danger-wash);border-color:var(--danger)} .dot.o{background:var(--ok-wash);border-color:var(--ok)}
+
+  /* ── Sample thread ─────────────────────────────────────────────── */
+  .phone{max-width:420px;border:1px solid var(--rule);background:var(--surface);border-radius:14px;padding:16px 14px 18px;margin:20px 0 0}
+  .phone .hdr{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--ink-faint);text-align:center;margin-bottom:12px}
+  .bub{max-width:88%;padding:9px 12px;border-radius:14px;font-size:14px;line-height:1.45;margin:0 0 7px;position:relative}
+  .bub.in{background:var(--surface-2);color:var(--ink);border-bottom-left-radius:4px}
+  .bub.outb{background:var(--client);color:#fff;margin-left:auto;border-bottom-right-radius:4px}
+  .bub.sys{background:transparent;border:1px dashed var(--rule);color:var(--ink-soft);font-family:var(--mono);font-size:10.5px;max-width:100%;text-align:center;border-radius:6px}
+  .bub .tag{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.1em;color:var(--ink-faint);margin-top:5px}
+  .bub.outb .tag{color:rgba(255,255,255,.7)}
+  .two{display:grid;grid-template-columns:minmax(280px,440px) 1fr;gap:34px;align-items:start}
+  @media (max-width:820px){.two{grid-template-columns:1fr}}
+  .notes{font-size:14.5px;color:var(--ink-soft)}
+  .notes li{margin-bottom:9px}
+  .notes b{color:var(--ink)}
+
+  /* ── Tables ────────────────────────────────────────────────────── */
+  table{border-collapse:collapse;width:100%;font-size:13.5px;margin-top:14px;background:var(--surface)}
+  th,td{border:1px solid var(--rule);padding:9px 11px;vertical-align:top;text-align:left;line-height:1.45}
+  th{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--ink-soft);background:var(--surface-2);font-weight:500}
+  td.k{font-family:var(--mono);font-size:11.5px;white-space:nowrap}
+  .pill{display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;padding:2px 7px;border-radius:3px;border:1px solid;vertical-align:1px}
+  .pill.f{color:var(--egress);border-color:var(--egress);background:var(--egress-wash)}
+  .pill.p{color:var(--accent);border-color:var(--accent);background:var(--accent-wash)}
+  .pill.d{color:var(--danger);border-color:var(--danger);background:var(--danger-wash)}
+  .ss{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-family:var(--mono);font-size:11px;margin-top:14px}
+  .ss span{border:1px solid var(--rule);background:var(--surface);padding:5px 9px;border-radius:3px;color:var(--ink)}
+  .ss i{color:var(--ink-faint);font-style:normal}
+  .foot{border-top:1px solid var(--rule);padding-top:16px;font-family:var(--mono);font-size:11px;line-height:1.6;color:var(--ink-faint);max-width:90ch}
+</style>
+
+<div class="wrap">
+<header class="mast">
+  <div class="stamp"><span>PIRRA</span><span>CASE FLOW</span><span>SEPT 2026</span><span>WORKING DOC · SYNTHETIC EXAMPLES</span></div>
+  <h1>From the first text to the exhibit: one case, start to finish.</h1>
+  <p class="spine">Three lanes. <strong>The client</strong> only ever sees a text thread. <strong>PIRRA</strong> captures, structures, and spots issues. <strong>The firm</strong> directs, supervises, and exports. Everything in the left two lanes lands in one tamper-evident record; everything the firm does on top of it is the firm's work.</p>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<section>
+  <p class="eyebrow">FIGURE 1</p>
+  <h2>The flow, by stage and by actor</h2>
+  <p class="col">Read down. Time runs top to bottom; the stage rail on the left says who is working and roughly how long it takes. Cards are colored by who acts. The strip at the bottom of the figure shows which plane each lane writes to.</p>
+
+  <figure style="margin-top:22px">
+  <div class="flow">
+  <div class="grid">
+
+    <div class="lanehead">STAGE</div>
+    <div class="lanehead c">LANE 1<b>Client · text thread</b></div>
+    <div class="lanehead e">LANE 2<b>PIRRA · capture &amp; structure</b></div>
+    <div class="lanehead f">LANE 3<b>Firm · paralegal &amp; attorney</b></div>
+
+    <!-- 0 ─────────────────────────────── -->
+    <div class="stage"><div class="n">STAGE 0 · ONCE</div><div class="t">Firm setup</div><div class="w">Attorney · 15 min · one time</div></div>
+    <div class="cell"></div>
+    <div class="cell">
+      <div class="card e"><b>Policy generated from settings.</b> The firm's AI-use policy is written from the actual configuration, on the four Rule of Court 10.430 headings, and re-issued whenever a setting changes.<small>governance surface · DR-0005 · CA memo §9</small></div>
+    </div>
+    <div class="cell">
+      <div class="card f"><b>Supervising attorney named.</b> Firm defaults chosen: autonomy level (default L2), approval regime, model tier, disclosure text, escalation contacts.<small>Rule 5.3 · proposed 5.1</small></div>
+      <div class="out"><b>Out:</b> firm policy PDF · compliance snapshot · zero-retention terms on file</div>
+    </div>
+
+    <!-- 1 ─────────────────────────────── -->
+    <div class="stage"><div class="n">STAGE 1 · PER CASE</div><div class="t">Case setup</div><div class="w">Attorney · 2 min · the wizard</div></div>
+    <div class="cell"></div>
+    <div class="cell">
+      <div class="card e"><b>Direction letter sealed.</b> Injury type → proposed protocol; the attorney's elections become a hash-anchored, timestamped direction letter. Case pinned to a jurisdiction pack.<small>notice state → NOT_STARTED · /demo/onboarding</small></div>
+    </div>
+    <div class="cell">
+      <div class="card f"><b>Whether · mode · details · authorize.</b> Decline captures no reason. Conversation mode chosen (light / standard / structured / intensive). Photo election. Pause and turn-off always available afterward.<small>this click IS the 5.3(b) direction</small></div>
+      <div class="out"><b>Out:</b> direction letter · protocol · client number on the firm's line</div>
+    </div>
+
+    <!-- 2 ─────────────────────────────── -->
+    <div class="stage"><div class="n">STAGE 2 · DAY 0</div><div class="t">First text &amp; disclosures</div><div class="w">PIRRA → client · 3 messages · consent gate</div></div>
+    <div class="cell">
+      <div class="card c"><b>Client receives three messages</b> from the firm's number: who is texting, what it is for, and the disclosures. Nothing else happens until the client replies <b>YES</b>.<small>see Figure 2 for the exact thread</small></div>
+      <div class="card c"><b>Reply YES</b> (or STOP, or a question, which routes to the paralegal).</div>
+    </div>
+    <div class="cell">
+      <div class="card e"><b>Disclosure set, verbatim from firm config.</b> AI status · provided by the firm · directed by the named attorney · not a lawyer or doctor · goes into your file, your legal team reads it · may be used in your case · 911 for emergencies · STOP any time.<small>message_class = agent_prompt · Rule 1.4 Cmt 5 · bot-disclosure law · TCPA</small></div>
+      <div class="card e"><b>Consent logged as a system event.</b> Timestamp, number, exact text consented to, hash.<small>message_class = system_event · notice state → DISCLOSED_CONSENTED</small></div>
+    </div>
+    <div class="cell">
+      <div class="card f"><b>Nothing to do.</b> The paralegal sees "consented" appear in the queue. If the client asks a question instead of YES, it lands in the paralegal's inbox, not PIRRA's.</div>
+    </div>
+
+    <!-- 3 ─────────────────────────────── -->
+    <div class="stage"><div class="n">STAGE 3 · DAY 0–1</div><div class="t">Client onboarding</div><div class="w">Same thread · 5–8 min · baseline</div></div>
+    <div class="cell">
+      <div class="card c"><b>Baseline, in the client's words.</b> What a normal day looked like before. What they can't do now that matters most. Where it hurts today, 0–10. Best time for check-ins. Voice notes OK? Photos, if the attorney elected them.</div>
+    </div>
+    <div class="cell">
+      <div class="card e"><b>Neutral, open prompts only.</b> No leading, no coaching, no liability questions. If the client volunteers fault, speed, or scene detail, PIRRA steers back to how they're doing, flags it, and never deletes it.<small>liability boundary · steer / flag / never delete</small></div>
+      <div class="card e"><b>Every message chained.</b> Append-only hash chain, RFC 3161 timestamp, message_class assigned at write. Voice raw audio to the sealed vault; transcript is the derivative.</div>
+    </div>
+    <div class="cell">
+      <div class="card f"><b>Paralegal glances at the baseline.</b> Confirms cadence. Nothing to approve at Level 2.</div>
+      <div class="out"><b>Out:</b> baseline record · cadence set · first log refs (LOG-0001…)</div>
+    </div>
+
+    <!-- 4 ─────────────────────────────── -->
+    <div class="stage"><div class="n">STAGE 4 · WEEKS → MONTHS</div><div class="t">Ongoing capture</div><div class="w">Cadence per mode · client texts anytime</div></div>
+    <div class="cell">
+      <div class="card c"><b>Check-ins arrive</b> at the chosen time. The client answers when they can, in as many or as few words as they like. They can text first, any time, about anything.</div>
+      <div class="card c"><b>The attorney's messages appear in the same thread</b>, unmistakably labeled as the attorney, never as PIRRA.</div>
+    </div>
+    <div class="cell">
+      <div class="card e"><b>Capture runs the protocol.</b> Follow-ups drawn from the authorized library (L1–L2) or generated within bounds (L3–L4), always neutral, always disclosed. Present-tense questions on purpose: how are you <i>today</i>.<small>803(3) highway · 803(1) lane · density principle</small></div>
+      <div class="card e"><b>Photos and voice to the vault.</b> Sealed originals; sanitized derivatives for the workbench.<small>37(e) posture</small></div>
+    </div>
+    <div class="cell">
+      <div class="card f"><b>Attorney replies in-thread when they want to.</b> Not required. Receipt is what matters, not reply count.<small>message_class = attorney_communication</small></div>
+      <div class="card f"><b>Mode change · pause · turn off</b> from the case controls. Each is a dated direction event.</div>
+    </div>
+
+    <!-- 5 ─────────────────────────────── -->
+    <div class="stage"><div class="n">STAGE 5 · CONTINUOUS</div><div class="t">Structuring &amp; issue spotting</div><div class="w">Intelligence plane · every message</div></div>
+    <div class="cell"></div>
+    <div class="cell">
+      <div class="card e"><b>Structure with provenance.</b> Pain, function, sleep, work, activities, treatment events: each field asserted item-by-item and linked to the LOG-#### it came from. Nothing inferred and hidden.</div>
+      <div class="card d"><b>Flags raised, typed, routed.</b> Operational flags go to the paralegal. Evidentiary flags go to the attorney. Safety flags go to both, immediately, and cannot be switched off.<small>see the flag table below · never deleted · dispositions required</small></div>
+      <div class="card e"><b>Weekly digest drafted</b> per case: what changed, what's flagged, what's pending.</div>
+    </div>
+    <div class="cell">
+      <div class="card f"><b>Nothing yet.</b> Issue spotting is PIRRA's job. Deciding what an issue means is the firm's, in the next two stages.</div>
+    </div>
+
+    <!-- 6 ─────────────────────────────── -->
+    <div class="stage"><div class="n">STAGE 6 · DAILY</div><div class="t">Paralegal workbench</div><div class="w">Paralegal · 10 min per case per week</div></div>
+    <div class="cell">
+      <div class="card c"><b>Sometimes a human reply</b>: "Maria, this is Dana from the firm, saw your PT got moved, want me to call them?" Labeled as staff, in the same thread.</div>
+    </div>
+    <div class="cell">
+      <div class="card e"><b>Serves the queue.</b> Cases sorted by pending flags and days since last contact. Every acknowledgement and reply becomes part of the record.</div>
+    </div>
+    <div class="cell">
+      <div class="card f"><b>Queue → case → thread → flags.</b> Acknowledge operational flags, fix what can be fixed (reschedule, chase records), reply when a human should.<small>/demo/ · EVIDENCE PLANE / INTELLIGENCE PLANE badges</small></div>
+      <div class="out"><b>Out:</b> flag acks · staff replies · treatment-gap follow-ups</div>
+    </div>
+
+    <!-- 7 ─────────────────────────────── -->
+    <div class="stage"><div class="n">STAGE 7 · WEEKLY</div><div class="t">Attorney dashboard</div><div class="w">Attorney · phone · one coffee</div></div>
+    <div class="cell"></div>
+    <div class="cell">
+      <div class="card e"><b>Receipt logged passively.</b> Opening the digest, the case, or the thread writes a receipt event. No attestation ritual.<small>the evidence that communications reach counsel</small></div>
+      <div class="card e"><b>Supervision record accrues</b> underneath: direction, receipts, dispositions, approvals, mode changes. Exportable in one click at any time.</div>
+    </div>
+    <div class="cell">
+      <div class="card f"><b>Read the digest.</b> Evidentiary flags come with three taps: <b>noted</b> · <b>add a thought</b> · <b>escalate to the thread</b>. Each tap is a supervisory act and an opinion-work-product entry.</div>
+      <div class="card f"><b>Approve if the regime asks.</b> Per-message or first-N-days review shows a pending list; Level 2 with library approval usually shows nothing.</div>
+      <div class="out"><b>Out:</b> dispositions · attorney notes (intelligence plane) · receipts</div>
+    </div>
+
+    <!-- 8 ─────────────────────────────── -->
+    <div class="stage"><div class="n">STAGE 8 · PRE-DEMAND</div><div class="t">Review &amp; export</div><div class="w">Attorney + paralegal · jurisdiction pack applied</div></div>
+    <div class="cell">
+      <div class="card c"><b>The client is told</b> the record is being used, in plain language, and reminded the thread stays what it was: a place to say how they're doing.</div>
+    </div>
+    <div class="cell">
+      <div class="card e"><b>Impeachment-surface review is mandatory.</b> Adverse entries surfaced first. Rehabilitation finder shows the consistent-statement pairs. Export is blocked until the review box is checked.</div>
+      <div class="card e"><b>Packaging engine characterizes at export.</b> Demand exhibit · recovery curve · depo log · custodian certification · notice packet, each tagged with candidate pathways, never "admissible." Notice state machine must be green for the certification route.<small>/exhibits/ · DR-0003 · DR-0004 · v1.1 §4.7</small></div>
+    </div>
+    <div class="cell">
+      <div class="card f"><b>Attorney elects.</b> Record-level election, no cherry-pick. Warnings fire on the foot-guns: handing the transcript to the client before testimony, sharing with an expert, partial production.<small>§771 · §912(a) / §356</small></div>
+      <div class="card f"><b>Export supervision record</b> alongside, if anyone ever asks how the AI was supervised on this case.</div>
+      <div class="out"><b>Out:</b> exhibits · certification · RFA set · supervision record</div>
+    </div>
+
+    <!-- 9 ─────────────────────────────── -->
+    <div class="stage"><div class="n">STAGE 9 · CLOSE</div><div class="t">Resolution</div><div class="w">Archive · record follows the client file</div></div>
+    <div class="cell">
+      <div class="card c"><b>Closing message</b>, labeled, from the firm. Thread ends. Client keeps nothing to lose and nothing to be subpoenaed for on their own phone beyond what any text thread leaves.</div>
+    </div>
+    <div class="cell">
+      <div class="card e"><b>Archive.</b> Sealed record and vault follow the client file to the firm's system; hold honored if litigation continues; deletion per firm retention, logged.</div>
+    </div>
+    <div class="cell">
+      <div class="card f"><b>Turn off.</b> One dated direction event closes the loop that Stage 1 opened.</div>
+    </div>
+
+    <div class="plane">
+      <span><i class="dot c"></i><i class="dot e"></i><b>EVIDENCE PLANE</b> lanes 1–2 · the thread and the log · production-ready by design</span>
+      <span><i class="dot d"></i><i class="dot f"></i><b>INTELLIGENCE PLANE</b> flags, digests, dispositions, notes · asserted item-by-item · work product</span>
+      <span><b>THREE SURFACES</b> text thread · workbench · PDF</span>
+    </div>
+
+  </div>
+  </div>
+  <figcaption>Stage 0 and Stage 1 happen before any client message, because the direction letter is what authorizes the first text. Stage 2 is the only stage with a hard gate: no YES, no capture. Stages 4 through 7 repeat for the life of the case. The two-plane strip is the same structure as v1.1 §4 and DR-0005; the client-facing model in lane 2 is blind to everything in the intelligence plane.</figcaption>
+  </figure>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<section>
+  <p class="eyebrow">FIGURE 2</p>
+  <h2>The first text, message by message</h2>
+  <div class="two">
+    <div>
+      <div class="phone">
+        <div class="hdr">FROM (808) 555-0142 · [FIRM] · DAY 0</div>
+        <div class="bub in">Hi Maria, this is PIRRA, an AI assistant provided by Kealoha &amp; Park and directed by your attorney, Leilani Park. Leilani asked me to help keep an accurate record of how your recovery is going, by text, a few times a week.<span class="tag">AGENT_PROMPT · DISCLOSURE 1 OF 3</span></div>
+        <div class="bub in">A few things first. I'm an AI, not a person, and I'm not a lawyer or a doctor. What you tell me goes into your file at Kealoha &amp; Park for your legal team; Leilani can read it and reply right here. Anything in your file may be used in your case, so just be accurate. Good days count as much as hard ones. In an emergency, call 911. Text STOP any time to stop these messages.<span class="tag">AGENT_PROMPT · DISCLOSURE 2 OF 3</span></div>
+        <div class="bub in">Are you OK texting with me about your recovery? Reply YES to start.<span class="tag">AGENT_PROMPT · CONSENT GATE 3 OF 3</span></div>
+        <div class="bub outb">YES<span class="tag">CLIENT_STATEMENT · LOG-0001</span></div>
+        <div class="bub sys">CONSENT RECORDED · 2026-09-04 09:12:41 HST · text hash 9f3a…c21e · notice state → DISCLOSED_CONSENTED</div>
+        <div class="bub in">Thank you. Before we get into today, help me understand what a normal day looked like for you before the accident.<span class="tag">AGENT_PROMPT · ONBOARDING BEGINS</span></div>
+      </div>
+      <figcaption>Synthetic firm, attorney, client and number. The disclosure text is firm configuration, versioned; the version consented to is what the hash covers.</figcaption>
+    </div>
+    <ul class="notes">
+      <li><b>Every disclosure the rules ask for is in message two,</b> in the order a person would want to hear it: what I am, who I work for, where your words go, that they can be used, what to do in an emergency, how to stop. Nothing is buried in a link.</li>
+      <li><b>"May be used in your case" is deliberate.</b> The v1.1 design calls for the sharpened notice. A client who understands the thread is part of their file gives more accurate answers, and the defense loses the "she thought it was private" attack.</li>
+      <li><b>The attorney is named, not just the firm.</b> That is what makes "directed by your attorney" a fact the client can check, and it is what the Rule 1.4 disclosure comment expects.</li>
+      <li><b>Nothing captures before YES.</b> A STOP ends it and is logged. A question ("is this really from Leilani?") goes to the paralegal's inbox as a human task, and PIRRA does not answer it.</li>
+      <li><b>No warmth theater.</b> Message one is friendly because it is plain, not because it pretends. The landing page's line applies here: warmth from craft, not from pretending to be human.</li>
+      <li><b>Consent is a system event, not a client statement.</b> It carries the exact disclosure text version, so the firm can always show what the client agreed to.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<section>
+  <p class="eyebrow">TABLE 1</p>
+  <h2>Issue spotting: what PIRRA flags, and who it goes to</h2>
+  <p class="col">Every flag is an assertion in the intelligence plane, linked to the message that triggered it. Every flag requires a disposition. No flag is ever deleted, including the ones that turn out to be nothing, because a record of "we looked and it was nothing" is part of the supervision record.</p>
+  <table>
+    <thead><tr><th>Flag</th><th>Trigger (example)</th><th>Routed to</th><th>What the disposition looks like</th></tr></thead>
+    <tbody>
+      <tr><td class="k">TREATMENT_GAP</td><td>No treatment event mentioned for N days against the expected care arc for the injury type.</td><td><span class="pill p">PARALEGAL</span></td><td>Reschedule, chase records, or note the reason the client gave. Gap stays in the record either way.</td></tr>
+      <tr><td class="k">NON_RESPONSE</td><td>Client silent past the mode's threshold.</td><td><span class="pill p">PARALEGAL</span></td><td>Human reach-out. Repeated non-response prompts a mode-change suggestion to the attorney.</td></tr>
+      <tr><td class="k">NEW_PROVIDER</td><td>"Saw a new back doctor Tuesday."</td><td><span class="pill p">PARALEGAL</span></td><td>Add provider, request records.</td></tr>
+      <tr><td class="k">MED_CHANGE</td><td>New, stopped, or increased medication mentioned.</td><td><span class="pill p">PARALEGAL</span></td><td>Confirm with records. Never a medical judgment; PIRRA only notes it was said.</td></tr>
+      <tr><td class="k">WORK_ACTIVITY</td><td>Return to work, missed shifts, activity the client could or couldn't do.</td><td><span class="pill p">PARALEGAL</span></td><td>Tie to wage-loss and function timeline.</td></tr>
+      <tr><td class="k">QUESTION_FOR_HUMAN</td><td>Client asks a legal, medical, or case-status question.</td><td><span class="pill p">PARALEGAL</span></td><td>Human answers in-thread, labeled. PIRRA acknowledges and routes, never answers.</td></tr>
+      <tr><td class="k">LIABILITY_CONTENT</td><td>Client volunteers fault, speed, scene detail, or an apology.</td><td><span class="pill f">ATTORNEY</span></td><td>Steered at capture, never deleted. Attorney sees it first, decides what it means.</td></tr>
+      <tr><td class="k">INCONSISTENCY</td><td>Today's statement conflicts with an earlier one ("never had back pain before" vs. Day 3 entry).</td><td><span class="pill f">ATTORNEY</span></td><td>Noted, explained, or escalated to a conversation with the client. Feeds the impeachment-surface review.</td></tr>
+      <tr><td class="k">THIRD_PARTY_CONTACT</td><td>Adjuster, insurer, defense investigator, or opposing party contacted the client.</td><td><span class="pill f">ATTORNEY</span></td><td>Usually a same-day call. Also a Door-3 guard: the client is reminded to route contact through the firm.</td></tr>
+      <tr><td class="k">SOCIAL_MEDIA</td><td>Client mentions posting about the injury, a trip, an activity.</td><td><span class="pill f">ATTORNEY</span></td><td>Counsel decides; PIRRA never advises on posting.</td></tr>
+      <tr><td class="k">PRIOR_CONDITION</td><td>Pre-existing injury or earlier claim mentioned.</td><td><span class="pill f">ATTORNEY</span></td><td>Noted for the damages theory. Stays in the record.</td></tr>
+      <tr><td class="k">SYMPTOM_ESCALATION</td><td>New body region, sharp worsening, new functional loss.</td><td><span class="pill f">ATTORNEY</span> <span class="pill p">PARALEGAL</span></td><td>Records request and possibly a mode change to structured or intensive.</td></tr>
+      <tr><td class="k">SAFETY</td><td>Self-harm language, acute medical distress, abuse disclosure.</td><td><span class="pill d">BOTH · IMMEDIATE</span></td><td>Mandatory escalation, cannot be configured off. PIRRA sends the crisis-resource message from firm config and stops the protocol until a human resumes it.</td></tr>
+      <tr><td class="k">STOP_OR_PAUSE</td><td>Client texts STOP, or asks to pause.</td><td><span class="pill p">PARALEGAL</span></td><td>Honored instantly and logged. Attorney notified in the digest.</td></tr>
+    </tbody>
+  </table>
+  <figcaption>The routing is the supervision design: operational noise never reaches the attorney, and nothing evidentiary reaches them without a one-tap way to dispose of it. Flag names are working labels for the Postgres enum, not customer-facing copy.</figcaption>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<section>
+  <p class="eyebrow">STATE</p>
+  <h2>Two state machines run under the whole flow</h2>
+  <div class="col">
+    <h3>Notice and consent, per client</h3>
+    <div class="ss"><span>NOT_STARTED</span><i>→</i><span>DISCLOSED_PENDING</span><i>→</i><span>DISCLOSED_CONSENTED</span><i>→</i><span>PAUSED</span><i>/</i><span>STOPPED</span><i>→</i><span>CLOSED</span></div>
+    <p style="margin-top:12px;font-size:14.5px;color:var(--ink-soft)">Capture is only possible in <code>DISCLOSED_CONSENTED</code>. Every transition is a system event with the disclosure version attached.</p>
+    <h3 style="margin-top:22px">Certification readiness, per export (v1.1 §4.7)</h3>
+    <div class="ss"><span>CERTIFICATION_ELIGIBLE</span><i>→</i><span>NOTICE_NOT_SERVED</span><i>→</i><span>NOTICE_SERVED</span><i>→</i><span>OBJECTION_RECEIVED</span><i>→</i><span>LIVE_FOUNDATION_REQUIRED</span></div>
+    <p style="margin-top:12px;font-size:14.5px;color:var(--ink-soft)">The packaging engine refuses to describe a certification route as ready until the pinned jurisdiction pack's notice requirements are satisfied. The live-foundation kit is always the fallback.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<section>
+  <p class="eyebrow">WHAT THE FLOW PROVES</p>
+  <h2>Where the supervision comes from</h2>
+  <div class="col">
+    <p>Nobody in this flow performs a task called "supervision." The attorney sets up the case (Stage 1), reads a digest (Stage 7), taps on flags (Stage 7), and elects at export (Stage 8). The record of Rule 5.3 supervision is produced underneath those four ordinary acts:</p>
+    <table>
+      <thead><tr><th>Rule 5.3 asks for</th><th>Produced by</th><th>Stage</th></tr></thead>
+      <tbody>
+        <tr><td>Measures giving reasonable assurance the assistant's conduct is compatible with the lawyer's obligations</td><td>Firm policy generated from settings; floors that cannot be turned off; the direction letter</td><td class="k">0 · 1</td></tr>
+        <tr><td>Direct supervisory authority over the assistant's work</td><td>Autonomy level and approval regime elected per case; mode change, pause, turn off</td><td class="k">1 · 4 · 7</td></tr>
+        <tr><td>Knowledge of and response to the assistant's conduct</td><td>Passive receipt log; evidentiary flags with three-tap disposition; mandatory pre-demand review</td><td class="k">5 · 7 · 8</td></tr>
+        <tr><td>A record, if anyone ever asks</td><td>One-click supervision record export: direction, receipts, dispositions, approvals, disclosure version consented to</td><td class="k">7 · 8</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<p class="foot">Working document. Synthetic firm, attorney, client, phone number, and messages. Nothing here is a privilege or admissibility guarantee; candidate pathways are labeled for counsel review in the pinned jurisdiction. Flag names, state names and stage timings are engineering working labels and will change. Architecture of record: PIRRA-Final-Design-Proposal-v1.1 · DR-0005 · docs/research/california-ethics-governance-2026.md.</p>
+</div>
