@@ -1,5 +1,10 @@
 # Competitive watch — Quilia re-check (late Aug 2026)
 
+> **Sept 5, 2026 correction.** The "still no conversational AI" finding below is narrower than
+> written: it holds for CaseChat (staff-to-client SMS with an AI overlay) but Quilia's AI page
+> describes case memory and AI prompts that ask clients for missing information in plain language
+> inside the app. See `competitive-watch-2026-09-hona.md` §8.
+>
 > **Sept 4, 2026 update.** The "still no conversational AI" finding below remains true of Quilia
 > but is no longer true of the category: Hona launched "Lia," a conversational SMS agent that
 > checks in after treatment visits and collects symptoms. See
