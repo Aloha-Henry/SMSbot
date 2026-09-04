@@ -1,5 +1,10 @@
 # Competitive watch — Quilia re-check (late Aug 2026)
 
+> **Sept 4, 2026 update.** The "still no conversational AI" finding below remains true of Quilia
+> but is no longer true of the category: Hona launched "Lia," a conversational SMS agent that
+> checks in after treatment visits and collects symptoms. See
+> [`competitive-watch-2026-09-hona.md`](competitive-watch-2026-09-hona.md).
+
 Update to `docs/source/PIRRA-Competitive-Scan-Aug2026.md` (preserved as written). Sources:
 Quilia public changelog, product pages, and app-store listings via web search; quilia.com is
 blocked by this environment's proxy so the changelog itself was not read directly — spot-check
