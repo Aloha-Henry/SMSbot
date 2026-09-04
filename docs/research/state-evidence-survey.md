@@ -80,6 +80,30 @@ still hurt is 802.1 and whether Hawaii has a rehabilitation prong equivalent to 
 
 ---
 
+## California (partial, Sept 4 2026)
+
+Prompted by the outside legal-architecture memo and its second-pass review. Statute text read from
+secondary sources (Justia code pages, practitioner summaries); **a human must pull each section
+from leginfo before any of this is quoted outside the repo.** §791 remains the only human-verified
+California section (v1.1 V1).
+
+| Question | California answer | Consequence |
+|---|---|---|
+| Then-existing physical condition (fed. 803(3)) | **§1250**: statement of then-existing state of mind, emotion or physical sensation, incl. pain and bodily health, and present intent or plan; offered to prove that state at that time (or when itself at issue) or to explain the declarant's conduct. | The highway, as everywhere. Present tense only. |
+| Present sense impression (fed. 803(1)) | **§1241 is narrower**: a statement offered to explain, qualify or make understandable the *declarant's own conduct*, made *while engaged in that conduct*. A text sent minutes after the event does not qualify. | The 803(1) lane is mostly closed in California. Post-event capture is justified as contemporaneity and credibility for §1250, not as its own exception. **Library rule: always follow an event with a present-state question.** |
+| Prior physical condition | **§1251** covers statements of a *prior* state only if the declarant is **unavailable as a witness**. | Unavailable to a live plaintiff. "I couldn't walk last Tuesday," offered by the plaintiff, has no vehicle here. |
+| Business records | **§1271**: writing made in the regular course of business, at or near the time, custodian or other qualified witness testifies to identity and mode of preparation, sources and method indicate trustworthiness. | The platform log qualifies on custodian foundation. Trustworthiness is where the defense attacks (agent involvement; the firm's interest). Fixed-library prompts help the answer. |
+| Multiple hearsay | **§1201**: each layer needs its own exception. | §1271 admits the log; each embedded client statement still needs §1250 or another route. Client reports of what a provider said are double hearsay with no route: corroborate with provider records. |
+| Prior consistent statements | §791(a)/(b) with §1236 (v1.1, human-verified as to §791). | Contingent route for past-fact entries once impeached. Early dense capture favors §791(a). |
+| Party admissions | **§1220**. | Anything the client said is admissible against her when the *defendant* offers it, no exception needed. The 801(d)(2) asymmetry, California form. |
+| Refreshing recollection | **§771**: writing used to refresh must be produced on request, including if used before testifying. | Election consequence; already in DR-0005. |
+| Summaries | §1523 secondary evidence rule and the 1006 discipline by analogy; confirm the California practice for summary charts. | Open. |
+| Authentication of the platform record | §§1400–1401 generally; §§1552–1553 computer-record presumptions; §1561 affidavit rides the subpoena regime (v1.1 G2). | Stipulation-in-lieu and friendly-SDT package (v1.1). |
+
+Worked application: `docs/demo-case/timeline.md` §1 labels 45 entries from a synthetic thirty-day
+thread against these sections. 27 are §1250 on their face; the rest are past-fact and labeled
+contingent.
+
 ## Remaining jurisdictions
 
 Not yet started. Add one section per state in the format above. Do not summarize a state as
