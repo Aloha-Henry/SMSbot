@@ -72,8 +72,7 @@ the version consented to is what the consent hash covers.
 >
 > **PIRRA (2/3):** A few things first. I'm an AI, not a person, and I'm not a lawyer or a
 > doctor. What you tell me goes into your file at Kealoha & Park for your legal team; Leilani
-> can read it and reply right here. Anything in your file may be used in your case, so just be
-> accurate. Good days count as much as hard ones. In an emergency, call 911. Text STOP any
+> can read it and reply right here. Leilani decides whether and how anything in your file is used in your case, so just be accurate. Good days count as much as hard ones. In an emergency, call 911. Text STOP any
 > time to stop these messages.
 >
 > **PIRRA (3/3):** Are you OK texting with me about your recovery? Reply YES to start.

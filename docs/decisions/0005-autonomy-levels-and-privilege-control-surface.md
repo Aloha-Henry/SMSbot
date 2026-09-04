@@ -57,6 +57,12 @@ Mapping to the wizard's existing conversation modes: Minimal ≈ 1, Structured �
 Intensive ≈ 4. Level 0 is new. **"Firm mode"** = Levels 0–1 with library approval. **"Auto
 mode"** = Levels 3–4. That is the top-level election on the mode screen.
 
+*Refinement, Sept 5, 2026 (protocol v1.4, `docs/demo-case/protocol.md`).* Level 2 selection may fill a
+**sourced slot** in a library prompt with the client's own earlier words, validated verbatim against a
+prior `client_statement`; a failed match blocks the turn. This gives the agent memory without giving
+it composition. It is still Level 2: the model writes nothing. The refinement exists because a
+library-only agent with no memory read as a questionnaire in the first demonstrated case.
+
 **Default: Level 2.** The wizard suggests the strongest posture that meets the case's evidentiary
 need and requires the attorney to elect upward knowingly. The mode screen states the posture
 consequence of each level in plain, non-guarantee language.

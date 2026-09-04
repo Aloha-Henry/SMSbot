@@ -471,8 +471,9 @@ fields document the difference without resolving it. The demo case in `docs/demo
 carries `event_at` and `reported_at` on all 45 timeline entries and a candidate pathway per row:
 27 sit under §1250 on their face; the rest are past-fact with no independent California vehicle when
 offered by the plaintiff, and are labeled that way. The design consequence is one v1.1 drew for
-other reasons and California makes mandatory: **the library always follows an event with a
-present-state question**, because that answer is the entry that travels. The California section of
+other reasons and California sharpens: a present-state question after an event produces the entry
+that travels. *(Rephrased Sept 5 after the third-pass review: not "always." The rule in protocol
+v1.4 is capture the account first, present-state where natural, attorney decides the use. See §9.)* The California section of
 the state survey now records this.
 
 ### 8.3 Heppner: "the one fact missing" oversimplified. Accepted.
@@ -514,7 +515,7 @@ accordingly.
 ### 8.5 The conversation has to be demonstrated. Accepted, and done in synthetic form.
 
 `docs/demo-case/` is a thirty-day synthetic case at the Level 2 default: the direction letter and
-the library it selected from (`protocol.md`), 101 log rows (`thread.md`), the dual-dated,
+the library it selected from (`protocol.md`), 107 log rows in revision 2 (`thread.md`), the dual-dated,
 source-linked timeline with per-entry California pathways, nine flags with dispositions, the
 digests and receipts, and the supervision record as it would export (`timeline.md`), a
 machine-readable load file for the proof of concept (`thread.json`), and a reviewer packet with
@@ -525,9 +526,10 @@ contradicts the baseline, a treatment gap with the client's reason, two routed q
 contact, and two attorney messages in the same thread.
 
 Whether Level 2 delivers "the continuing, intelligent relationship" is now a question about
-`thread.md`, not about a ladder. Our own read: 47 of 47 agent turns from a 20-prompt library
-produced a conversation that is warm enough and repetitive by day 20. The P-10 opener appears
-thirteen times. That is the honest cost DR-0005 predicted for Levels 0–2, and it is now visible.
+`thread.md`, not about a ladder. Our own read of revision 1: 47 of 47 agent turns from a 20-prompt library produced a conversation
+that was warm enough and repetitive by day 20, with the same opener thirteen times. That was the
+honest cost DR-0005 predicted for Levels 0–2, made visible. The outside reviewer said the same thing
+more sharply; revision 2 (§9) is the response.
 
 Two humans have not read it yet. Stating "Exists" about a control still means specified and visible
 in a prototype; the proof of concept is still unaudited; a passing test corpus is still not
@@ -541,6 +543,57 @@ choice to build the record so that its production is survivable is not a categor
 and does not need softening. It is the reason the good days, the prior condition and the liability
 statement are all still in `thread.md`. The claim we are giving up is that software decides what
 production costs. The choice we are keeping is to build as if it will happen.
+
+---
+
+## 9. Addendum, Sept 5 (third pass): the demo case was revised, not defended
+
+Your review of the demo packet found the gap the packet was supposed to close, and four fidelity
+errors that a source link did not prevent. Both findings were right. Revision 2 is in
+`docs/demo-case/`. What changed:
+
+**The conversation.** Protocol v1.4 keeps Level 2 (the agent composes nothing) and adds three
+things inside it: a **sourced slot**, where a library prompt quotes the client's own earlier words
+and the turn is blocked unless the quote matches a prior `client_statement` verbatim; an **open
+invitation** as the mandatory first response to any life event, instead of a score question; and a
+**no-repeat rule**, no present-state question within an hour of an answered one. The post-PT
+prompt now asks "What, if anything, feels different afterward?" instead of naming three negative
+directions. Openers rotate. An unlocated score gets a clarifying question rather than an assumed
+region. In the regenerated thread: three sourced-slot follow-ups, two open invitations (after the
+groceries and after the recital, where she then volunteered a present score without being asked),
+one clarification, zero repeats. Whether it now reads as a conversation is question A-6.
+
+**Fidelity.** Both invented times are now "not stated." "yeah. just rattled" is kept whole. The
+unlocated 4 on Mar 17 was clarified in the thread and both rows are cited; other unlocated scores
+now sit in their own column and are off both plotted lines. The digest receipt that preceded its
+draft is fixed. Stale counts in the reviewer packet are gone; the packet now defers to the Counts
+table, which the build script checks. The build script also checks that every LOG cited in the
+timeline and packet exists, that every number in the pain series appears in its cited rows, that a
+located score cites a row naming the region, that every receipt follows its draft, and that every
+sourced slot is a verbatim excerpt. It found two more of my own errors on first run. Question B-18
+asks the reviewer to find the next one.
+
+**The conversation rule.** "Always follow an event with a present-state question" is withdrawn.
+Protocol v1.4 says: capture the account first; a present-state question follows where natural; the
+attorney decides the use. The timeline now notes §1252 trustworthiness as the standing attack on
+§1250 entries, §702 personal-knowledge testimony and §1237 as routes for past-fact entries, and that
+§1237 permits reading the statement, not admitting the writing at the plaintiff's request.
+
+**Purpose, settled by the founder.** Your question 8 (one consistent purpose) was answered by Hank
+on Sept 5, in his words: *collect information confidentially within the attorney-client
+relationship, prepare materials privately for counsel, and require an authorized disclosure
+decision before anything is released outside that protected workflow; it is the attorney's decision
+whether to use the exhibits and how.* That is now the purpose statement of record. It maps onto the
+three planes exactly (capture = confidential communication to counsel; intelligence = prepared
+privately for counsel; export = the authorized disclosure decision), and it changed the client
+disclosure. v1.1's "anything in your file may be used in your case" is replaced in disclosure v4
+with **"[Attorney] decides whether and how anything in your file is used in your case."** Same
+honesty, stated as counsel's discretion rather than as a warning. Whether v1.1's sharpened notice
+is still needed for other reasons goes to counsel.
+
+Two things remain undemonstrated and are said so in the README: no human has reviewed revision 2,
+and the exhibits at `/exhibits/` are still the earlier illustrative samples rather than renderings
+of this thread.
 
 ---
 
