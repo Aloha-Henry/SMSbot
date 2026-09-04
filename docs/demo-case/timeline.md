@@ -71,8 +71,8 @@ Friday's shift, a missed session, the 2019 fall) with no independent California 
 offered by the plaintiff: §1251 needs an unavailable declarant, and §1241 is narrower than the
 federal present-sense rule and does not reach a statement made minutes after the conduct. Those
 entries are still valuable: they point to corroborating records (employer, pharmacy, PT), they
-refresh recollection under §771 with the production consequence, and they become admissible for
-their truth under §791(a)/§1236 if the defense impeaches with a later inconsistent statement. The
+refresh recollection under §771 with the production consequence, and they gain a route to be offered
+for their truth under §791(a)/§1236 if the defense impeaches with a later inconsistent statement. The
 design consequence is the one v1.1 already drew: **the California prompt library should always
 follow an event with a present-state question**, because the answer to "how is it right now" is the
 entry that travels.
