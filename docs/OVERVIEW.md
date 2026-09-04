@@ -77,8 +77,12 @@ must lead with what comes *out* of the system, never with "we're conversational.
 
 Others: **Quilia** (~800 firms) ships weekly and has human attorney↔client messaging, but no
 AI check-in, no evidence generation, no FRE architecture — the most dangerous competitor by
-velocity. **Hona / Case Status** are intake and status tools; their conversational AI is aimed
-at *acquiring* clients, not documenting recovery. **Supio / Eve** are attorney-facing.
+velocity. **Hona** *(updated Sept 4, 2026)* launched "Lia," a conversational SMS agent that
+checks in after treatment visits, collects symptoms, flags treatment gaps and escalates to the
+case owner, at 500+ firms. It is now the nearest competitor: same channel, same check-in
+mechanic, no evidence layer (no exhibits, certification, hash chain, classification, liability
+boundary or privilege posture). See `research/competitive-watch-2026-09-hona.md`. **Case
+Status** remains a status portal. **Supio / Eve** are attorney-facing.
 **EvenUp** is a downstream consumer of PIRRA data as much as a competitor — PIRRA exhibits feed
 EvenUp demands.
 
