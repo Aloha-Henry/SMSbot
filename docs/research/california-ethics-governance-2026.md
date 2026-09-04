@@ -93,6 +93,18 @@ guidance's terms: the firm chooses how much autonomy, records the choice, and ca
 These are proposed, not adopted. California's approach is notable because it would move AI duties
 into **enforceable rule text** with disciplinary consequences, rather than advisory opinions.
 
+**Timeline update (Sept 4, 2026).** The first comment period on the March 13 proposals closed May 4,
+2026. At its June 12, 2026 meeting COPRAC approved **modified** proposals and opened a second 45-day
+comment period, which closed **August 6, 2026**. The revision adds a definition of artificial
+intelligence to Comment [1] and a new Comment [2] requiring the lawyer to exercise professional
+judgment over "all aspects of that use, including but not limited to, the inputs and outputs."
+Status after August 6 is not known to us; the Board of Trustees is the next step, and any adoption
+must be verified before proposal language is treated as effective. The "inputs" language matters to
+PIRRA: the neutral-prompt library is an attorney-reviewed input, and the direction letter is the
+record of that review. (Flagged by the outside memo at
+`docs/source/Chat-Legal-Architecture-Memo-2026-09-03.md`; confirmed against the State Bar's
+public-comment page via search summary.)
+
 ## 5. The 2023 Practical Guidance points that carry into the product *(quoted in summary)*
 
 - Confidentiality: a lawyer "must not input any confidential information of the client into
