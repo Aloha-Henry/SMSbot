@@ -36,6 +36,13 @@ it into court-ready exhibits with every fact traced back to the message it came 
   present sense impression and its cadence consequence, the prior-consistent-statement gap, the
   RFA template, and the photo split. Written to bring a co-founder or a fresh session up to speed.
 
+- [`docs/briefs/2026-09-response-to-legal-architecture-memo.md`](docs/briefs/2026-09-response-to-legal-architecture-memo.md)
+  — **reconciliation brief.** Point-by-point response to an outside legal-architecture memo (Sept 3,
+  2026): control-by-control status (exists / partial / missing), where originals first reach the
+  firm, the data-path inventory, what the AI can do without approval by level, the
+  original / derived / reviewed distinction, the test suite, thirteen adopted changes, and the
+  engineering-vs-counsel split. Includes *Heppner* and *Warner v. Gilbarco* read at primary source.
+
 - [`docs/briefs/outside-ai-research-brief.md`](docs/briefs/outside-ai-research-brief.md)
   — **research briefing for an outside AI session.** Self-contained: product, architecture,
   evidence theory, the California election model, the attack bank, eight ranked research
@@ -68,6 +75,12 @@ it into court-ready exhibits with every fact traced back to the message it came 
   conflict.** Citation register in §8 carries per-authority verification status.
 - [`docs/source/PIRRA-Landing-Page-Brief-v2.md`](docs/source/PIRRA-Landing-Page-Brief-v2.md)
   — the brief `web/` is built to. Supersedes brief v1.
+
+**Outside input, preserved as received:**
+
+- [`docs/source/Chat-Legal-Architecture-Memo-2026-09-03.md`](docs/source/Chat-Legal-Architecture-Memo-2026-09-03.md)
+  — California-first legal architecture and build guardrails memo from an outside AI research
+  session. Reconciled in the brief above; where it conflicts with a decision record, the record wins.
 
 **Earlier work, preserved as written:**
 

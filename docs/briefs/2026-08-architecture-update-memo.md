@@ -248,9 +248,13 @@ Probable resolution: the *record-keeping function* is uniform and vendor-certifi
 engine, retention, hash chain, timestamps, identical for every user), while *topic authorization*
 is per-case work product the vendor never certifies. Genuinely arguable. Goes to counsel.
 
-**The *Kovel* necessity prong** remains unanswered from the earlier analysis. *Heppner* rejected the
-argument on two grounds — direction, which our architecture answers, and necessity, which it does
-not. Conduit is the workaround, and it depends on counsel genuinely participating in the thread.
+**The *Kovel* necessity prong.** *Corrected Sept 4, 2026, after reading the memorandum (see §8b).*
+*Heppner* did not reject a necessity argument; it never reached one. Its three grounds were: Claude
+is not an attorney; no reasonable expectation of confidentiality under consumer terms; and no
+counsel direction. The court's own dicta says that with counsel direction the AI "might arguably be
+said to have functioned in a manner akin to a highly trained professional who may act as a lawyer's
+agent." Necessity remains a question under *Kovel* generally, which is why conduit is primary and
+*Kovel* secondary (v1.1 §3.3), and why the record of counsel's participation matters.
 
 **Notice mechanics vary by jurisdiction** and forfeiting them forfeits self-authentication. The
 workbench must generate the notice packet alongside the exhibit.
@@ -284,9 +288,41 @@ returned zero results for a real, widely-covered S.D.N.Y. ruling — a false neg
 been easy to misread as "the case doesn't exist." District-court memoranda often appear as docket
 entries rather than indexed opinions. **Always check RECAP before concluding a case isn't real.**
 
-**The full memorandum is not freely available.** Dkt. 27 is not in RECAP's free document set. Reading
-the actual text requires PACER, a commercial database, or the copy Akin Gump hosts publicly. **Nobody
-should rely on our characterization of the holding until someone has read the twelve pages.**
+**The full memorandum was not in RECAP's free set when this was written. It is now, and it has been
+read.** See §8b. The caveat that followed here ("nobody should rely on our characterization until
+someone has read the twelve pages") is discharged.
+
+## 8b. Heppner — read in full, Sept 4, 2026 (ECF 27, RECAP doc 468959744)
+
+What the twelve pages actually say, with page cites:
+
+- **Question framed** (at 2): whether communications with "a publicly available AI platform in
+  connection with a pending criminal investigation" are protected. Answer: no. The word "publicly"
+  is doing work throughout.
+- **Ground 1, not an attorney** (at 5): "Because Claude is not an attorney ... that alone disposes of
+  Heppner's claim of privilege." Recognized privileges require "a trusting human relationship ...
+  with a licensed professional who owes fiduciary duties."
+- **Ground 2, not confidential** (at 6–7): rests expressly on the **consumer privacy policy**:
+  collection of inputs and outputs, use "to 'train' Claude," reserved disclosure to "third parties"
+  including regulators, retention "in the normal course of its business." Enterprise zero-retention,
+  no-training, subpoena-notice terms answer each named fact.
+- **Ground 3, no counsel direction** (at 7): "Had counsel directed Heppner to use Claude, Claude might
+  arguably be said to have functioned in a manner akin to a highly trained professional who may act
+  as a lawyer's agent within the protection of the attorney-client privilege. Cf. Adlman ... (citing
+  Kovel)." This is dicta describing PIRRA's configuration.
+- **Footnote 3** (at 8): privileged information a client types into a consumer AI is **waived** "just
+  as if he had shared it with any other third party." The strongest argument yet for the firm never
+  touching the record with a consumer tool.
+- **Work product** (at 9–12): not "prepared by or at the behest of counsel," and did not reflect
+  counsel's strategy. The court **expressly disagrees with *Shih v. Petal Card*, 565 F. Supp. 3d 557
+  (S.D.N.Y. 2021)**, and holds that materials a client prepares "on his own volition" are not work
+  product. Contrast *Warner v. Gilbarco*, No. 2:24-cv-12333 (E.D. Mich. Feb. 10, 2026) (Patti, M.J.),
+  ECF 94, protecting a pro se party's AI materials as party work product. The split means the
+  direction letter matters for work product as much as for privilege.
+- **No necessity holding.** Confirmed. The earlier "necessity prong" language in §8 above was a drift
+  error, as v1.1 §3.3 said.
+
+Full reconciliation with the outside memo that surfaced these: `2026-09-response-to-legal-architecture-memo.md`.
 
 ### Live watch item
 
