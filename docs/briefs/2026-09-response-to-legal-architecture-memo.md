@@ -173,7 +173,7 @@ must show the ordering in the POC; I have not verified it.
 
 | Service | Receives | Terms required |
 |---|---|---|
-| Twilio | SMS/MMS bodies and media in transit | Body retention off; media pulled to vault and deleted at Twilio |
+| Twilio | SMS/MMS bodies and media in transit **and at rest for a residual window** | Message Redaction enabled. Per Twilio (Jul 2026 docs): unredacted data accessible to Twilio production up to 24 h; a copy retained separately with limited access for compliance; inbound stored during delivery attempts; outbound media up to 7 days. BAA; retention schedule in the inventory. *(Corrected Sept 4 from "body retention off.")* |
 | Hosting and Postgres (Supabase in the POC) | Everything | Tenant isolation; customer-managed keys standard (D22) |
 | Object store (sealed raw-media vault) | Original photos, audio | Encrypted at rest; sanitized derivatives only leave the vault |
 | Model provider | Message text, protocol | Enterprise zero-retention, no training; in-tenant for Levels 1–2 |
@@ -369,7 +369,10 @@ intent holds in practice is a counsel question, listed below.
 2. Row-level security by firm and matter; model has no query surface.
 3. `message_class` assigned at write; append-only enforced at the DB layer.
 4. Hash chain and RFC 3161 anchoring in the write path, not a batch job.
-5. Twilio body retention off; media pulled to the vault and deleted at Twilio.
+5. Twilio Message Redaction enabled; the 24-hour production window, the compliance copy and the
+   7-day media window documented in the data-path inventory; media pulled to the vault promptly;
+   BAA on file. Plus a **plaintext surface document**: every place message bodies exist in the
+   clear during ordinary processing and support, for how long, under what audit.
 6. Speech-to-text provider under zero-retention terms.
 7. Notification, analytics and error-log payloads carry no bodies.
 8. CMS push idempotent with visible failure; capture path has no CMS dependency.
@@ -393,9 +396,17 @@ intent holds in practice is a counsel question, listed below.
    the intelligence plane? (Carried from DR-0005.)
 5. Is a monitoring-hours disclosure adequate under proposed Rule 1.4 Comment 5, and what response
    expectation may the firm state?
-6. Do customer-managed keys in fact move the live contest to the firm under a vendor subpoena?
+6. Given the plaintext surface document (application servers, model and speech-to-text calls,
+   support break-glass), what can the vendor actually be compelled to produce, and does
+   customer-managed-key custody move the live contest to the firm or only narrow the vendor's
+   production?
 7. SB 574 status and its "delegating the practice of law" and "public generative AI system"
    definitions as applied to an attorney-directed, in-tenant deployment.
+8. **Purpose consistency.** The direction letter frames the thread as confidential communication to
+   counsel; the product frames the resulting record as built for presentation; the disclosure tells
+   the client it "may be used in your case." Is there one purpose that supports §952 confidentiality
+   at the moment of communication and is stated the same way to client, court and market? If not,
+   which framing has to give.
 
 ---
 
@@ -417,7 +428,125 @@ Things a research session can run down that we cannot from here:
 
 ---
 
+## 8. Addendum, Sept 4 (second pass): corrections accepted, and what we did about them
+
+Your reply to this brief made five points. Four are accepted outright and are now in the documents
+they touch. One is accepted with a distinction. Then we did the thing you asked for at the end.
+
+### 8.1 "Production-safe" and "blast radius" overstate what software can do. Accepted.
+
+Two sentences in this brief were wrong as written. "A court ordering production gets a record that
+helps the plaintiff" is retracted: an accurate record sometimes weakens a claim, and that is not a
+product failure. "An adverse ruling is confined to the thread" stated a legal conclusion as if the
+database enforced it.
+
+What stands is narrower. Separating record classes at write supports narrower arguments; it does
+not make one. §912(a) turns on disclosure of a significant part of a communication, and §356 lets
+the other side complete what is introduced. Whether a finding of "no privilege attached" is a
+waiver over other communications is a doctrinal question DR-0005 already lists for written outside
+counsel confirmation. It stays there.
+
+Wording changes made: DR-0005 no longer says the architecture "guarantees" that disclosure "helps
+rather than hurts," and its slogan now carries a definition of "production-safe" as *designed for
+accurate production and to support appropriately limited disclosure*. Your phrase, adopted.
+
+### 8.2 Integrity is not admissibility; California's hearsay sections differ from the federal ones. Accepted, and it changed the demo.
+
+Hash and timestamp go to authenticity and trustworthiness of the record. They say nothing about
+who typed a message, whether it is true, or which exception it needs. Agreed, and the v1.1 two-layer
+structure already said so. What was missing was the California mapping, entry by entry:
+
+- **§1250** covers then-existing pain, sensation and bodily health, and present intent. It is the
+  highway, and it is present-tense only.
+- **§1241** is not a present-sense-impression rule. It covers a statement that explains the
+  declarant's own conduct, made *while engaged in that conduct*. A text sent minutes after
+  carrying groceries is not §1241. The federal 803(1) lane is mostly closed in California.
+- **§1251** covers *prior* state, but only if the declarant is unavailable. A plaintiff is not.
+- **§1271** gets the platform's log in as a business record on custodian foundation; **§1201**
+  means every client statement embedded in it needs its own exception.
+- **§791(a)/§1236** remain the contingent route for past-fact statements once impeached.
+
+So "I am hurting now" and "I could not walk last Tuesday" are different entries, and two date
+fields document the difference without resolving it. The demo case in `docs/demo-case/` now
+carries `event_at` and `reported_at` on all 45 timeline entries and a candidate pathway per row:
+27 sit under §1250 on their face; the rest are past-fact with no independent California vehicle when
+offered by the plaintiff, and are labeled that way. The design consequence is one v1.1 drew for
+other reasons and California makes mandatory: **the library always follows an event with a
+present-state question**, because that answer is the entry that travels. The California section of
+the state survey now records this.
+
+### 8.3 Heppner: "the one fact missing" oversimplified. Accepted.
+
+The court gave three independent grounds: no attorney relationship, no reasonable expectation of
+confidentiality under consumer terms, and no counsel direction (with "for the purpose of legal
+advice" folded in). Direction addresses the third and, via the *Kovel* dicta, reaches toward the
+first; enterprise terms address the second. "Might arguably" is the court's weight, and it is now
+ours. The brief's §5.3 heading stands ("better for us than the memo says") because the dicta names
+our configuration; the claim that direction alone would have carried the day is withdrawn.
+
+Your second point here is the sharper one and it is now **counsel question 8**: the direction letter
+describes a confidential communication to counsel; the exhibit describes a record built for
+presentation. Different audiences may hear different benefits, but the underlying purpose has to be
+one thing, stated the same way to the client, the court and the market. Our current answer is that
+the purpose is accurate contemporaneous documentation of the client's condition *to counsel*, that
+counsel decides what to present, and that "may be used in your case" in the disclosure describes
+counsel's discretion rather than an intent to communicate to third parties. That is an argument,
+not a settled point. The reviewer packet asks it as question B-3.
+
+### 8.4 Twilio and customer-managed keys. Accepted, with the facts.
+
+"Body retention off" was shorthand for a feature that does not do that. Twilio **Message
+Redaction**, per their documentation as of July 2026: unredacted message information remains
+accessible to Twilio's production environment for **up to 24 hours**; unredacted messages are
+**retained separately with limited access for compliance purposes**; inbound messages are stored in
+full while Twilio attempts delivery; outbound media is retained **up to 7 days**. Corrected in
+DR-0005 D22, the three-doors figure, and §3 and §6 of this brief. Twilio is a content-holding
+service with residual retention and a compliance copy, and belongs in the Door 2 analysis on those
+terms, with a BAA and the contractual retention schedule attached to the data-path inventory.
+
+Customer-managed keys protect data at rest and give the firm revocation. They do not make the
+vendor's compelled production ciphertext, because the application decrypts to process every
+message and to call the model. The dev now owes a **plaintext surface document**: who and what can
+see message bodies in ordinary processing (application servers, the model call, the speech-to-text
+call, support break-glass), for how long, and with what audit. Counsel question 6 is rephrased
+accordingly.
+
+### 8.5 The conversation has to be demonstrated. Accepted, and done in synthetic form.
+
+`docs/demo-case/` is a thirty-day synthetic case at the Level 2 default: the direction letter and
+the library it selected from (`protocol.md`), 101 log rows (`thread.md`), the dual-dated,
+source-linked timeline with per-entry California pathways, nine flags with dispositions, the
+digests and receipts, and the supervision record as it would export (`timeline.md`), a
+machine-readable load file for the proof of concept (`thread.json`), and a reviewer packet with
+nine questions for a PI attorney and sixteen for an adversarial litigation reviewer
+(`reviewer-packet.md`). The thread was written to contain the things a reviewer should find: three
+good days, a liability volunteer and the steer, a prior condition volunteered late that
+contradicts the baseline, a treatment gap with the client's reason, two routed questions, adjuster
+contact, and two attorney messages in the same thread.
+
+Whether Level 2 delivers "the continuing, intelligent relationship" is now a question about
+`thread.md`, not about a ladder. Our own read: 47 of 47 agent turns from a 20-prompt library
+produced a conversation that is warm enough and repetitive by day 20. The P-10 opener appears
+thirteen times. That is the honest cost DR-0005 predicted for Levels 0–2, and it is now visible.
+
+Two humans have not read it yet. Stating "Exists" about a control still means specified and visible
+in a prototype; the proof of concept is still unaudited; a passing test corpus is still not
+real-world detection. All three caveats stand.
+
+### 8.6 One pushback
+
+Your bottom line was "keep the architecture direction, correct the categorical claims, move from
+memos to one demonstrated case." Agreed on all three. The one place we would hold: the *design*
+choice to build the record so that its production is survivable is not a categorical legal claim
+and does not need softening. It is the reason the good days, the prior condition and the liability
+statement are all still in `thread.md`. The claim we are giving up is that software decides what
+production costs. The choice we are keeping is to build as if it will happen.
+
+---
+
 *Not legal advice. Nothing here is a privilege or admissibility guarantee. Authorities marked as
 read were read at primary source on September 4, 2026 via CourtListener RECAP and the opinions
-index; the June 2026 COPRAC revision was confirmed from the State Bar's public-comment page via
-search summary and should be re-verified by a person before it is quoted to a client.*
+index; the June 2026 COPRAC revision and the Twilio redaction facts were confirmed from the
+publishers' pages via search summary and should be re-verified by a person before either is quoted
+to a client. California hearsay sections were read from secondary sources; a California litigator
+should confirm each pathway label in `docs/demo-case/timeline.md`.*

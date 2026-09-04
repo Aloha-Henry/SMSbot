@@ -99,7 +99,12 @@ Orthogonal to autonomy.
   client content leaves for an external model provider. External frontier models are reached
   only when generation (Levels 3–4) is elected, under zero-retention enterprise terms.
   Consequence: the strongest-posture configuration also has the fewest third parties in it.
-- Twilio message-body retention off; enterprise / HIPAA-eligible terms.
+- Twilio **Message Redaction** enabled, with the residual window documented rather than assumed
+  away: per Twilio's July 2026 documentation, unredacted data stays accessible to Twilio's
+  production environment for up to 24 hours, a copy is retained separately with limited access
+  for compliance, inbound messages are stored in full during delivery attempts, and outbound media
+  is retained up to 7 days. BAA and enterprise terms. *(Corrected Sept 4, 2026 from "message-body
+  retention off," which described a feature that does not exist in that form.)*
 - Single-tenant deployment option.
 
 ## D24 — Door 3 guardrails: against the attorney's own foot
@@ -115,11 +120,20 @@ Old rule: "never claim privilege over the record." Too flat. Correct split:
 
 - **The vendor never promises privilege to anyone.** Unchanged.
 - **Counsel asserts privilege from day one** where the forum's law supports it, logs it, and
-  resists production. The architecture guarantees that whatever is eventually disclosed, by
-  election or by adverse ruling, helps rather than hurts.
+  resists production. The architecture is built so that whatever is eventually disclosed, by
+  election or by adverse ruling, is accurate, complete and uncurated. It cannot guarantee that an
+  accurate record helps; sometimes it will not, and that is not a product failure. *(Reworded
+  Sept 4, 2026 after outside review.)*
 
 **Privileged until elected. Production-safe when elected. Survivable if privilege fails. Failure
 confined to the thread.**
+
+*Definitions, added Sept 4, 2026.* "Production-safe" means **designed for accurate production and
+to support appropriately limited disclosure**. It is a design property of the record, not a legal
+outcome. "Failure confined to the thread" is the doctrinal proposition stated at the top of this
+record (a finding that privilege never attached is not a waiver of other communications) and
+remains subject to written outside-counsel confirmation (open question 1). Separating record
+classes at write supports narrower arguments under §912(a) and §356; it does not make them.
 
 ## The honest cost
 
